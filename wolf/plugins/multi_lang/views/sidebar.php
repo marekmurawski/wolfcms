@@ -25,9 +25,18 @@
  * @copyright Martijn van der Kleijn, 2010
  * @license http://www.gnu.org/licenses/gpl.html GPLv3 license
  */
-
 /* Security measure */
-if (!defined('IN_CMS')) { exit(); }
+if ( !defined('IN_CMS') ) {
+    exit();
+}
 ?>
-<p class="button"><a href="<?php echo get_url('plugin/multi_lang/settings'); ?>"><img src="<?php echo ICONS_PATH;?>settings-32-ns.png" align="middle" alt="settings icon" /> <?php echo __('Settings'); ?></a></p>
-<p class="button"><a href="<?php echo get_url('plugin/multi_lang/documentation/'); ?>"><img src="<?php echo ICONS_PATH;?>documentation-32-ns.png" align="middle" alt="documentation icon" /> <?php echo __('Documentation'); ?></a></p>
+<div class="btn-group btn-group-vertical btn-block">
+    <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/multi_lang/settings'); ?>">
+        <img src="<?php echo ICONS_PATH; ?>settings-32-ns.png" align="middle" alt="settings icon" />
+        <?php echo __('Settings'); ?>
+    </a>
+    <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/multi_lang/documentation/'); ?>">
+        <img src="<?php echo ICONS_PATH; ?>documentation-32-ns.png" align="middle" alt="documentation icon" />
+        <?php echo __('Documentation'); ?>
+    </a>
+</div>

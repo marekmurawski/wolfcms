@@ -25,10 +25,10 @@
  * @copyright Martijn van der Kleijn, 2010
  * @license http://www.gnu.org/licenses/gpl.html GPLv3 license
  */
-
 /* Security measure */
-if (!defined('IN_CMS')) { exit(); }
-
+if ( !defined('IN_CMS') ) {
+    exit();
+}
 ?>
 <h1><?php echo __('Multiple Language Documentation'); ?></h1>
 <p>
@@ -56,7 +56,7 @@ if (!defined('IN_CMS')) { exit(); }
 <p>
     To add a translation for a page as a tab, just:
 </p>
-<ul style="list-style-position: inside; list-style-type: disc; margin-left: 1em;">
+<ul>
     <li>create a new tab</li>
     <li>give it a iso 639-1 code as its name (see examples below)</li>
     <li>add the translation to the content of the tab</li>
@@ -65,7 +65,7 @@ if (!defined('IN_CMS')) { exit(); }
 <p>
     To add a translation for a page as translated copy of the page, just:
 </p>
-<ul style="list-style-position: inside; list-style-type: disc; margin-left: 1em;">
+<ul>
     <li>create a new page underneath the root or Home page of the site</li>
     <li>give it a iso 639-1 code as its name (see examples below)</li>
     <li>use the drag-to-copy feature to copy the original page to underneath the new "translation root"</li>
@@ -83,7 +83,7 @@ if (!defined('IN_CMS')) { exit(); }
 <p>
     Examples of iso 639-1 codes for languages are:
 </p>
-<ul style="list-style-position: inside; list-style-type: disc; margin-left: 1em;">
+<ul>
     <li>English: en</li>
     <li>Dutch: nl</li>
     <li>Japanese: ja</li>

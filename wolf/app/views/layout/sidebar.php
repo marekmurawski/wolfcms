@@ -16,13 +16,15 @@
  * @license http://www.gnu.org/licenses/gpl.html GPLv3 license
  */
 ?>
-<?php if (Dispatcher::getAction() == 'index'): ?>
-
-<p class="button"><a href="<?php echo get_url('layout/add'); ?>"><img src="<?php echo PATH_PUBLIC;?>wolf/admin/images/layout.png" align="middle" alt="layout icon" /> <?php echo __('New Layout'); ?></a></p>
-
-<div class="box">
-<h2><?php echo __('What is a Layout?'); ?></h2>
-<p><?php echo __('Use layouts to apply a visual look to a Web page. Layouts can contain special tags to include page content and other elements such as the header or footer. Click on a layout name below to edit it or click <strong>Remove</strong> to delete it.'); ?></p>
-</div>
+<?php if ( Dispatcher::getAction() == 'index' ): ?>
+    <div class="btn-group btn-group-vertical btn-group-justified">
+        <a class="btn btn-default btn-block" href="<?php echo get_url('layout/add'); ?>">
+            <img src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/layout.png" align="middle" alt="layout icon" /> <?php echo __('New Layout'); ?>
+        </a>
+    </div>
+    <div class="well">
+        <h2><?php echo __('What is a Layout?'); ?></h2>
+        <p><?php echo __('Use layouts to apply a visual look to a Web page. Layouts can contain special tags to include page content and other elements such as the header or footer. Click on a layout name below to edit it or click <strong>Remove</strong> to delete it.'); ?></p>
+    </div>
 
 <?php endif; ?>

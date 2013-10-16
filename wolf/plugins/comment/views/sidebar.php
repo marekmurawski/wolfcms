@@ -20,12 +20,26 @@
  * @copyright Philippe Archambault, Bebliuc George & Martijn van der Kleijn, 2008
  * @license http://www.gnu.org/licenses/gpl.html GPLv3 license
  */
-
 /* Security measure */
-if (!defined('IN_CMS')) { exit(); }
-
+if ( !defined('IN_CMS') ) {
+    exit();
+}
 ?>
-<p class="button"><a href="<?php echo get_url('plugin/comment/'); ?>"><img src="<?php echo ICONS_PATH;?>comment-32-ns.png" align="middle" alt="page icon" /> <?php echo __('Comments'); ?></a></p>
-<p class="button"><a href="<?php echo get_url('plugin/comment/moderation/'); ?>"><img src="<?php echo ICONS_PATH;?>action-approve-32-ns.png" align="middle" alt="page icon" /> <?php echo __('Moderation'); ?></a></p>
-<p class="button"><a href="<?php echo get_url('plugin/comment/settings'); ?>"><img src="<?php echo ICONS_PATH;?>settings-32-ns.png" align="middle" alt="page icon" /> <?php echo __('Settings'); ?></a></p>
-<p class="button"><a href="<?php echo get_url('plugin/comment/documentation/'); ?>"><img src="<?php echo ICONS_PATH;?>documentation-32-ns.png" align="middle" alt="page icon" /> <?php echo __('Documentation'); ?></a></p>
+<div class="btn-group btn-group-vertical btn-block">
+    <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/comment/'); ?>">
+        <img src="<?php echo ICONS_PATH; ?>comment-32-ns.png" align="middle" alt="page icon" />
+        <?php echo __('Comments'); ?>
+    </a>
+    <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/comment/moderation/'); ?>">
+        <img src="<?php echo ICONS_PATH; ?>action-approve-32-ns.png" align="middle" alt="page icon" />
+        <?php echo __('Moderation'); ?>
+    </a>
+    <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/comment/settings'); ?>">
+        <img src="<?php echo ICONS_PATH; ?>settings-32-ns.png" align="middle" alt="page icon" />
+        <?php echo __('Settings'); ?>
+    </a>
+    <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/comment/documentation/'); ?>">
+        <img src="<?php echo ICONS_PATH; ?>documentation-32-ns.png" align="middle" alt="page icon" />
+        <?php echo __('Documentation'); ?>
+    </a>
+</div>

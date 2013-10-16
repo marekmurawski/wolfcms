@@ -23,18 +23,24 @@
 if (!defined('IN_CMS')) { exit(); }
 
 ?>
+
 <h1><?php echo __('Documentation'); ?></h1>
+
 <p>
     <?php echo __('The Backup/Restore plugin allows you to create complete backups of the Wolf CMS database. It generates an XML file that contains all records for each of the Wolf CMS database tables, and optionally all uploaded files.'); ?>
 </p>
+
 <h2><?php echo __('Creating the backup'); ?></h2>
+
 <p>
     <?php echo __('To create and download the backup, simply select the "Create a backup" option.'); ?>
 </p>
 <p>
     <?php echo __('By default, the download is generated in a zip file. If you want to download the plain unzipped XML file, go to the settings for this plugin and change the option there.'); ?>
 </p>
+
 <h2><?php echo __('Restoring a backup'); ?></h2>
+
 <p>
     <?php echo __('To upload and restore a backup, simply select the "Restore a backup" option.'); ?>
 </p>
@@ -42,5 +48,5 @@ if (!defined('IN_CMS')) { exit(); }
     <?php echo __('You can set a default password to enter into any password fields if the backup file does not contain passwords. For this to function, the system expects there to be password fields in the backup file with no value.'); ?>
 </p>
 <p>
-    <?php echo __('Example:'); ?> &lt;password/&gt;
+    <?php echo __('Example:'); ?> <code>&lt;password/&gt;</code>
 </p>

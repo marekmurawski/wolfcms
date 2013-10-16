@@ -11,198 +11,279 @@
 /**
  * @package Layouts
  */
-
 /* Security measure */
-if (!defined('IN_CMS')) { exit(); }
+if ( !defined('IN_CMS') ) {
+    exit();
+}
 
 // Redirect to front page if user doesn't have appropriate roles.
-if (!AuthUser::hasPermission('admin_view')) {
-    header('Location: '.URL_PUBLIC.' ');
+if ( !AuthUser::hasPermission('admin_view') ) {
+    header('Location: ' . URL_PUBLIC . ' ');
     exit();
 }
 
 // Setup some stuff...
-$ctrl = Dispatcher::getController(Setting::get('default_tab'));
+$ctrl   = Dispatcher::getController(Setting::get('default_tab'));
+$action = Dispatcher::getAction();
 
 // Allow for nice title.
 // @todo improve/clean this up.
-if (!isset($title) || trim($title) == '') {
-    $title = ($ctrl == 'plugin') ? Plugin::$controllers[Dispatcher::getAction()]->label : ucfirst($ctrl).'s';
-    if (isset($this->vars['content_for_layout']->vars['action'])) {
+if ( !isset($title) || trim($title) == '' ) {
+    $title = ($ctrl == 'plugin') ? Plugin::$controllers[Dispatcher::getAction()]->label : ucfirst($ctrl) . 's';
+    if ( isset($this->vars['content_for_layout']->vars['action']) ) {
         $tmp = $this->vars['content_for_layout']->vars['action'];
-        $title .= ' - '.ucfirst($tmp);
+        $title .= ' - ' . ucfirst($tmp);
 
-        if ($tmp == 'edit' && isset($this->vars['content_for_layout']->vars['page'])) {
+        if ( $tmp == 'edit' && isset($this->vars['content_for_layout']->vars['page']) ) {
             $tmp = $this->vars['content_for_layout']->vars['page'];
-            $title .= ' - '.$tmp->title;
+            $title .= ' - ' . $tmp->title;
         }
     }
 }
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-  <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    
-    <title><?php use_helper('Kses'); echo $title . ' | ' . kses(Setting::get('admin_title'), array()); ?></title>
+?><!DOCTYPE html>
+<html lang="<?php echo AuthUser::getRecord()->language; ?>">
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
-    <link rel="favourites icon" href="<?php echo PATH_PUBLIC; ?>wolf/admin/images/favicon.ico" />
-    <link href="<?php echo PATH_PUBLIC; ?>wolf/admin/stylesheets/admin.css" media="screen" rel="Stylesheet" type="text/css" />
-    <link href="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/styles.css" id="css_theme" media="screen" rel="Stylesheet" type="text/css" />
+        <title><?php
+            use_helper('Kses');
+            echo $title . ' | ' . kses(Setting::get('admin_title'), array());
+            ?></title>
 
-    <!-- IE6 PNG support fix -->
-    <!--[if lt IE 7]>
-        <script type="text/javascript" charset="utf-8" src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/unitpngfix.js"></script>
-    <![endif]-->
-    <script type="text/javascript" charset="utf-8" src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/cp-datepicker.js"></script>
-    <script type="text/javascript" charset="utf-8" src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/wolf.js"></script>
-    <script type="text/javascript" charset="utf-8" src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/jquery-1.6.2.min.js"></script> 
-    <script type="text/javascript" charset="utf-8" src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/jquery-ui-1.8.5.custom.min.js"></script>
-	<script type="text/javascript" charset="utf-8" src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/jquery.ui.nestedSortable.js"></script>
+        <link rel="favourites icon" href="<?php echo PATH_PUBLIC; ?>wolf/admin/images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <?php
+        /* ========= LESS RUNTIME ============= 
+         * Generates stylesheets ON - THE - FLY
+         * if LESS_DEBUG = true /in config.php/
+         * !!! TEMPORARY ONLY !!!
+         * 
+         */
+        if ( defined('LESS_DEBUG') && LESS_DEBUG ):
+            ?>
+            <!-- Loads .less theme for compilation -->
+            <link rel="stylesheet/less" href="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/styles.less" id="css_theme" type="text/css" />
+            <script type="text/javascript">
+                less = {};
+            </script>
+            <script src="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/less.js" type="text/javascript"></script>
+        <?php else: ?>
+            <link href="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/styles.css" id="css_theme" media="screen" rel="stylesheet" type="text/css" />
+        <?php
+        endif;
+        /* ========= LESS RUNTIME ============= */
+        ?>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script type="text/javascript" src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/cp-datepicker.js"></script>
+        <script type="text/javascript" src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/wolf.js"></script>
+        <script type="text/javascript" src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/jquery-ui-1.9.2.custom.min.js"></script>
+        <script type="text/javascript" src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/jquery.ui.nestedSortable.js"></script>
+        <script type="text/javascript" src="<?php echo PATH_PUBLIC; ?>wolf/admin/markitup/jquery.markitup.js"></script>
 
-    <?php Observer::notify('view_backend_layout_head', CURRENT_PATH); ?>
-        
-    <script type="text/javascript" src="<?php echo PATH_PUBLIC; ?>wolf/admin/markitup/jquery.markitup.js"></script>
-    <link rel="stylesheet" type="text/css" href="<?php echo PATH_PUBLIC; ?>wolf/admin/markitup/skins/simple/style.css" />
-    
-<?php foreach(Plugin::$plugins as $plugin_id => $plugin): ?>
-<?php if (file_exists(CORE_ROOT . '/plugins/' . $plugin_id . '/' . $plugin_id . '.js')): ?>
-    <script type="text/javascript" charset="utf-8" src="<?php echo PATH_PUBLIC; ?>wolf/plugins/<?php echo $plugin_id.'/'.$plugin_id; ?>.js"></script>
-<?php endif; ?>
-<?php if (file_exists(CORE_ROOT . '/plugins/' . $plugin_id . '/' . $plugin_id . '.css')): ?>
-    <link href="<?php echo PATH_PUBLIC; ?>wolf/plugins/<?php echo $plugin_id.'/'.$plugin_id; ?>.css" media="screen" rel="Stylesheet" type="text/css" />
-<?php endif; ?>
-<?php endforeach; ?>
-<?php foreach(Plugin::$stylesheets as $plugin_id => $stylesheet): ?>
-    <link type="text/css" href="<?php echo PATH_PUBLIC; ?>wolf/plugins/<?php echo $stylesheet; ?>" media="screen" rel="Stylesheet" />
-<?php endforeach; ?>
-<?php foreach(Plugin::$javascripts as $jscript_plugin_id => $javascript): ?>
-    <script type="text/javascript" charset="utf-8" src="<?php echo PATH_PUBLIC; ?>wolf/plugins/<?php echo $javascript; ?>"></script>
-<?php endforeach; ?>
-    
-    <script type="text/javascript">
-    // <![CDATA[
-        $(document).ready(function() {
-            (function showMessages(e) {
-                e.fadeIn('slow')
-                 .animate({opacity: 1.0}, Math.min(5000, parseInt(e.text().length * 50)))
-                 .fadeOut('slow', function() {
-                    if ($(this).next().attr('class') == 'message') {
-                        showMessages($(this).next());
-                    }
-                    $(this).remove();
-                 })
-            })( $(".message:first") );
+        <?php Observer::notify('view_backend_layout_head', CURRENT_PATH); ?>
 
-            $("input:visible:enabled:first").focus();
-            
-            // Get the initial values and activate filter
-            $('.filter-selector').each(function() {
-                var $this = $(this);
-                $this.data('oldValue', $this.val());
+        <link rel="stylesheet" type="text/css" href="<?php echo PATH_PUBLIC; ?>wolf/admin/markitup/skins/simple/style.css" />
 
-                if ($this.val() == '') {
+        <?php
+        foreach ( Plugin::$plugins as $plugin_id => $plugin ):
+            if ( file_exists(CORE_ROOT . '/plugins/' . $plugin_id . '/' . $plugin_id . '.js') ) {
+                echo '<script type = "text/javascript" charset = "utf-8" src = "' . PATH_PUBLIC . 'wolf/plugins/' . $plugin_id . '/' . $plugin_id . '.js"></script>' . PHP_EOL . "\t";
+            }
+            if ( file_exists(CORE_ROOT . '/plugins/' . $plugin_id . '/' . $plugin_id . '.css') ) {
+                echo '<link href = "' . PATH_PUBLIC . 'wolf/plugins/' . $plugin_id . '/' . $plugin_id . '.css" media = "screen" rel = "Stylesheet" type = "text/css" />' . PHP_EOL . "\t";
+            }
+        endforeach;
+
+        foreach ( Plugin::$stylesheets as $plugin_id => $stylesheet ) {
+            echo '<link type="text/css" href = "' . PATH_PUBLIC . 'wolf/plugins/' . $stylesheet . '" media = "screen" rel = "stylesheet" />' . PHP_EOL . "\t";
+        }
+        foreach ( Plugin::$javascripts as $jscript_plugin_id => $javascript ) {
+            echo '<script type="text/javascript" charset="utf-8" src="' . PATH_PUBLIC . 'wolf/plugins/' . $javascript . '"></script>' . PHP_EOL . "\t";
+        }
+        ?>
+
+        <script type="text/javascript">
+                // <![CDATA[
+                function setConfirmUnload(on, msg) {
+                    window.onbeforeunload = (on) ? unloadMessage : null;
                     return true;
                 }
-                var elemId = $this.attr('id').slice(0, -10);
-                var elem = $('#'+elemId+'_content');
-                $this.trigger('wolfSwitchFilterIn', [$this.val(), elem]);
-            });
-            
-            $('.filter-selector').live('change',function(){
-                var $this = $(this);
-                var newFilter = $this.val();
-                var oldFilter = $this.data('oldValue');
-                $this.data('oldValue', newFilter);
-                var elemId = $this.attr('id').slice(0, -10);
-                var elem = $('#'+elemId+'_content');
-                $(this).trigger('wolfSwitchFilterOut', [oldFilter, elem]);
-                $(this).trigger('wolfSwitchFilterIn', [newFilter, elem]);
-            });
-        });
-        // ]]>
+
+                function unloadMessage() {
+                    return '<?php echo __('You have modified this page.  If you navigate away from this page without first saving your data, the changes will be lost.'); ?>';
+                }
+
+                $(document).ready(function() {
+                    (function showMessages(e) {
+                        e.fadeIn('slow')
+                                .animate({opacity: 1.0}, Math.min(5000, parseInt(e.text().length * 50)))
+                                .fadeOut('slow', function() {
+                                    if ($(this).next().hasClass('flash-message')) {
+                                        showMessages($(this).next());
+                                    }
+                                    // $(this).remove();
+                                });
+                    })($(".flash-message:first"));
+
+                    $("input:visible:enabled:first").focus();
+
+                    // Get the initial values and activate filter
+                    $('.filter-selector').each(function() {
+                        var $this = $(this);
+                        $this.data('oldValue', $this.val());
+
+                        if ($this.val() == '') {
+                            return true;
+                        }
+                        var elemId = $this.attr('id').slice(0, -10);
+                        var elem = $('#' + elemId + '_content');
+                        $this.trigger('wolfSwitchFilterIn', [$this.val(), elem]);
+                    });
+
+                    $(document).on('change', '.filter-selector', function() {
+                        var $this = $(this);
+                        var newFilter = $this.val();
+                        var oldFilter = $this.data('oldValue');
+                        $this.data('oldValue', newFilter);
+                        var elemId = $this.attr('id').slice(0, -10);
+                        var elem = $('#' + elemId + '_content');
+                        $(this).trigger('wolfSwitchFilterOut', [oldFilter, elem]);
+                        $(this).trigger('wolfSwitchFilterIn', [newFilter, elem]);
+                    });
+                });
+                // ]]>
         </script>
+    </head>
+    <body id="body_<?php echo $ctrl . '_' . Dispatcher::getAction(); ?>">
+        <div id="header">
+            <div class="site-title">
+                <h1><a href="<?php echo get_url(); ?>"><?php echo Setting::get('admin_title'); ?></a></h1>
+            </div>
+            <div class="site-links">
+                <p>
+                    <?php echo __('You are currently logged in as'); ?> <a href="<?php echo get_url('user/edit/' . AuthUser::getId()); ?>"><?php echo AuthUser::getRecord()->name; ?></a>
+                </p>
+                <p>
+                    <a href="<?php echo get_url('login/logout' . '?csrf_token=' . SecureToken::generateToken(BASE_URL . 'login/logout')); ?>"><?php echo __('Log Out'); ?></a>
+                    <a id="site-view-link" href="<?php echo URL_PUBLIC; ?>" target="_blank"><?php echo __('View Site'); ?></a>
+                </p>
+            </div>
+        </div> <!-- #header -->
+        <div id="mainTabs">
+            <nav class="navbar navbar-inverse navbar-static-top">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>            
+                <div class="collapse navbar-collapse">
+                    <section class="nav navbar-nav">
+                        <li id="page-plugin" class="<?php echo ( $ctrl == 'page' ) ? 'plugin active' : 'plugin'; ?>">
+                            <a href="<?php echo get_url('page'); ?>">
+                                <?php echo __('Pages'); ?>
+                            </a>
+                        </li>
+                        <?php if ( AuthUser::hasPermission('snippet_view') ): ?>
+                            <li id="snippet-plugin" class="<?php echo ( $ctrl == 'snippet' ) ? 'plugin active' : 'plugin'; ?>">
+                                <a href="<?php echo get_url('snippet'); ?>">
+                                    <?php echo __('MSG_SNIPPETS'); ?>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if ( AuthUser::hasPermission('layout_view') ): ?>
+                            <li id="layout-plugin" class="<?php echo ( $ctrl == 'layout' ) ? 'plugin active' : 'plugin'; ?>">
+                                <a href="<?php echo get_url('layout'); ?>">
+                                    <?php echo __('Layouts'); ?>
+                                </a>
+                            </li>
+                        <?php endif; ?>
 
-<?php $action = Dispatcher::getAction(); ?>
-  </head>
-  <body id="body_<?php echo $ctrl.'_'.Dispatcher::getAction(); ?>">
-    <!-- Div to allow for modal dialogs -->
-    <div id="mask"></div>
-
-    <div id="header">
-      <div id="site-title"><a href="<?php echo get_url(); ?>"><?php echo Setting::get('admin_title'); ?></a></div>
-      <div id="mainTabs">
-        <ul>
-          <li id="page-plugin" class="plugin"><a href="<?php echo get_url('page'); ?>"<?php if ($ctrl=='page') echo ' class="current"'; ?>><?php echo __('Pages'); ?></a></li>
-<?php if (AuthUser::hasPermission('snippet_view')): ?>
-          <li id="snippet-plugin" class="plugin"><a href="<?php echo get_url('snippet'); ?>"<?php if ($ctrl=='snippet') echo ' class="current"'; ?>><?php echo __('MSG_SNIPPETS'); ?></a></li>
-<?php endif; ?>
-<?php if (AuthUser::hasPermission('layout_view')): ?>
-          <li id="layout-plugin" class="plugin"><a href="<?php echo get_url('layout'); ?>"<?php if ($ctrl=='layout') echo ' class="current"'; ?>><?php echo __('Layouts'); ?></a></li>
-<?php endif; ?>
-
-<?php foreach (Plugin::$controllers as $plugin_name => $plugin): ?>
-<?php if ($plugin->show_tab && (AuthUser::hasPermission($plugin->permissions))): ?>
-          <?php Observer::notify('view_backend_list_plugin', $plugin_name, $plugin); ?>
-          <li id="<?php echo $plugin_name;?>-plugin" class="plugin"><a href="<?php echo get_url('plugin/'.$plugin_name); ?>"<?php if ($ctrl=='plugin' && $action==$plugin_name) echo ' class="current"'; ?>><?php echo $plugin->label; ?></a></li>
-    <?php endif; ?>
-<?php endforeach; ?>
-
-<?php if (AuthUser::hasPermission('admin_edit')): ?>
-          <li class="right"><a href="<?php echo get_url('setting'); ?>"<?php if ($ctrl=='setting') echo ' class="current"'; ?>><?php echo __('Administration'); ?></a></li>
-<?php endif; ?>
-<?php if (AuthUser::hasPermission('user_view')): ?>
-          <li class="right"><a href="<?php echo get_url('user'); ?>"<?php if ($ctrl=='user') echo ' class="current"'; ?>><?php echo __('Users'); ?></a></li>
-<?php endif; ?>
-        </ul>
-      </div>
-    </div>
-<?php if (Flash::get('error') !== null): ?>
-                <div id="error" class="message" style="display: none;"><?php echo Flash::get('error'); ?></div>
-<?php endif; ?>
-<?php if (Flash::get('success') !== null): ?>
-                <div id="success" class="message" style="display: none"><?php echo Flash::get('success'); ?></div>
-<?php endif; ?>
-<?php if (Flash::get('info') !== null): ?>
-                <div id="info" class="message" style="display: none"><?php echo Flash::get('info'); ?></div>
-<?php endif; ?>
-    <div id="main">
-        <div id="content-wrapper">
+                        <?php foreach ( Plugin::$controllers as $plugin_name => $plugin ): ?>
+                            <?php if ( $plugin->show_tab && (AuthUser::hasPermission($plugin->permissions)) ): ?>
+                                <?php Observer::notify('view_backend_list_plugin', $plugin_name, $plugin); ?>
+                                <li id="<?php echo $plugin_name; ?>-plugin" class="<?php echo ( $ctrl == 'plugin' && $action == $plugin_name ) ? 'plugin active' : 'plugin'; ?>">
+                                    <a href="<?php echo get_url('plugin/' . $plugin_name); ?>">
+                                        <?php echo $plugin->label; ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </section>
+                    <section class="nav navbar-nav navbar-right">
+                        <?php if ( AuthUser::hasPermission('admin_edit') ): ?>
+                            <li class="pull-right<?php echo ( $ctrl == 'setting' ) ? ' active' : ''; ?>">
+                                <a href="<?php echo get_url('setting'); ?>">
+                                    <?php echo __('Administration'); ?>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if ( AuthUser::hasPermission('user_view') ): ?>
+                            <li class="pull-right<?php echo ( $ctrl == 'user' ) ? ' active' : ''; ?>">
+                                <a href="<?php echo get_url('user'); ?>">
+                                    <?php echo __('Users'); ?>
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                    </section>
+                </div>
+            </nav> <!-- .navbar -->
+        </div> <!--  #mainTabs -->
+        <div id="flash-messages">
+            <?php if ( Flash::get('error') !== null ): ?>
+                <div id="error" class="alert alert-danger alert-dismissable flash-message">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <?php echo Flash::get('error'); ?>
+                </div>
+            <?php endif; ?>
+            <?php if ( Flash::get('success') !== null ): ?>
+                <div id="success" class="alert alert-success alert-dismissable flash-message">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <?php echo Flash::get('success'); ?>
+                </div>
+            <?php endif; ?>
+            <?php if ( Flash::get('info') !== null ): ?>
+                <div id="info" class="alert alert-info alert-dismissable flash-message">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <?php echo Flash::get('info'); ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        <div id="main">
             <div id="content">
-        <!-- content -->
-        <?php echo $content_for_layout; ?>
-        <!-- end content -->
+                <!-- content -->
+                <?php echo $content_for_layout; ?>
+                <!-- end content -->
+            </div>
+            <?php if ( isset($sidebar) ): ?>
+                <aside id="sidebar">
+                    <!-- sidebar -->
+                    <?php echo $sidebar; ?>
+                    <!-- end sidebar --> 
+                </aside>
+            <?php endif; ?> 
+        </div>
+
+        <div id="footer">
+            <div class="debug-info">
+                <?php if ( DEBUG ): ?>
+                    <p class="stats">
+                        <?php echo __('Page rendered in'); ?> <?php echo execution_time(); ?> <?php echo __('seconds'); ?>
+                        | <?php echo __('Memory usage:'); ?> <?php echo memory_usage(); ?>
+                    </p>
+                <?php endif; ?>
+            </div>
+            <div class="version-info">
+                <p>
+                    <?php echo __('Thank you for using'); ?> <a href="http://www.wolfcms.org/" target="_blank">Wolf CMS</a> <?php echo CMS_VERSION; ?>
+                </p>
+                <ul class="list-inline">
+                    <li><a href="http://forum.wolfcms.org/" target="_blank"><?php echo __('Feedback'); ?></a></li>
+                    <li><a href="http://wiki.wolfcms.org/" target="_blank"><?php echo __('Documentation'); ?></a></li>
+                </ul>
             </div>
         </div>
-        <?php if (isset($sidebar)) { ?>
-        <div id="sidebar-wrapper">
-            <div id="sidebar">
-            <!-- sidebar -->
-            <?php echo $sidebar; ?>
-            <!-- end sidebar -->
-            </div>
-        </div>
-        <?php } ?>
-    </div>
-
-    <div id="footer">
-      <p>
-      <?php echo __('Thank you for using'); ?> <a href="http://www.wolfcms.org/" target="_blank">Wolf CMS</a> <?php echo CMS_VERSION; ?> | <a href="http://forum.wolfcms.org/" target="_blank"><?php echo __('Feedback'); ?></a> | <a href="http://wiki.wolfcms.org/" target="_blank"><?php echo __('Documentation'); ?></a>
-      </p>
-<?php if (DEBUG): ?>
-        <p class="stats">
-            <?php echo __('Page rendered in'); ?> <?php echo execution_time(); ?> <?php echo __('seconds'); ?>
-            | <?php echo __('Memory usage:'); ?> <?php echo memory_usage(); ?>
-        </p>
-<?php endif; ?>
-
-      <p id="site-links">
-        <?php echo __('You are currently logged in as'); ?> <a href="<?php echo get_url('user/edit/'.AuthUser::getId()); ?>"><?php echo AuthUser::getRecord()->name; ?></a>
-        <span class="separator"> | </span>
-        <a href="<?php echo get_url('login/logout'.'?csrf_token='.SecureToken::generateToken(BASE_URL.'login/logout')); ?>"><?php echo __('Log Out'); ?></a>
-        <span class="separator"> | </span>
-        <a id="site-view-link" href="<?php echo URL_PUBLIC; ?>" target="_blank"><?php echo __('View Site'); ?></a>
-      </p>
-    </div>
-  </body>
+        <script src="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/js/bootstrap.min.js"></script>
+    </body>
 </html>

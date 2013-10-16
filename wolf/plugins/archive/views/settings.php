@@ -17,32 +17,38 @@
  * @copyright Martijn van der Kleijn, 2011
  * @license http://www.gnu.org/licenses/gpl.html GPLv3 license
  */
-
 /* Security measure */
-if (!defined('IN_CMS')) { exit(); }
+if ( !defined('IN_CMS') ) {
+    exit();
+}
 ?>
 <h1><?php echo __('Settings'); ?></h1>
 
-<form action="<?php echo get_url('plugin/archive/save'); ?>" method="post">
-    <fieldset style="padding: 0.5em;">
-        <legend style="padding: 0em 0.5em 0em 0.5em; font-weight: bold;"><?php echo __('Settings'); ?></legend>
-        <table class="fieldset" cellpadding="0" cellspacing="0" border="0">
-            <tr>
-                <td class="label"><label for="setting_use_dates"><?php echo __('Generate dates'); ?>: </label></td>
-                <td class="field">
-                    <select class="select" name="settings[use_dates]" id="setting_use_dates">
-                        <option value="1" <?php if ($settings['use_dates'] == "1") echo 'selected ="";' ?>><?php echo __('Yes'); ?></option>
-                        <option value="0" <?php if ($settings['use_dates'] == "0") echo 'selected ="";' ?>><?php echo __('No'); ?></option>
-                    </select>
-                </td>
-                <td class="help"><?php echo __('Do you want to generate dates for the URLs?'); ?></td>
-            </tr>
-        </table>
-    </fieldset>
+<form action="<?php echo get_url('plugin/archive/save'); ?>" method="post" class="form-horizontal">
 
-    <p class="buttons">
-        <input class="button" name="commit" type="submit" accesskey="s" value="<?php echo __('Save'); ?>" />
-    </p>
+    <div class="form-group">
+        <div class="setting-3col-label">
+            <label class="control-label" for="setting_use_dates">
+                <?php echo __('Generate dates'); ?>
+            </label>            
+        </div>
+        <div class="setting-3col-value">
+            <select class="form-control" name="settings[use_dates]" id="setting_use_dates">
+                <option value="1" <?php if ( $settings['use_dates'] == "1" ) echo 'selected ="";' ?>><?php echo __('Yes'); ?></option>
+                <option value="0" <?php if ( $settings['use_dates'] == "0" ) echo 'selected ="";' ?>><?php echo __('No'); ?></option>
+            </select>
+        </div>
+        <div class="setting-3col-help">
+            <p class="form-control-static">
+                <?php echo __('Do you want to generate dates for the URLs?'); ?>
+            </p>
+        </div>
+    </div>
+
+    <div class="form-group form-inline">
+        <button class="btn btn-primary" name="commit" type="submit" accesskey="s"><?php echo __('Save'); ?></button>
+    </div>
+
 </form>
 
 <script type="text/javascript">
@@ -58,8 +64,13 @@ if (!defined('IN_CMS')) { exit(); }
 
     $(document).ready(function() {
         // Prevent accidentally navigating away
-        $(':input').bind('change', function() { setConfirmUnload(true); });
-        $('form').submit(function() { setConfirmUnload(false); return true; });
+        $(':input').bind('change', function() {
+            setConfirmUnload(true);
+        });
+        $('form').submit(function() {
+            setConfirmUnload(false);
+            return true;
+        });
     });
 // ]]>
 </script>

@@ -51,7 +51,6 @@ Plugin::addController('comment', __('Comments'));
 Observer::observe('view_page_edit_plugins', 'comment_display_dropdown');
 Observer::observe('page_found', 'comment_save');
 Observer::observe('view_backend_list_plugin', 'comment_display_moderatable_count');
-
 if (Plugin::isEnabled('statistics_api'))
     Observer::observe('stats_comment_after_add', 'StatisticsEvent::registerEvent');
 

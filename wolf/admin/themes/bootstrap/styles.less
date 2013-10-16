@@ -1,0 +1,1066 @@
+/*!
+ * Bootstrap v3.0.0
+ *
+ * Copyright 2013 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world by @mdo and @fat.
+ */
+
+// Core variables and mixins
+@import "less/variables.less";
+@import "less/mixins.less";
+
+// Reset
+@import "less/normalize.less";
+@import "less/print.less";
+
+// Core CSS
+@import "less/scaffolding.less";
+@import "less/type.less";
+@import "less/code.less";
+@import "less/grid.less";
+@import "less/tables.less";
+@import "less/forms.less";
+@import "less/buttons.less";
+
+// Components
+@import "less/component-animations.less";
+@import "less/glyphicons.less";
+@import "less/dropdowns.less";
+@import "less/button-groups.less";
+@import "less/input-groups.less";
+@import "less/navs.less";
+@import "less/navbar.less";
+@import "less/breadcrumbs.less";
+@import "less/pagination.less";
+@import "less/pager.less";
+@import "less/labels.less";
+@import "less/badges.less";
+// @import "less/jumbotron.less";
+@import "less/thumbnails.less";
+@import "less/alerts.less";
+@import "less/progress-bars.less";
+//@import "less/media.less";
+@import "less/list-group.less";
+@import "less/panels.less";
+@import "less/wells.less";
+@import "less/close.less";
+
+// Components w/ JavaScript
+@import "less/modals.less";
+@import "less/tooltip.less";
+@import "less/popovers.less";
+@import "less/carousel.less";
+
+// Utility classes
+@import "less/utilities.less";
+@import "less/responsive-utilities.less";
+
+
+//
+// Variables
+// --------------------------------------------------
+
+
+// Global values
+// --------------------------------------------------
+
+// Grays
+// -------------------------
+
+@gray-darker:            lighten(#000, 13.5%); // #222
+@gray-dark:              lighten(#000, 20%);   // #333
+@gray:                   lighten(#000, 33.5%); // #555
+@gray-light:             lighten(#000, 60%);   // #999
+@gray-lighter:           lighten(#000, 93.5%); // #eee
+
+// Brand colors
+// -------------------------
+
+@brand-primary:         #76A83A; // #428bca;
+@brand-success:         #5cb85c;
+@brand-warning:         #f0ad4e;
+@brand-danger:          #d9534f;
+@brand-info:            #5bc0de;
+
+// Scaffolding
+// -------------------------
+
+@body-bg:               #ddd;
+@text-color:            @gray-dark;
+
+// Links
+// -------------------------
+
+@link-color:            @brand-primary;
+@link-hover-color:      darken(@link-color, 15%);
+
+// Typography
+// -------------------------
+
+@font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-serif:       Georgia, "Times New Roman", Times, serif;
+@font-family-monospace:   Monaco, Menlo, Consolas, "Courier New", monospace;
+@font-family-base:        @font-family-sans-serif;
+
+@font-size-base:          14px;
+@font-size-large:         ceil(@font-size-base * 1.25); // ~18px
+@font-size-small:         ceil(@font-size-base * 0.85); // ~12px
+
+@line-height-base:        1.428571429; // 20/14
+@line-height-computed:    floor(@font-size-base * @line-height-base); // ~20px
+
+@headings-font-family:    @font-family-base;
+@headings-font-weight:    500;
+@headings-line-height:    1.1;
+
+// Iconography
+// -------------------------
+
+@icon-font-path:          "../fonts/";
+@icon-font-name:          "glyphicons-halflings-regular";
+
+
+// Components
+// -------------------------
+// Based on 14px font-size and 1.428 line-height (~20px to start)
+
+@padding-base-vertical:          6px;
+@padding-base-horizontal:        12px;
+
+@padding-large-vertical:         10px;
+@padding-large-horizontal:       16px;
+
+@padding-small-vertical:         5px;
+@padding-small-horizontal:       10px;
+
+@line-height-large:              1.33;
+@line-height-small:              1.5;
+
+@border-radius-base:             4px;
+@border-radius-large:            6px;
+@border-radius-small:            3px;
+
+@component-active-bg:            @brand-primary;
+
+@caret-width-base:               4px;
+@caret-width-large:              5px;
+
+// Tables
+// -------------------------
+
+@table-cell-padding:                 8px;
+@table-condensed-cell-padding:       5px;
+
+@table-bg:                           transparent; // overall background-color
+@table-bg-accent:                    #f9f9f9; // for striping
+@table-bg-hover:                     #f5f5f5;
+@table-bg-active:                    @table-bg-hover;
+
+@table-border-color:                 #ddd; // table and cell border
+
+
+// Buttons
+// -------------------------
+
+@btn-font-weight:                normal;
+
+@btn-default-color:              #333;
+@btn-default-bg:                 #fff;
+@btn-default-border:             #ccc;
+
+@btn-primary-color:              #fff;
+@btn-primary-bg:                 @brand-primary;
+@btn-primary-border:             darken(@btn-primary-bg, 5%);
+
+@btn-success-color:              #fff;
+@btn-success-bg:                 @brand-success;
+@btn-success-border:             darken(@btn-success-bg, 5%);
+
+@btn-warning-color:              #fff;
+@btn-warning-bg:                 @brand-warning;
+@btn-warning-border:             darken(@btn-warning-bg, 5%);
+
+@btn-danger-color:               #fff;
+@btn-danger-bg:                  @brand-danger;
+@btn-danger-border:              darken(@btn-danger-bg, 5%);
+
+@btn-info-color:                 #fff;
+@btn-info-bg:                    @brand-info;
+@btn-info-border:                darken(@btn-info-bg, 5%);
+
+@btn-link-disabled-color:        @gray-light;
+
+
+// Forms
+// -------------------------
+
+@input-bg:                       #fff;
+@input-bg-disabled:              @gray-lighter;
+
+@input-color:                    @gray;
+@input-border:                   #ccc;
+@input-border-radius:            @border-radius-base;
+@input-border-focus:             #66afe9;
+
+@input-color-placeholder:        @gray-light;
+
+@input-height-base:              (@line-height-computed + (@padding-base-vertical * 2) + 2);
+@input-height-large:             (floor(@font-size-large * @line-height-large) + (@padding-large-vertical * 2) + 2);
+@input-height-small:             (floor(@font-size-small * @line-height-small) + (@padding-small-vertical * 2) + 2);
+
+@legend-color:                   @gray-dark;
+@legend-border-color:            #e5e5e5;
+
+@input-group-addon-bg:           @gray-lighter;
+@input-group-addon-border-color: @input-border;
+
+
+// Dropdowns
+// -------------------------
+
+@dropdown-bg:                    #fff;
+@dropdown-border:                rgba(0,0,0,.15);
+@dropdown-fallback-border:       #ccc;
+@dropdown-divider-bg:            #e5e5e5;
+
+@dropdown-link-active-color:     #fff;
+@dropdown-link-active-bg:        @component-active-bg;
+
+@dropdown-link-color:            @gray-dark;
+@dropdown-link-hover-color:      #fff;
+@dropdown-link-hover-bg:         @dropdown-link-active-bg;
+
+@dropdown-link-disabled-color:   @gray-light;
+
+@dropdown-header-color:          @gray-light;
+
+@dropdown-caret-color:           #000;
+
+
+// COMPONENT VARIABLES
+// --------------------------------------------------
+
+
+// Z-index master list
+// -------------------------
+// Used for a bird's eye view of components dependent on the z-axis
+// Try to avoid customizing these :)
+
+@zindex-navbar:            1000;
+@zindex-dropdown:          1000;
+@zindex-popover:           1010;
+@zindex-tooltip:           1030;
+@zindex-navbar-fixed:      1030;
+@zindex-modal-background:  1040;
+@zindex-modal:             1050;
+
+// Media queries breakpoints
+// --------------------------------------------------
+
+// Extra small screen / phone
+@screen-xs:                  480px;
+@screen-phone:               @screen-xs;
+
+// Small screen / tablet
+@screen-sm:                  768px;
+@screen-tablet:              @screen-sm;
+
+// Medium screen / desktop
+@screen-md:                  992px;
+@screen-desktop:             @screen-md;
+
+// Large screen / wide desktop
+@screen-lg:                  1200px;
+@screen-lg-desktop:          @screen-lg;
+
+// So media queries don't overlap when required, provide a maximum
+@screen-xs-max:              (@screen-sm - 1);
+@screen-sm-max:              (@screen-md - 1);
+@screen-md-max:              (@screen-lg - 1);
+
+
+// Grid system
+// --------------------------------------------------
+
+// Number of columns in the grid system
+@grid-columns:              12;
+// Padding, to be divided by two and applied to the left and right of all columns
+@grid-gutter-width:         30px;
+// Point at which the navbar stops collapsing
+@grid-float-breakpoint:     @screen-tablet;
+
+
+// Navbar
+// -------------------------
+
+// Basics of a navbar
+@navbar-height:                    50px;
+@navbar-margin-bottom:             @line-height-computed;
+@navbar-default-color:             #777;
+@navbar-default-bg:                #f8f8f8;
+@navbar-default-border:            darken(@navbar-default-bg, 6.5%);
+@navbar-border-radius:             @border-radius-base;
+@navbar-padding-horizontal:        floor(@grid-gutter-width / 2);
+@navbar-padding-vertical:          ((@navbar-height - @line-height-computed) / 2);
+
+// Navbar links
+@navbar-default-link-color:                #777;
+@navbar-default-link-hover-color:          #333;
+@navbar-default-link-hover-bg:             transparent;
+@navbar-default-link-active-color:         #555;
+@navbar-default-link-active-bg:            darken(@navbar-default-bg, 6.5%);
+@navbar-default-link-disabled-color:       #ccc;
+@navbar-default-link-disabled-bg:          transparent;
+
+// Navbar brand label
+@navbar-default-brand-color:               @navbar-default-link-color;
+@navbar-default-brand-hover-color:         darken(@navbar-default-link-color, 10%);
+@navbar-default-brand-hover-bg:            transparent;
+
+// Navbar toggle
+@navbar-default-toggle-hover-bg:           #ddd;
+@navbar-default-toggle-icon-bar-bg:        #ccc;
+@navbar-default-toggle-border-color:       #ddd;
+
+
+// Inverted navbar
+//
+// Reset inverted navbar basics
+@navbar-inverse-color:                      @gray-light;
+@navbar-inverse-bg:                         #222;
+@navbar-inverse-border:                     darken(@navbar-inverse-bg, 10%);
+
+// Inverted navbar links
+@navbar-inverse-link-color:                 @gray-light;
+@navbar-inverse-link-hover-color:           #fff;
+@navbar-inverse-link-hover-bg:              transparent;
+@navbar-inverse-link-active-color:          @navbar-inverse-link-hover-color;
+@navbar-inverse-link-active-bg:             darken(@navbar-inverse-bg, 10%);
+@navbar-inverse-link-disabled-color:        #444;
+@navbar-inverse-link-disabled-bg:           transparent;
+
+// Inverted navbar brand label
+@navbar-inverse-brand-color:                @navbar-inverse-link-color;
+@navbar-inverse-brand-hover-color:          #fff;
+@navbar-inverse-brand-hover-bg:             transparent;
+
+// Inverted navbar search
+// Normal navbar needs no special styles or vars
+@navbar-inverse-search-bg:                  lighten(@navbar-inverse-bg, 25%);
+@navbar-inverse-search-bg-focus:            #fff;
+@navbar-inverse-search-border:              @navbar-inverse-bg;
+@navbar-inverse-search-placeholder-color:   #ccc;
+
+// Inverted navbar toggle
+@navbar-inverse-toggle-hover-bg:            #333;
+@navbar-inverse-toggle-icon-bar-bg:         #fff;
+@navbar-inverse-toggle-border-color:        #333;
+
+
+// Navs
+// -------------------------
+
+@nav-link-padding:                          10px 15px;
+@nav-link-hover-bg:                         @gray-lighter;
+
+@nav-disabled-link-color:                   @gray-light;
+@nav-disabled-link-hover-color:             @gray-light;
+
+@nav-open-link-hover-color:                 #fff;
+@nav-open-caret-border-color:               #fff;
+
+// Tabs
+@nav-tabs-border-color:                     #ddd;
+
+@nav-tabs-link-hover-border-color:          @gray-lighter;
+
+@nav-tabs-active-link-hover-bg:             @body-bg;
+@nav-tabs-active-link-hover-color:          @gray;
+@nav-tabs-active-link-hover-border-color:   #ddd;
+
+@nav-tabs-justified-link-border-color:            #ddd;
+@nav-tabs-justified-active-link-border-color:     @body-bg;
+
+// Pills
+@nav-pills-active-link-hover-bg:            @component-active-bg;
+@nav-pills-active-link-hover-color:         #fff;
+
+
+// Pagination
+// -------------------------
+
+@pagination-bg:                        #fff;
+@pagination-border:                    #ddd;
+
+@pagination-hover-bg:                  @gray-lighter;
+
+@pagination-active-bg:                 @brand-primary;
+@pagination-active-color:              #fff;
+
+@pagination-disabled-color:            @gray-light;
+
+
+// Pager
+// -------------------------
+
+@pager-border-radius:                  15px;
+@pager-disabled-color:                 @gray-light;
+
+
+// Jumbotron
+// -------------------------
+
+@jumbotron-padding:              30px;
+@jumbotron-color:                inherit;
+@jumbotron-bg:                   @gray-lighter;
+
+@jumbotron-heading-color:        inherit;
+
+
+// Form states and alerts
+// -------------------------
+
+@state-warning-text:             #c09853;
+@state-warning-bg:               #fcf8e3;
+@state-warning-border:           darken(spin(@state-warning-bg, -10), 3%);
+
+@state-danger-text:              #b94a48;
+@state-danger-bg:                #f2dede;
+@state-danger-border:            darken(spin(@state-danger-bg, -10), 3%);
+
+@state-success-text:             #468847;
+@state-success-bg:               #dff0d8;
+@state-success-border:           darken(spin(@state-success-bg, -10), 5%);
+
+@state-info-text:                #3a87ad;
+@state-info-bg:                  #d9edf7;
+@state-info-border:              darken(spin(@state-info-bg, -10), 7%);
+
+
+// Tooltips
+// -------------------------
+@tooltip-max-width:           200px;
+@tooltip-color:               #fff;
+@tooltip-bg:                  #000;
+
+@tooltip-arrow-width:         5px;
+@tooltip-arrow-color:         @tooltip-bg;
+
+
+// Popovers
+// -------------------------
+@popover-bg:                          #fff;
+@popover-max-width:                   276px;
+@popover-border-color:                rgba(0,0,0,.2);
+@popover-fallback-border-color:       #ccc;
+
+@popover-title-bg:                    darken(@popover-bg, 3%);
+
+@popover-arrow-width:                 10px;
+@popover-arrow-color:                 #fff;
+
+@popover-arrow-outer-width:           (@popover-arrow-width + 1);
+@popover-arrow-outer-color:           rgba(0,0,0,.25);
+@popover-arrow-outer-fallback-color:  #999;
+
+
+// Labels
+// -------------------------
+
+@label-default-bg:            @gray-light;
+@label-primary-bg:            @brand-primary;
+@label-success-bg:            @brand-success;
+@label-info-bg:               @brand-info;
+@label-warning-bg:            @brand-warning;
+@label-danger-bg:             @brand-danger;
+
+@label-color:                 #fff;
+@label-link-hover-color:      #fff;
+
+
+// Modals
+// -------------------------
+@modal-inner-padding:         20px;
+
+@modal-title-padding:         15px;
+@modal-title-line-height:     @line-height-base;
+
+@modal-content-bg:                             #fff;
+@modal-content-border-color:                   rgba(0,0,0,.2);
+@modal-content-fallback-border-color:          #999;
+
+@modal-backdrop-bg:           #000;
+@modal-header-border-color:   #e5e5e5;
+@modal-footer-border-color:   @modal-header-border-color;
+
+
+// Alerts
+// -------------------------
+@alert-padding:               15px;
+@alert-border-radius:         @border-radius-base;
+@alert-link-font-weight:      bold;
+
+@alert-success-bg:            @state-success-bg;
+@alert-success-text:          @state-success-text;
+@alert-success-border:        @state-success-border;
+
+@alert-info-bg:               @state-info-bg;
+@alert-info-text:             @state-info-text;
+@alert-info-border:           @state-info-border;
+
+@alert-warning-bg:            @state-warning-bg;
+@alert-warning-text:          @state-warning-text;
+@alert-warning-border:        @state-warning-border;
+
+@alert-danger-bg:             @state-danger-bg;
+@alert-danger-text:           @state-danger-text;
+@alert-danger-border:         @state-danger-border;
+
+
+// Progress bars
+// -------------------------
+@progress-bg:                 #f5f5f5;
+@progress-bar-color:          #fff;
+
+@progress-bar-bg:             @brand-primary;
+@progress-bar-success-bg:     @brand-success;
+@progress-bar-warning-bg:     @brand-warning;
+@progress-bar-danger-bg:      @brand-danger;
+@progress-bar-info-bg:        @brand-info;
+
+
+// List group
+// -------------------------
+@list-group-bg:               #fff;
+@list-group-border:           #ddd;
+@list-group-border-radius:    @border-radius-base;
+
+@list-group-hover-bg:         #f5f5f5;
+@list-group-active-color:     #fff;
+@list-group-active-bg:        @component-active-bg;
+@list-group-active-border:    @list-group-active-bg;
+
+@list-group-link-color:          #555;
+@list-group-link-heading-color:  #333;
+
+
+// Panels
+// -------------------------
+@panel-bg:                    #fff;
+@panel-inner-border:          #ddd;
+@panel-border-radius:         @border-radius-base;
+@panel-footer-bg:             #f5f5f5;
+
+@panel-default-text:          @gray-dark;
+@panel-default-border:        #ddd;
+@panel-default-heading-bg:    #f5f5f5;
+
+@panel-primary-text:          #fff;
+@panel-primary-border:        @brand-primary;
+@panel-primary-heading-bg:    @brand-primary;
+
+@panel-success-text:          @state-success-text;
+@panel-success-border:        @state-success-border;
+@panel-success-heading-bg:    @state-success-bg;
+
+@panel-warning-text:          @state-warning-text;
+@panel-warning-border:        @state-warning-border;
+@panel-warning-heading-bg:    @state-warning-bg;
+
+@panel-danger-text:           @state-danger-text;
+@panel-danger-border:         @state-danger-border;
+@panel-danger-heading-bg:     @state-danger-bg;
+
+@panel-info-text:             @state-info-text;
+@panel-info-border:           @state-info-border;
+@panel-info-heading-bg:       @state-info-bg;
+
+
+// Thumbnails
+// -------------------------
+@thumbnail-padding:           4px;
+@thumbnail-bg:                @body-bg;
+@thumbnail-border:            #ddd;
+@thumbnail-border-radius:     @border-radius-base;
+
+@thumbnail-caption-color:     @text-color;
+@thumbnail-caption-padding:   9px;
+
+
+// Wells
+// -------------------------
+@well-bg:                     #f5f5f5;
+
+
+// Badges
+// -------------------------
+@badge-color:                 #fff;
+@badge-link-hover-color:      #fff;
+@badge-bg:                    @gray-light;
+
+@badge-active-color:          @link-color;
+@badge-active-bg:             #fff;
+
+@badge-font-weight:           bold;
+@badge-line-height:           1;
+@badge-border-radius:         10px;
+
+
+// Breadcrumbs
+// -------------------------
+@breadcrumb-bg:               #f5f5f5;
+@breadcrumb-color:            #ccc;
+@breadcrumb-active-color:     @gray-light;
+
+
+// Carousel
+// ------------------------
+
+@carousel-text-shadow:                        0 1px 2px rgba(0,0,0,.6);
+
+@carousel-control-color:                      #fff;
+@carousel-control-width:                      15%;
+@carousel-control-opacity:                    .5;
+@carousel-control-font-size:                  20px;
+
+@carousel-indicator-active-bg:                #fff;
+@carousel-indicator-border-color:             #fff;
+
+@carousel-caption-color:                      #fff;
+
+
+// Close
+// ------------------------
+@close-color:                 #000;
+@close-font-weight:           bold;
+@close-text-shadow:           0 1px 0 #fff;
+
+
+// Code
+// ------------------------
+@code-color:                  #c7254e;
+@code-bg:                     #f9f2f4;
+
+@pre-bg:                      #f5f5f5;
+@pre-color:                   @gray-dark;
+@pre-border-color:            #ccc;
+@pre-scrollable-max-height:   340px;
+
+// Type
+// ------------------------
+@text-muted:                  @gray-light;
+@abbr-border-color:           @gray-light;
+@headings-small-color:        @gray-light;
+@blockquote-small-color:      @gray-light;
+@blockquote-border-color:     @gray-lighter;
+@page-header-border-color:    @gray-lighter;
+
+// Miscellaneous
+// -------------------------
+
+// Hr border color
+@hr-border:                   @gray-lighter;
+
+// Horizontal forms & lists
+@component-offset-horizontal: 180px;
+
+
+// Container sizes
+// --------------------------------------------------
+
+// Small screen / tablet
+@container-tablet:            ((720px + @grid-gutter-width));
+
+// Medium screen / desktop
+@container-desktop:           ((940px + @grid-gutter-width));
+
+// Large screen / wide desktop
+@container-lg-desktop:        ((1140px + @grid-gutter-width));
+
+
+
+/**
+ * =================================================================
+ *
+ * Wolf backend layout specific variables
+ *
+ * ================================================================
+ */
+@login-dialog-width: 360px;
+@sidebar-headers-size-ratio: 0.7;
+@content-headers-size-ratio: 0.9;
+@pages-nested-list-padding: 40px;
+@main-bg: #fff;
+
+@tab-panes-background: @gray-lighter;
+
+@page-status-draft: #c00; 
+@page-status-published: #0c0;
+@page-status-hidden: #aaa;
+@page-status-preview: #080;
+@page-status-archived: #0aa;  
+
+.settings-tab-pane {
+    .clearfix();
+    background-color: @tab-panes-background;
+    padding: 10px;
+    border-bottom: 1px solid @nav-tabs-border-color;
+    margin-bottom: 10px;
+}
+.settings-pane {
+    .clearfix();
+    background-color: @tab-panes-background;
+    padding: 10px;
+    padding-bottom: 0px;
+    border: 1px solid @nav-tabs-border-color;
+    margin-bottom: 10px;
+}
+
+.setting-2col-label  { .make-sm-column(3); }
+.setting-2col-value  { .make-sm-column(9); }
+.setting-2col-value-narrow  { .make-sm-column(4); }
+
+.setting-3col-label  { .make-sm-column(3); }
+.setting-3col-value  { .make-sm-column(4); }
+.setting-3col-help   { .make-sm-column(5); color: @gray-light;}
+
+
+#body_page_edit #content,
+#body_setting_index #content
+{
+    // make Bootstrap default tabs a bit smaller
+    .nav-tabs > li > a {
+        padding: 5px 8px;
+    }
+    .nav-tabs > li.active > a {
+        background-color: @tab-panes-background;
+    }
+}
+
+// full width "content" in "edit" and "index"
+#body_page_index #content,
+#body_snippet_edit #content,
+#body_layout_edit #content,
+#body_page_edit #content,
+#body_setting_index #content
+{
+    .make-sm-column(12);
+}
+
+// Wolf layout-specific semantic items
+
+#header {
+    .clearfix(); 
+    background-color: @gray-dark;
+    a:hover { text-decoration: none; }
+    min-height: 80px;
+    font-size: @font-size-small;
+    position: relative;
+    text-shadow: 0 1px 1px rgba(0,0,0,.5);
+    .site-title {
+        .make-sm-column(8);        
+        a { font-weight: 900; }
+    }
+    .site-links {
+        .make-sm-column(4);
+        padding-top: 20px;
+        p {
+            text-align: right;
+            color: @gray-light;
+        }
+    }
+    // css gradient mixin from ./less/mixins.less
+    #gradient > .vertical(@start-color: lighten(@navbar-inverse-bg,18%); @end-color: lighten(@navbar-inverse-bg,10%));
+}
+
+#flash-messages {
+    .make-sm-column(10);
+    .make-sm-column-push(1);
+    z-index: 9999;
+    position: fixed;
+    top: 30px;
+    overflow: visible;
+    .flash-message {
+        text-align: center;
+        display: none;
+        .box-shadow(1px 1px 24px rgba(0,0,0,.5));
+    }
+}
+
+// Wrapper for content and sidebar
+#main {
+    // .container-fixed();
+    .clearfix();
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: @main-bg;
+    position: relative;
+    textarea {
+        font-family: @font-family-monospace;
+        &.markitup { width: 100%; }
+    }
+    .markItUpHeader ul .markItUpSeparator {
+        margin: 8px 6px;
+    }
+    .markItUpHeader ul .markItUpButton  {
+        padding: 8px 6px;
+    }
+    div.filter-toolbar {
+        margin-bottom: 5px;
+    }
+    #reorder-toggle {margin-left: 16px;}
+    .reorder-handle {display: none;}
+}
+
+
+
+#mainTabs {
+    // correct default Bootstrap margin-bottom
+    .navbar {margin-bottom: 0px;}
+}
+#content {
+    .make-sm-column(9);
+    h1:first-child {margin-top: 0px;}
+    h1, .h1 { font-size: floor(@font-size-base * 2.60 * @content-headers-size-ratio); } // ~36px
+    h2, .h2 { font-size: floor(@font-size-base * 2.15 * @content-headers-size-ratio); } // ~30px
+    h3, .h3 { font-size:  ceil(@font-size-base * 1.70 * @content-headers-size-ratio); } // ~24px
+    h4, .h4 { font-size:  ceil(@font-size-base * 1.25 * @content-headers-size-ratio); } // ~18px
+    h5, .h5 { font-size:  ceil(@font-size-base * 1.00 * @content-headers-size-ratio); }
+    h6, .h6 { font-size:  ceil(@font-size-base * 0.85 * @content-headers-size-ratio); } // ~12px    
+}
+
+#sidebar {
+    .make-sm-column(3);
+    .btn.btn-block {
+        text-align: left;
+        > img {
+            margin-left: 8px;
+            margin-right: 8px;
+        }
+    }
+
+    h1, .h1 { font-size: floor(@font-size-base * 2.60 * @sidebar-headers-size-ratio); }
+    h2, .h2 { font-size: floor(@font-size-base * 2.15 * @sidebar-headers-size-ratio); }
+    h3, .h3 { font-size:  ceil(@font-size-base * 1.70 * @sidebar-headers-size-ratio); }
+    h4, .h4 { font-size:  ceil(@font-size-base * 1.25 * @sidebar-headers-size-ratio); }
+    h5, .h5 { font-size:  ceil(@font-size-base * 1.00 * @sidebar-headers-size-ratio); }
+    h6, .h6 { font-size:  ceil(@font-size-base * 0.85 * @sidebar-headers-size-ratio); }
+
+    .btn-group {
+        margin-bottom: 20px;
+    }
+    .well > h2:first-child, .well > h3:first-child {
+        margin-top: 0px;
+    }
+
+}
+
+#footer {
+    padding-top: 20px;
+    font-size: @font-size-small;
+    color: @gray;
+    .debug-info { .make-sm-column(6); }
+    .version-info { .make-sm-column(6); text-align: right; }
+}
+
+/* PAGES LIST */
+
+#body_page_index ul {
+    .clearfix();
+    padding-left: 0; 
+    list-style: none;
+    .edit-link { line-height: 32px; 
+                 img {vertical-align: middle;}        
+    }
+    .title { font-size: @font-size-large; vertical-align: middle;    }
+    .behavior-id { color: @gray-light; font-style: italic; font-size: @font-size-small; font-weight: bold; vertical-align: middle; }
+    a:hover { text-decoration: none; }
+    .page-status-draft     { color: @page-status-draft;    }
+    .page-status-published { color: @page-status-published;}
+    .page-status-hidden    { color: @page-status-hidden;   }
+    .page-status-preview   { color: @page-status-preview;  }
+    .page-status-archived  { color: @page-status-archived; }
+}
+
+.nested-list-placeholder,
+.flat-list-placeholder
+{
+    height: 32px;
+    line-height: 32px;
+    border: 1px solid fade(@brand-primary,50%);
+    background-color: fade(@brand-primary,20%);
+}
+li.no-children .nested-list-placeholder,
+li.children-hidden .nested-list-placeholder
+{
+    background-color: fade(@brand-primary,40%);
+    border-left-width: floor(@pages-nested-list-padding/4);
+}
+
+li.level-0 .nested-list-placeholder { margin-left: floor(0.5 * @pages-nested-list-padding); }
+li.level-1 .nested-list-placeholder { margin-left: floor(1.5 * @pages-nested-list-padding); }
+li.level-2 .nested-list-placeholder { margin-left: floor(2.5 * @pages-nested-list-padding); }
+li.level-3 .nested-list-placeholder { margin-left: floor(3.5 * @pages-nested-list-padding); }
+li.level-4 .nested-list-placeholder { margin-left: floor(4.5 * @pages-nested-list-padding); }
+li.level-5 .nested-list-placeholder { margin-left: floor(5.5 * @pages-nested-list-padding); }
+li.level-6 .nested-list-placeholder { margin-left: floor(6.5 * @pages-nested-list-padding); }
+
+.level-0 .indent-wrap {padding-left: 0px;}
+.level-1 .indent-wrap {padding-left: 0*@pages-nested-list-padding;}
+.level-2 .indent-wrap {padding-left: 1*@pages-nested-list-padding;}
+.level-3 .indent-wrap {padding-left: 2*@pages-nested-list-padding;}
+.level-4 .indent-wrap {padding-left: 3*@pages-nested-list-padding;}
+.level-5 .indent-wrap {padding-left: 4*@pages-nested-list-padding;}
+.level-6 .indent-wrap {padding-left: 5*@pages-nested-list-padding;}
+
+.page-list-item   { .make-row(); }
+.page-list-name   { .make-xs-column(9); }
+.page-list-status { .make-xs-column(1); text-align: center; }
+.page-list-modify { .make-xs-column(2); text-align: right; }
+
+/* PAGE EDIT */
+#page-view-frontend { float: right;.button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-small; @line-height-small; @border-radius-small); padding: 1px 5px;}
+#tab-toolbar { float: right; }
+
+.filter-label     { .make-xs-column(3);  .make-sm-column(1); }
+.filter-select    { .make-xs-column(9);  .make-sm-column(2); }
+.filter-more      { .make-xs-column(12); .make-sm-column(8); }
+
+.page-plugins-area            { margin-top: 10px; margin-bottom: 0px;}
+.page-plugins-status-label   { .make-xs-column(3); .make-sm-column(1); }
+.page-plugins-status-select  { .make-xs-column(9); .make-sm-column(2); }
+.page-plugins-observer       { .make-xs-column(10); .make-sm-column(8); }
+
+.page-metainfo-contents,
+.page-part-contents{
+    .form-group {margin-bottom: 6px};
+    .form-group:last-child {margin-bottom: 0px};
+}
+
+/* SNIPPETS */
+.snippet-list-item   { .make-row(); }
+.snippet-list-name   { .make-xs-column(9); .make-sm-column(10); }
+.snippet-list-modify { .make-xs-column(3); .make-sm-column(2); text-align: right; }
+
+/* LAYOUTS */
+.layout-list-item   { .make-row(); }
+.layout-list-name   { .make-xs-column(9); .make-sm-column(10); }
+.layout-list-modify { .make-xs-column(3); .make-sm-column(2); text-align: right; }
+
+.last-modified-info {font-size: @font-size-small; color: @gray-light;}
+
+/* SETTINGS - PLUGINS */
+.plugin-list-name     { width: 52%;
+                        .plugin-list-title {}
+                        .plugin-list-description {font-style: italic;}
+                        .notes { color: @brand-danger; font-size: @font-size-small; }
+}
+.plugin-list-settings { width: 8% }
+.plugin-list-website  { width: 8% }
+.plugin-list-version  { width: 8%; text-align: center; max-width: 10%; }
+.plugin-list-latest   { width: 8%; text-align: center; max-width: 100px; overflow: hidden; }
+.plugin-list-enabled  { width: 8%; text-align: center; }
+.plugin-list-uninst   { width: 8%; text-align: center; }
+
+.plugin-list-author {color: @gray-light;}
+
+/* USERS */
+.user-list-name   { width: 50% }
+.user-list-email  { width: 20% }
+.user-list-roles  { width: 20% }
+.user-list-modify { width: 10%; text-align: right }
+
+
+/* FILE MANAGER */
+.file-mgr-list-name   { width: 30% }
+.file-mgr-list-size  { width: 20% }
+.file-mgr-list-perms  { width: 20% }
+.file-mgr-list-mtime { width: 20%; text-align: right }
+.file-mgr-list-modify { width: 10%; text-align: right }
+
+
+/* Calendar (Date picker) ------------------------------------------------- */
+.dpDiv { background-color: #ddd; border-color: #ccc; padding: 10px; .box-shadow(1px 1px 24px fade(@gray,50%)); }
+/* the table (within the div) that holds the date picker calendar */ 
+.dpTable { color: #333; }
+.dpTable td { border-color: #eee; }
+/* a table row that holds date numbers (either blank or 1-31) */
+.dpTR {}
+/* the top table row that holds the month, year, and forward/backward buttons */
+.dpTitleTR { color: black; background-color: #e5e5e5; }
+/* the second table row, that holds the names of days of the week (Mo, Tu, We, etc.) */
+.dpDayTR {}
+/* the bottom table row, that has the "This Month" and "Close" buttons */
+.dpTodayButtonTR { background-color: #eee; }
+/* a table cell that holds a date number (1-31) */
+.dpTD { background-color: #fff; width: 30px; height: 24px; text-align: center; vertical-align: middle; }
+.dpTDempty {}
+/* a table cell that holds a highlighted day (usually either today's date or the current date field value) */
+.dpDayHighlightTD {}
+/* the date number table cell that the mouse pointer is currently over (you can use contrasting colors to make it apparent which cell is being hovered over) */
+.dpTDHover { color: #fff; background-color: #e5e5e5; }
+/* the table cell that holds the name of the month and the year */
+.dpTitleTD {}
+/* a table cell that holds one of the forward/backward buttons */
+.dpButtonTD button { color: #fff; background-color: #47a; }
+/* the table cell that holds the "This Month" or "Close" button at the bottom */
+.dpTodayButtonTD { background-color: #ddd; }
+/* a table cell that holds the names of days of the week (Mo, Tu, We, etc.) */
+.dpDayTD { color: #666; background-color: #ddd; border-color: #ccc; }
+/* additional style information for the cell that holds a highlighted day (usually either today's date or the current date field value) */
+.dpDayHighlight { color: #47a; background-color: #fff; }
+/* the forward/backward buttons at the top */
+.dpButton { color: lighten(@brand-primary,50%); background-color: @brand-primary; border: none; }
+/* the "This Month" and "Close" buttons at the bottom */
+.dpTodayButton { color: #666; }
+
+
+
+
+#login-site-title {
+    text-align: center;
+    h1 {font-weight: 900};
+}
+#login-dialog {
+    .container();
+    .clearfix();
+    .box-shadow(1px 1px 24px fade(@gray,50%));
+    border: 1px solid fade(@gray,40%);
+    border-radius: 3px;
+    background-color: @main-bg; 
+    max-width: @login-dialog-width;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    padding: 30px;
+    h2:first-child {margin-top: 0px; margin-bottom: 30px; text-align: center; text-transform: uppercase; color:@gray;}
+    .form-label { .make-sm-column(4); }
+    .form-value { .make-sm-column(8); }
+    .remember-me { .make-sm-column(12); }
+    @media (min-width: @screen-sm) {
+        margin-top: 60px;
+    }
+    .login-submit {
+        text-align: center;
+        .alternate-link {
+            display: block;
+            margin-top: 10px;
+        }
+    }
+}
+
+
+#login-footer {
+    .container();
+    .make-sm-column(12);
+    font-size: @font-size-small;
+    color: @gray-light;
+    text-align: center;
+    margin-top: 20px;
+    @media (min-width: @screen-sm) {
+        margin-top: 100px;
+    }    
+}

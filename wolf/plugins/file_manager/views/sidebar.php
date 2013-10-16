@@ -17,14 +17,24 @@
  * @copyright Martijn van der Kleijn, 2011
  * @license http://www.gnu.org/licenses/gpl.html GPLv3 license
  */
-
 /* Security measure */
-if (!defined('IN_CMS')) { exit(); }
+if ( !defined('IN_CMS') ) {
+    exit();
+}
 
-if (Dispatcher::getAction() != 'view'): ?>
-
-<p class="button"><a href="#create-file-popup" class="popupLink"><img src="<?php echo ICONS_PATH; ?>action-add-32-ns.png" align="middle" alt="page icon" /> <?php echo __('Create new file'); ?></a></p>
-<p class="button"><a href="#create-directory-popup" class="popupLink"><img src="<?php echo ICONS_PATH; ?>file-folder-32-ns.png" align="middle" alt="dir icon" /> <?php echo __('Create new directory'); ?></a></p>
-<p class="button"><a href="#upload-file-popup" class="popupLink"><img src="<?php echo ICONS_PATH; ?>action-upload-32-ns.png" align="middle" alt="upload icon" /><?php echo __('Upload file'); ?></a></p>
-
+if ( Dispatcher::getAction() != 'view' ): ?>
+    <div class="btn-group btn-group-vertical btn-block">
+        <a class="popupLink btn btn-default btn-block" data-toggle="modal" href="#create-file-popup">
+            <img src="<?php echo ICONS_PATH; ?>action-add-32-ns.png" align="middle" alt="page icon" />
+            <?php echo __('Create new file'); ?>
+        </a>
+        <a class="popupLink btn btn-default btn-block" data-toggle="modal" href="#create-directory-popup">
+            <img src="<?php echo ICONS_PATH; ?>file-folder-32-ns.png" align="middle" alt="dir icon" /> 
+            <?php echo __('Create new directory'); ?>
+        </a>
+        <a class="popupLink btn btn-default btn-block" data-toggle="modal" href="#upload-file-popup">
+            <img src="<?php echo ICONS_PATH; ?>action-upload-32-ns.png" align="middle" alt="upload icon" />
+            <?php echo __('Upload file'); ?>
+        </a>
+    </div>
 <?php endif; ?>

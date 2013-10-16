@@ -36,13 +36,13 @@ else {
 
 // Wolf CMS Filter Switching system
 $(document).ready(function() {
-    $('.filter-selector').live('wolfSwitchFilterOut', function(event, filtername, elem) {
+    $(document).on('wolfSwitchFilterOut', '.filter-selector', function(event, filtername, elem) {
         if (filtername == 'markdown') {
             elem.markItUpRemove();
         }
     });
 
-    $('.filter-selector').live('wolfSwitchFilterIn', function(event, filtername, elem) {
+    $(document).on('wolfSwitchFilterIn', '.filter-selector', function(event, filtername, elem) {
         if (filtername == 'markdown') {
             elem.markItUp(markdownSettings);
         }

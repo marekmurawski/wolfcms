@@ -16,27 +16,47 @@
  * @license http://www.gnu.org/licenses/gpl.html GPLv3 license
  */
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <title><?php echo __('Forgot password'); ?></title>
-        <base href="<?php echo trim(BASE_URL, '?/').'/'; ?>" />
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <link href="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/login.css" id="css_theme" media="screen" rel="Stylesheet" type="text/css" />
-        <script type="text/javascript" charset="utf-8" src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/jquery-1.6.2.min.js"></script>
+        <link rel="favourites icon" href="<?php echo PATH_PUBLIC; ?>wolf/admin/images/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <?php
+        /* ========= LESS RUNTIME ============= 
+         * Generates stylesheets ON - THE - FLY
+         * if DEBUG = true
+         * !!! TEMPORARY ONLY !!!
+         */
+        if ( DEBUG ):
+            ?>
+            <!-- Loads .less theme for compilation -->
+            <link rel="stylesheet/less" href="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/styles.less" id="css_theme" type="text/css" />
+            <script type="text/javascript">
+                less = {};
+            </script>
+            <script src="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/less.js" type="text/javascript"></script>    
+        <?php else: ?>
+            <link href="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/styles.css" id="css_theme" media="screen" rel="stylesheet" type="text/css" />
+        <?php
+        endif;
+        /* ========= LESS RUNTIME ============= */
+        ?>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
         <script type="text/javascript">
             // <![CDATA[
             $(document).ready(function() {
                 (function showMessages(e) {
                     e.fadeIn('slow')
-                    .animate({opacity: 1.0}, 1500)
-                    .fadeOut('slow', function() {
-                        if ($(this).next().attr('class') == 'message') {
-                            showMessages($(this).next());
-                        }
-                        $(this).remove();
-                    })
-                })( $(".message:first") );
+                            .animate({opacity: 1.0}, 1500)
+                            .fadeOut('slow', function() {
+                                if ($(this).next().attr('class') == 'message') {
+                                    showMessages($(this).next());
+                                }
+                                $(this).remove();
+                            })
+                })($(".message:first"));
 
                 $("input:visible:enabled:first").focus();
             });
@@ -44,28 +64,43 @@
         </script>
     </head>
     <body>
-        <div id="dialog">
-            <h1><?php echo __('Forgot password'); ?></h1>
-            <?php if (Flash::get('error') !== null): ?>
-            <div id="error" class="message" style="display: none;"><?php echo Flash::get('error'); ?></div>
+        <div id="login-site-title">
+            <h1><?php echo Setting::get('admin_title'); ?></h1>
+        </div>        
+        <div id="login-dialog">
+            <h2><?php echo __('Forgot password'); ?></h2>
+            <?php if ( Flash::get('error') !== null ): ?>
+                <div id="error" class="message" style="display: none;"><?php echo Flash::get('error'); ?></div>
             <?php endif; ?>
-            <?php if (Flash::get('success') !== null): ?>
-            <div id="success" class="message" style="display: none"><?php echo Flash::get('success'); ?></div>
+            <?php if ( Flash::get('success') !== null ): ?>
+                <div id="success" class="message" style="display: none"><?php echo Flash::get('success'); ?></div>
             <?php endif; ?>
-            <?php if (Flash::get('info') !== null): ?>
-            <div id="info" class="message" style="display: none"><?php echo Flash::get('info'); ?></div>
+            <?php if ( Flash::get('info') !== null ): ?>
+                <div id="info" class="message" style="display: none"><?php echo Flash::get('info'); ?></div>
             <?php endif; ?>
-            <form action="<?php echo get_url('login', 'forgot'); ?>" method="post">
-                <div>
-                    <label for="forgot-email"><?php echo __('Email address'); ?>:</label>
-                    <input class="long" id="forgot-email" type="text" name="forgot[email]" value="<?php echo $email; ?>" />
+            <form action="<?php echo get_url('login', 'forgot'); ?>" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <div class="form-label">
+                        <label class="control-label" for="forgot-email">
+                            <?php echo __('Email address'); ?>
+                        </label>
+                    </div>
+                    <div class="form-value">
+                        <input class="form-control" id="forgot-email" type="text" name="forgot[email]" value="<?php echo $email; ?>" />
+                    </div>
                 </div>
-                <div id="forgot-submit">
-                    <input class="submit" type="submit" accesskey="s" value="<?php echo __('Send password'); ?>" />
-                    <span>(<a href="<?php echo get_url('login'); ?>"><?php echo __('Login'); ?></a>)</span>
+                <div class="login-submit">
+                    <button class="btn btn-primary" type="submit" accesskey="s">
+                        <?php echo __('Send password'); ?>
+                    </button>
+                    <span class="alternate-link">
+                        (<a href="<?php echo get_url('login'); ?>"><?php echo __('Login'); ?></a>)
+                    </span>
                 </div>
             </form>
         </div>
-        <p><?php echo __('website:').' <a href="'.URL_PUBLIC.'">'.Setting::get('admin_title').'</a>'; ?></p>
+        <div id="login-footer">
+            <p><?php echo __('website:') . ' <a href="' . URL_PUBLIC . '">' . Setting::get('admin_title') . '</a>'; ?></p>
+        </div>
     </body>
 </html>

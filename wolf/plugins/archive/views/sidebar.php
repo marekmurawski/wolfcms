@@ -17,8 +17,13 @@
  * @copyright Martijn van der Kleijn, 2012-2013
  * @license http://www.gnu.org/licenses/gpl.html GPLv3 license
  */
-
 /* Security measure */
-if (!defined('IN_CMS')) { exit(); }
+if ( !defined('IN_CMS') ) {
+    exit();
+}
 ?>
-<p class="button"><a href="<?php echo get_url('plugin/archive/settings'); ?>"><img src="<?php echo ICONS_PATH;?>settings-32-ns.png" align="middle" alt="page icon" /> <?php echo __('Settings'); ?></a></p>
+<div class="btn-group btn-group-vertical btn-block">
+    <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/archive/settings'); ?>">
+        <img src="<?php echo ICONS_PATH; ?>settings-32-ns.png" align="middle" alt="page icon" /> <?php echo __('Settings'); ?>
+    </a>
+</div>

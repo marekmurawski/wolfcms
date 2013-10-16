@@ -19,27 +19,27 @@
  * @copyright Martijn van der Kleijn, 2009
  * @license http://www.gnu.org/licenses/gpl.html GPLv3 license
  */
-
 /* Security measure */
-if (!defined('IN_CMS')) { exit(); }
-
+if ( !defined('IN_CMS') ) {
+    exit();
+}
 ?>
-<?php 
-    $max_file_size = trim(ini_get('upload_max_filesize'));
-    switch (strtolower(substr($max_file_size, -1, 1))) {
-        case 'g':
-            $max_file_size *= 1024;
-        case 'm':
-            $max_file_size *= 1024;
-        case 'k':
-            $max_file_size *= 1024;
-    }
+<?php
+$max_file_size = trim(ini_get('upload_max_filesize'));
+switch ( strtolower(substr($max_file_size, -1, 1)) ) {
+    case 'g':
+        $max_file_size *= 1024;
+    case 'm':
+        $max_file_size *= 1024;
+    case 'k':
+        $max_file_size *= 1024;
+}
 ?>
 <h1><?php echo __('Restore a backup'); ?></h1>
 
 <form action="<?php echo get_url('plugin/backup_restore/restore'); ?>" method="post" enctype="multipart/form-data">
-        <fieldset style="padding: 0.5em;">
-        <legend style="padding: 0em 0.5em 0em 0.5em; font-weight: bold;"><?php echo __('Warning!'); ?></legend>
+    <fieldset>
+        <legend class="text-danger"><?php echo __('Warning!'); ?></legend>
         <p>
             <?php echo __('When restoring a backup, please make sure that the backup file was generated from the same Wolf CMS <em>version</em> as you are restoring it to.'); ?>
         </p>
@@ -52,14 +52,18 @@ if (!defined('IN_CMS')) { exit(); }
         <p>
             <?php echo __('As such, the contents of your backup file will replace the contents of your Wolf CMS database.'); ?>
         </p>
-        <p style="text-align: center;"><strong>
-            <?php echo __('Do NOT upload a zip file, only upload a plain text XML file!'); ?>
-        </strong></p>
+        <p class="text-center text-danger">
+            <strong>
+                <?php echo __('Do NOT upload a zip file, only upload a plain text XML file!'); ?>
+            </strong>
+        </p>
     </fieldset>
-    <p style="text-align: center;">
+    <p class="text-center">
         <input name="MAX_FILE_SIZE" value="<?php echo $max_file_size; ?>" type="hidden"/>
         <input name="action" value="restore" type="hidden"/>
-        <input name="restoreFile" type="file" size="39"/>
-        <input type="submit" value="<?php echo __('Upload plain text XML file'); ?>" onclick="return confirm('<?php echo __('Are you sure you wish to restore?'); ?>');"/>
+        <input name="restoreFile" type="file"/>
+        <button class="btn btn-primary" type="submit" onclick="return confirm('<?php echo __('Are you sure you wish to restore?'); ?>');">
+            <?php echo __('Upload plain text XML file'); ?>
+        </button>
     </p>
 </form>
