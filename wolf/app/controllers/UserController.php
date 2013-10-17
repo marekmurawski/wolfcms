@@ -198,6 +198,9 @@ class UserController extends Controller {
         }
 
         if ($user = User::findById($id)) {
+            $this->assignToLayout('sidebar', new View('user/sidebar', array(
+                'user' => $user,
+            )));
             $this->display('user/edit', array(
                 'action' => 'edit',
                 'csrf_token' => SecureToken::generateToken(BASE_URL.'user/edit/'.$id),
