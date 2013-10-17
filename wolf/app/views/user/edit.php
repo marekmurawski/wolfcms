@@ -21,80 +21,67 @@ $user_roles = ($user instanceof User) ? $user->roles() : array();
 
 <form action="<?php
 echo $action == 'edit' ? get_url('user/edit/' . $user->id) : get_url('user/add');
-;
 ?>" method="post">
     <input id="csrf_token" name="csrf_token" type="hidden" value="<?php echo $csrf_token; ?>" />
     <div class="form-horizontal">
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label class="control-label" for="user_name">
-                    <?php echo __('Name'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="user_name">
+                <?php echo __('Name'); ?>
+            </label>
             <div class="setting-3col-value">
                 <input class="form-control" id="user_name" maxlength="100" name="user[name]" type="text" value="<?php echo $user->name; ?>" />
             </div>
-            <div class="setting-3col-help">
+            <p class="form-control-static setting-3col-help">
                 <?php echo __('Required.'); ?>
-            </div>
+            </p>
         </div>
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label class="control-label optional" for="user_email">
-                    <?php echo __('E-mail'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label optional" for="user_email">
+                <?php echo __('E-mail'); ?>
+            </label>
             <div class="setting-3col-value">
                 <input class="form-control" id="user_email" maxlength="255" name="user[email]" type="text" value="<?php echo $user->email; ?>" />
             </div>
-            <div class="setting-3col-help">
+            <p class="form-control-static setting-3col-help">
                 <?php echo __('Optional. Please use a valid e-mail address.'); ?>
-            </div>
+            </p>
         </div>
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label class="control-label" for="user_username">
-                    <?php echo __('Username'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="user_username">
+                <?php echo __('Username'); ?>
+            </label>
             <div class="setting-3col-value">
                 <input class="form-control" id="user_username" maxlength="40" name="user[username]" type="text" value="<?php echo $user->username; ?>" <?php echo $action == 'edit' ? 'disabled="disabled" ' : ''; ?>/>
             </div>
-            <div class="setting-3col-help">
+            <p class="form-control-static setting-3col-help">
                 <?php echo __('At least 3 characters. Must be unique.'); ?>
-            </div>
+            </p>
         </div>
         <div class="form-group">
-            <div class="setting-3col-label">            
-                <label class="control-label" for="user_password">
-                    <?php echo __('Password'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="user_password">
+                <?php echo __('Password'); ?>
+            </label>
             <div class="setting-3col-value">
                 <input class="form-control" id="user_password" maxlength="40" name="user[password]" type="password" value="" />
             </div>
-            <div class="setting-3col-help">
+            <p class="form-control-static setting-3col-help">
                 <?php echo __('At least 5 characters.'); ?> 
                 <?php echo ( $action == 'edit' ) ? __('Leave password blank for it to remain unchanged.') : ''; ?>
-            </div>
+            </p>
         </div>
         <div class="form-group">
-            <div class="setting-3col-label">            
-                <label class="control-label" for="user_confirm">
-                    <?php echo __('Confirm Password'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="user_confirm">
+                <?php echo __('Confirm Password'); ?>
+            </label>
             <div class="setting-3col-value">            
                 <input class="form-control" id="user_confirm" maxlength="40" name="user[confirm]" type="password" value="" />
             </div>
         </div>
         <?php if ( AuthUser::hasPermission('user_edit') ): ?>
             <div class="form-group">
-                <div class="setting-3col-label">        
-                    <label class="control-label">
-                        <?php echo __('Roles'); ?>
-                    </label>
-                </div>
+                <label class="control-label setting-3col-label">
+                    <?php echo __('Roles'); ?>
+                </label>
                 <div class="setting-3col-value">            
                     <?php foreach ( $roles as $role ): ?>
                         <span class="checkbox">
@@ -103,16 +90,16 @@ echo $action == 'edit' ? get_url('user/edit/' . $user->id) : get_url('user/add')
                         </span>
                     <?php endforeach; ?>
                 </div>
-                <div class="setting-3col-help">  
+                <p class="form-control-static setting-3col-help">  
                     <?php echo __('Roles restrict user privileges and turn parts of the administrative interface on or off.'); ?>
-                </div>
+                </p>
             </div>
         <?php endif; ?>
 
         <div class="form-group">
-            <div class="setting-3col-label">              
-                <label for="user_language"><?php echo __('Language'); ?></label>
-            </div>
+            <label class="control-label setting-3col-label" for="user_language">
+                <?php echo __('Language'); ?>
+            </label>
             <div class="setting-3col-value">  
                 <select class="form-control" id="user_language" name="user[language]">
                     <?php foreach ( Setting::getLanguages() as $code => $label ): ?>
@@ -120,9 +107,9 @@ echo $action == 'edit' ? get_url('user/edit/' . $user->id) : get_url('user/add')
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="setting-3col-help">  
+            <p class="form-control-static setting-3col-help">  
                 <?php echo __('This will set your preferred language for the backend.'); ?>
-            </div>
+            </p>
         </div>
 
     </div>
@@ -133,7 +120,8 @@ echo $action == 'edit' ? get_url('user/edit/' . $user->id) : get_url('user/add')
         <button class="btn btn-primary" name="commit" type="submit" accesskey="s">
             <?php echo __('Save'); ?>
         </button>
-        <?php echo __('or'); ?> <a href="<?php echo (AuthUser::hasPermission('user_view')) ? get_url('user') : get_url(); ?>"><?php echo __('Cancel'); ?></a>
+        <?php echo __('or'); ?> 
+        <a href="<?php echo (AuthUser::hasPermission('user_view')) ? get_url('user') : get_url(); ?>"><?php echo __('Cancel'); ?></a>
     </div>
 
 </form>

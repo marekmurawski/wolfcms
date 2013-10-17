@@ -19,7 +19,7 @@
 <?php if ( Dispatcher::getAction() == 'index' ): ?>
     <div class="btn-group btn-group-vertical btn-group-justified">
         <a class="btn btn-default btn-block" href="<?php echo get_url('layout/add'); ?>">
-            <img src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/layout.png" align="middle" alt="layout icon" /> <?php echo __('New Layout'); ?>
+            <img src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/layout.png" alt="layout icon" /> <?php echo __('New Layout'); ?>
         </a>
     </div>
     <div class="well">

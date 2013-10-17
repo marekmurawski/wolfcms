@@ -66,50 +66,40 @@ else
         <div class="tab-pane settings-tab-pane form-horizontal" id="metadata">
             <?php if ( $page->parent_id != 0 ) : ?>
                 <div class="form-group">
-                    <div class="setting-2col-label">
-                        <label class="control-label" for="page_slug"><?php echo __('Slug'); ?></label>
-                    </div>
+                    <label class="control-label setting-2col-label" for="page_slug"><?php echo __('Slug'); ?></label>
                     <div class="setting-2col-value">
                         <input class="form-control" id="page_slug" maxlength="100" name="page[slug]" type="text" value="<?php echo $page->slug; ?>" />
                     </div>
                 </div>
             <?php endif; ?>
             <div class="form-group">
-                <div class="setting-2col-label">
-                    <label class="control-label" for="page_breadcrumb">
-                        <?php echo __('Breadcrumb'); ?>
-                    </label>
-                </div>
+                <label class="control-label setting-2col-label" for="page_breadcrumb">
+                    <?php echo __('Breadcrumb'); ?>
+                </label>
                 <div class="setting-2col-value">
                     <input class="form-control" id="page_breadcrumb" maxlength="160" name="page[breadcrumb]" type="text" value="<?php echo htmlentities($page->breadcrumb, ENT_COMPAT, 'UTF-8'); ?>" />
                 </div>
             </div>
             <div class="form-group">
-                <div class="setting-2col-label">
-                    <label class="control-label" for="page_keywords"
-                           ><?php echo __('Keywords'); ?>
-                    </label>
-                </div>
+                <label class="control-label setting-2col-label" for="page_keywords"
+                       ><?php echo __('Keywords'); ?>
+                </label>
                 <div class="setting-2col-value">
                     <input class="form-control" id="page_keywords" maxlength="255" name="page[keywords]" type="text" value="<?php echo $page->keywords; ?>" />
                 </div>
             </div>
             <div class="form-group">
-                <div class="setting-2col-label">
-                    <label class="control-label" for="page_description">
-                        <?php echo __('Description'); ?>
-                    </label>
-                </div>
+                <label class="control-label setting-2col-label" for="page_description">
+                    <?php echo __('Description'); ?>
+                </label>
                 <div class="setting-2col-value">
                     <textarea class="form-control" id="page_description" name="page[description]" rows="2"><?php echo $page->description; ?></textarea>
                 </div>
             </div>
             <div class="form-group">
-                <div class="setting-2col-label">
-                    <label class="control-label" for="page_tags">
-                        <?php echo __('Tags'); ?>
-                    </label>
-                </div>
+                <label class="control-label setting-2col-label" for="page_tags">
+                    <?php echo __('Tags'); ?>
+                </label>
                 <div class="setting-2col-value">
                     <input class="form-control" id="page_tags" maxlength="255" name="page_tag[tags]" type="text" value="<?php echo join(', ', $tags); ?>" />
                 </div>
@@ -117,25 +107,21 @@ else
         </div>
         <div class="tab-pane settings-tab-pane form-horizontal" id="settings">
             <div id="div-settings">
-                <div class="col-sm-6">
+                <div class="settings-panel-general">
                     <?php if ( $page->parent_id != 0 ) : ?>
                         <div class="form-group">
-                            <div class="setting-2col-label">
-                                <label class="control-label" for="page_id">
-                                    <?php echo __('Page id'); ?>
-                                </label>
-                            </div>
+                            <label class="control-label setting-2col-label" for="page_id">
+                                <?php echo __('Page id'); ?>
+                            </label>
                             <div class="setting-2col-value">
                                 <input class="form-control" id="page_id" maxlength="100" name="unused" type="text" value="<?php echo $page->id; ?>" disabled="disabled"/>
                             </div>
                         </div>
                     <?php endif; ?>
                     <div class="form-group">
-                        <div class="setting-2col-label">
-                            <label class="control-label" for="page_layout_id">
-                                <?php echo __('Layout'); ?>
-                            </label>
-                        </div>
+                        <label class="control-label setting-2col-label" for="page_layout_id">
+                            <?php echo __('Layout'); ?>
+                        </label>
                         <div class="setting-2col-value">
                             <select class="form-control" id="page_layout_id" name="page[layout_id]">
                                 <option value="0">&#8212; <?php echo __('inherit'); ?> &#8212;</option>
@@ -146,11 +132,9 @@ else
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="setting-2col-label">
-                            <label class="control-label" for="page_behavior_id">
-                                <?php echo __('Page Type'); ?>
-                            </label>
-                        </div>
+                        <label class="control-label setting-2col-label" for="page_behavior_id">
+                            <?php echo __('Page Type'); ?>
+                        </label>
                         <div class="setting-2col-value">
                             <select class="form-control" id="page_behavior_id" name="page[behavior_id]">
                                 <option value=""<?php if ( $page->behavior_id == '' ) echo ' selected="selected"'; ?>>&#8212; <?php echo __('none'); ?> &#8212;</option>
@@ -162,11 +146,9 @@ else
                     </div>
                     <?php if ( AuthUser::hasPermission('page_edit') ): ?>
                         <div class="form-group">
-                            <div class="setting-2col-label">
-                                <label class="control-label" for="page_needs_login">
-                                    <?php echo __('Login'); ?>
-                                </label>
-                            </div>
+                            <label class="control-label setting-2col-label" for="page_needs_login">
+                                <?php echo __('Login'); ?>
+                            </label>
                             <div class="setting-2col-value">
                                 <select class="form-control" id="page_needs_login" name="page[needs_login]" title="<?php echo __('When enabled, users have to login before they can view the page.'); ?>">
                                     <option value="<?php echo Page::LOGIN_INHERIT; ?>"<?php echo $page->needs_login == Page::LOGIN_INHERIT ? ' selected="selected"' : ''; ?>><?php echo __('&#8212; inherit &#8212;'); ?></option>
@@ -176,85 +158,65 @@ else
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="setting-2col-label">
-                            </div>
+                            <label class="control-label setting-2col-label" for="page_needs_login">
+                                    <?php echo __('Protected'); ?> 
+                            </label>
                             <div class="setting-2col-value">
                                 <div class="checkbox" title="<?php echo __('When enabled, only users who are an administrator can edit the page.'); ?>">
-                                    <input id="page_is_protected" name="page[is_protected]" class="checkbox" type="checkbox" value="1"<?php if ( $page->is_protected ) echo ' checked="checked"'; ?><?php if ( !AuthUser::hasPermission('admin_edit') ) echo ' disabled="disabled"'; ?>/>
-                                    <?php echo __('Protected'); ?> 
+                                    <input id="page_is_protected" name="page[is_protected]" type="checkbox" value="1"<?php if ( $page->is_protected ) echo ' checked="checked"'; ?><?php if ( !AuthUser::hasPermission('admin_edit') ) echo ' disabled="disabled"'; ?>/>
+                                    <?php echo __('Only administrators can edit this page'); ?> 
                                 </div>
                             </div>
                         </div>
                     <?php endif; ?>                        
-                </div>
-                <div class="col-sm-6">
+                </div> <!-- .settings-general -->
+                <div class="settings-panel-dates">
                     <?php if ( isset($page->created_on) ): ?>
                         <div class="form-group">
-                            <div class="setting-2col-label">
-                                <label class="control-label" for="page_created_on">
-                                    <?php echo __('Created date'); ?>
-                                </label>
-                            </div>
+                            <label class="control-label setting-2col-label" for="page_created_on">
+                                <?php echo __('Created date'); ?>
+                            </label>
                             <div class="setting-2col-value">
-                                <div class="col-xs-7">
-                                    <div class="input-group">
-                                        <label class="input-group-addon">
-                                            <img class="datepicker" onclick="displayDatePicker('page[created_on]');" src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/icon_cal.gif" alt="<?php echo __('Show Calendar'); ?>" />
-                                        </label>
-                                        <input class="form-control" id="page_created_on" maxlength="10" name="page[created_on]" type="text" value="<?php echo substr($page->created_on, 0, 10); ?>" />
-                                    </div>
+                                <div class="input-day">
+                                    <input class="form-control" id="page_created_on" type="date" name="page[created_on]" type="text" value="<?php echo substr($page->created_on, 0, 10); ?>" />
                                 </div>
-                                <div class="col-xs-5">
-                                    <input class="form-control" id="page_created_on_time" maxlength="8" name="page[created_on_time]" type="text" value="<?php echo substr($page->created_on, 11); ?>" />
+                                <div class="input-hour">
+                                    <input class="form-control" id="page_created_on_time" type="time" step="1" name="page[created_on_time]" value="<?php echo substr($page->created_on, 11); ?>" />
                                 </div>
                             </div>
                         </div>
                     <?php endif; ?>
                     <?php if ( isset($page->published_on) ): ?>
                         <div class="form-group">
-                            <div class="setting-2col-label">
-                                <label class="control-label" for="page_published_on">
-                                    <?php echo __('Published date'); ?>
-                                </label>
-                            </div>
+                            <label class="control-label setting-2col-label" for="page_published_on">
+                                <?php echo __('Published date'); ?>
+                            </label>
                             <div class="setting-2col-value">
-                                <div class="col-xs-7">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <img onclick="displayDatePicker('page[published_on]');" src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/icon_cal.gif" alt="<?php echo __('Show Calendar'); ?>" />
-                                        </span>
-                                        <input class="form-control" id="page_published_on" maxlength="10" name="page[published_on]" type="text" value="<?php echo substr($page->published_on, 0, 10); ?>" />
-                                    </div>
+                                <div class="input-day">
+                                    <input class="form-control" id="page_published_on" type="date" name="page[published_on]" type="text" value="<?php echo substr($page->published_on, 0, 10); ?>" />
                                 </div>
-                                <div class="col-xs-5">
-                                    <input class="form-control" id="page_published_on_time" maxlength="8" name="page[published_on_time]" type="text" value="<?php echo substr($page->published_on, 11); ?>" />
+                                <div class="input-hour">
+                                    <input class="form-control" id="page_published_on_time" type="time" step="1" name="page[published_on_time]" value="<?php echo substr($page->published_on, 11); ?>" />
                                 </div>
                             </div>
                         </div>
                     <?php endif; ?>
                     <?php if ( isset($page->published_on) ): ?>
                         <div class="form-group">
-                            <div class="setting-2col-label">
-                                <label class="control-label" for="page_valid_until">
-                                    <?php echo __('Valid until date'); ?>
-                                </label>
-                            </div>
+                            <label class="control-label setting-2col-label" for="page_valid_until">
+                                <?php echo __('Valid until date'); ?>
+                            </label>
                             <div class="setting-2col-value">
-                                <div class="col-xs-7">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <img onclick="displayDatePicker('page[valid_until]');" src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/icon_cal.gif" alt="<?php echo __('Show Calendar'); ?>" />
-                                        </span>
-                                        <input class="form-control" id="page_valid_until" maxlength="10" name="page[valid_until]" size="10" type="text" value="<?php echo substr($page->valid_until, 0, 10); ?>" />
-                                    </div>
+                                <div class="input-day">
+                                    <input class="form-control" id="page_valid_until" type="date" name="page[valid_until]" type="text" value="<?php echo substr($page->valid_until, 0, 10); ?>" />
                                 </div>
-                                <div class="col-xs-5">
-                                    <input class="form-control" id="page_valid_until_time" maxlength="8" name="page[valid_until_time]" size="8" type="text" value="<?php echo substr($page->valid_until, 11); ?>" />
+                                <div class="input-hour">
+                                    <input class="form-control" id="page_valid_until_time" type="time" step="1" name="page[valid_until_time]" value="<?php echo substr($page->valid_until, 11); ?>" />
                                 </div>
                             </div>
                         </div>
                     <?php endif; ?>
-                </div>
+                </div> <!-- .settings-general -->
             </div>
         </div>
 
@@ -293,11 +255,9 @@ else
         <?php Observer::notify('view_page_after_edit_tabs', $page); ?>
         <div class="form-horizontal">            
             <div class="form-group  page-plugins-area">
-                <div class="page-plugins-status-label">
-                    <label class="control-label" for="page_status_id">
-                        <?php echo __('Status'); ?>
-                    </label>
-                </div>
+                <label class="control-label page-plugins-status-label" for="page_status_id">
+                    <?php echo __('Status'); ?>
+                </label>
                 <div class="page-plugins-status-select">
                     <select  class="form-control" id="page_status_id" name="page[status_id]">
                         <option value="<?php echo Page::STATUS_DRAFT; ?>"<?php echo $page->status_id == Page::STATUS_DRAFT ? ' selected="selected"' : ''; ?>><?php echo __('Draft'); ?></option>

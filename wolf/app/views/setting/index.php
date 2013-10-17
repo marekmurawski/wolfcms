@@ -111,153 +111,113 @@ $current_language = Setting::get('language');
                     <input id="csrf_token" name="csrf_token" type="hidden" value="<?php echo $csrf_token; ?>" />
                     <div class="form-horizontal">
                         <div class="form-group">
-                            <div class="setting-3col-label">
-                                <label class="control-label" for="setting_admin_title">
-                                    <?php echo __('Admin Site title'); ?>
-                                </label>
-                            </div>
-                            <div class="setting-3col-value">
-                                <input class="form-control" id="setting_admin_title" maxlength="255" name="setting[admin_title]" type="text" value="<?php echo htmlentities(Setting::get('admin_title'), ENT_COMPAT, 'UTF-8'); ?>" />
-                            </div>
-                            <div class="setting-3col-help">
-                                <p class="form-control-static">
-                                    <?php echo __('By using <strong>&lt;img src="img_path" /&gt;</strong> you can set your company logo instead of a title.'); ?>        
-                                </p>
-                            </div>
+                            <label class="control-label setting-3col-label" for="setting_admin_title">
+                                <?php echo __('Admin Site title'); ?>
+                            </label>
+                            <input class="form-control setting-3col-value" id="setting_admin_title" maxlength="255" name="setting[admin_title]" type="text" value="<?php echo htmlentities(Setting::get('admin_title'), ENT_COMPAT, 'UTF-8'); ?>" />
+                            <p class="form-control-static setting-3col-help">
+                                <?php echo __('By using <strong>&lt;img src="img_path" /&gt;</strong> you can set your company logo instead of a title.'); ?>        
+                            </p>
                         </div>
                         <div class="form-group">
-                            <div class="setting-3col-label">
-                                <label class="control-label" for="setting_admin_email">
-                                    <?php echo __('Site email'); ?>
-                                </label>
-                            </div>
-                            <div class="setting-3col-value">
-                                <input class="form-control" id="setting_admin_email" maxlength="255" name="setting[admin_email]" type="text" value="<?php echo Setting::get('admin_email'); ?>" />
-                            </div>
-                            <div class="setting-3col-help">
-                                <p class="form-control-static">
-                                    <?php echo __('When emails are sent by Wolf CMS, this email address will be used as the sender. Default: do-not-reply@wolfcms.org'); ?>
-                                </p>
-                            </div>
+                            <label class="control-label setting-3col-label" for="setting_admin_email">
+                                <?php echo __('Site email'); ?>
+                            </label>
+                            <input class="form-control setting-3col-value" id="setting_admin_email" maxlength="255" name="setting[admin_email]" type="text" value="<?php echo Setting::get('admin_email'); ?>" />
+                            <p class="form-control-static setting-3col-help">
+                                <?php echo __('When emails are sent by Wolf CMS, this email address will be used as the sender. Default: do-not-reply@wolfcms.org'); ?>
+                            </p>
                         </div>
                         <div class="form-group">
-                            <div class="setting-3col-label">
-                                <label class="control-label" for="setting_language">
-                                    <?php echo __('Language'); ?>
-                                </label>
-                            </div>
-                            <div class="setting-3col-value">
-                                <select class="form-control" id="setting_language" name="setting[language]">
-                                    <?php foreach ( Setting::getLanguages() as $code => $label ): ?>
-                                        <option value="<?php echo $code; ?>"<?php if ( $code == $current_language ) echo ' selected="selected"'; ?>><?php echo $label; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="setting-3col-help">
-                                <p class="form-control-static">
-                                    <?php echo __('This will set your language for the backend.'); ?><br /><?php echo __('Help us <a href=":url">translate Wolf</a>!', array( ':url' => 'http://www.wolfcms.org/wiki/translator_notes' )); ?>
-                                </p>
-                            </div>
+                            <label class="control-label setting-3col-label" for="setting_language">
+                                <?php echo __('Language'); ?>
+                            </label>
+                            <select class="form-control setting-3col-value" id="setting_language" name="setting[language]">
+                                <?php foreach ( Setting::getLanguages() as $code => $label ): ?>
+                                    <option value="<?php echo $code; ?>"<?php if ( $code == $current_language ) echo ' selected="selected"'; ?>><?php echo $label; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <p class="form-control-static setting-3col-help">
+                                <?php echo __('This will set your language for the backend.'); ?><br /><?php echo __('Help us <a href=":url">translate Wolf</a>!', array( ':url' => 'http://www.wolfcms.org/wiki/translator_notes' )); ?>
+                            </p>
                         </div>
                         <div class="form-group">
-                            <div class="setting-3col-label">
-                                <label class="control-label" for="setting_theme">
-                                    <?php echo __('Administration Theme'); ?>
-                                </label>
-                            </div>
-                            <div class="setting-3col-value">
-                                <select class="form-control" id="setting_theme" name="setting[theme]">
-                                    <?php
-                                    $current_theme = Setting::get('theme');
-                                    foreach ( Setting::getThemes() as $code => $label ):
-                                        ?>
-                                        <option value="<?php echo $code; ?>"<?php if ( $code == $current_theme ) echo ' selected="selected"'; ?>><?php echo $label; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="setting-3col-help">
-                                <p class="form-control-static">
-                                    <?php echo __('This will change your Administration theme.'); ?>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="setting-3col-label">
-                                <label class="control-label" for="setting_default_tab">
-                                    <?php echo __('Default tab'); ?>
-                                </label>
-                            </div>
-                            <div class="setting-3col-value">
-                                <select class="form-control" id="setting_default_tab" name="setting[default_tab]">
-                                    <?php $current_default_tab = Setting::get('default_tab'); ?>
-                                    <option value="page"<?php if ( $current_default_tab == 'page' ) echo ' selected="selected"'; ?>><?php echo __('Pages'); ?></option>
-                                    <option value="snippet"<?php if ( $current_default_tab == 'snippet' ) echo ' selected="selected"'; ?>><?php echo __('MSG_SNIPPETS'); ?></option>
-                                    <option value="layout"<?php if ( $current_default_tab == 'layout' ) echo ' selected="selected"'; ?>><?php echo __('Layouts'); ?></option>
-                                    <option value="user"<?php if ( $current_default_tab == 'user' ) echo ' selected="selected"'; ?>><?php echo __('Users'); ?></option>
-                                    <option value="setting"<?php if ( $current_default_tab == 'setting' ) echo ' selected="selected"'; ?>><?php echo __('Administration'); ?></option>
-                                    <?php
-                                    foreach ( Plugin::$controllers as $key => $controller ):
-                                        if ( Plugin::isEnabled($key) && $controller->show_tab === true ) {
-                                            ?>
-                                            <option value="plugin/<?php echo $key; ?>"<?php if ( 'plugin/' . $key == $current_default_tab ) echo ' selected="selected"'; ?>><?php echo $controller->label; ?></option>
-                                            <?php
-                                        }
-                                    endforeach;
+                            <label class="control-label setting-3col-label" for="setting_theme">
+                                <?php echo __('Administration Theme'); ?>
+                            </label>
+                            <select class="form-control setting-3col-value" id="setting_theme" name="setting[theme]">
+                                <?php
+                                $current_theme = Setting::get('theme');
+                                foreach ( Setting::getThemes() as $code => $label ):
                                     ?>
-                                </select>
-                            </div>
-                            <div class="setting-3col-help">
-                                <p class="form-control-static">
-                                    <?php echo __('This allows you to specify which tab (controller) you will see by default after login.'); ?>
-                                </p>
-                            </div>
+                                    <option value="<?php echo $code; ?>"<?php if ( $code == $current_theme ) echo ' selected="selected"'; ?>><?php echo $label; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <p class="form-control-static setting-3col-help">
+                                <?php echo __('This will change your Administration theme.'); ?>
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label setting-3col-label" for="setting_default_tab">
+                                <?php echo __('Default tab'); ?>
+                            </label>
+                            <select class="form-control setting-3col-value" id="setting_default_tab" name="setting[default_tab]">
+                                <?php $current_default_tab = Setting::get('default_tab'); ?>
+                                <option value="page"<?php if ( $current_default_tab == 'page' ) echo ' selected="selected"'; ?>><?php echo __('Pages'); ?></option>
+                                <option value="snippet"<?php if ( $current_default_tab == 'snippet' ) echo ' selected="selected"'; ?>><?php echo __('MSG_SNIPPETS'); ?></option>
+                                <option value="layout"<?php if ( $current_default_tab == 'layout' ) echo ' selected="selected"'; ?>><?php echo __('Layouts'); ?></option>
+                                <option value="user"<?php if ( $current_default_tab == 'user' ) echo ' selected="selected"'; ?>><?php echo __('Users'); ?></option>
+                                <option value="setting"<?php if ( $current_default_tab == 'setting' ) echo ' selected="selected"'; ?>><?php echo __('Administration'); ?></option>
+                                <?php
+                                foreach ( Plugin::$controllers as $key => $controller ):
+                                    if ( Plugin::isEnabled($key) && $controller->show_tab === true ) {
+                                        ?>
+                                        <option value="plugin/<?php echo $key; ?>"<?php if ( 'plugin/' . $key == $current_default_tab ) echo ' selected="selected"'; ?>><?php echo $controller->label; ?></option>
+                                        <?php
+                                    }
+                                endforeach;
+                                ?>
+                            </select>
+                            <p class="form-control-static setting-3col-help">
+                                <?php echo __('This allows you to specify which tab (controller) you will see by default after login.'); ?>
+                            </p>
                         </div>
                         <h3><?php echo __('Page options'); ?></h3>
                         <div class="form-group">
-                            <div class="setting-3col-label">
-                            </div>
+                            <label class="control-label setting-3col-label">
+                                &nbsp;
+                            </label>
                             <div class="setting-3col-value">
                                 <div class="checkbox">
                                     <input type="checkbox" id="setting_allow_html_title" name="setting[allow_html_title]" <?php if ( Setting::get('allow_html_title') == 'on' ) echo ' checked="checked"'; ?> />
                                     <?php echo __('Allow HTML in Title'); ?>
                                 </div>
                             </div>
-                            <div class="setting-3col-help">
-                                <p class="form-control-static">
-                                    <?php echo __('Determines whether or not HTML code is allowed in a page\'s title.'); ?>
-                                </p>
-                            </div>
+                            <p class="form-control-static setting-3col-help">
+                                <?php echo __('Determines whether or not HTML code is allowed in a page\'s title.'); ?>
+                            </p>
                         </div>
                         <div class="form-group">
-                            <div class="setting-3col-label">
-                                <label class="control-label">
-                                    <?php echo __('Default Status'); ?>
-                                </label>
-                            </div>
-                            <div class="setting-3col-value">
-
-                                <select class="form-control" id="setting_default_filter_id" name="setting[default_status_id]">
-                                    <option value="<?php echo Page::STATUS_DRAFT; ?>"<?php if ( Setting::get('default_status_id') == Page::STATUS_DRAFT ) echo ' selected="selected"'; ?>>
-                                        <?php echo __('Draft'); ?> 
-                                    </option>
-                                    <option value="<?php echo Page::STATUS_PUBLISHED; ?>"<?php if ( Setting::get('default_status_id') == Page::STATUS_PUBLISHED ) echo ' selected="selected"'; ?>>
-                                        <?php echo __('Published'); ?>
-                                    </option>
-                                </select>
-
-                            </div>
-                            <div class="setting-3col-help">
+                            <label class="control-label setting-3col-label">
+                                <?php echo __('Default Status'); ?>
+                            </label>
+                            <select class="form-control setting-3col-value" id="setting_default_filter_id" name="setting[default_status_id]">
+                                <option value="<?php echo Page::STATUS_DRAFT; ?>"<?php if ( Setting::get('default_status_id') == Page::STATUS_DRAFT ) echo ' selected="selected"'; ?>>
+                                    <?php echo __('Draft'); ?> 
+                                </option>
+                                <option value="<?php echo Page::STATUS_PUBLISHED; ?>"<?php if ( Setting::get('default_status_id') == Page::STATUS_PUBLISHED ) echo ' selected="selected"'; ?>>
+                                    <?php echo __('Published'); ?>
+                                </option>
+                            </select>
+                            <p class="form-control-static setting-3col-help">
                                 &nbsp;
-                            </div>
+                            </p>
                         </div>
                         <div class="form-group">
-                            <div class="setting-3col-label">
-                                <label class="control-label" for="setting_default_filter_id">
+                                <label class="control-label setting-3col-label" for="setting_default_filter_id">
                                     <?php echo __('Default Filter'); ?>
                                 </label>
-                            </div>
-                            <div class="setting-3col-value">
-                                <select class="form-control" id="setting_default_filter_id" name="setting[default_filter_id]">
+                                <select class="form-control setting-3col-value" id="setting_default_filter_id" name="setting[default_filter_id]">
                                     <?php $current_default_filter_id = Setting::get('default_filter_id'); ?>
                                     <option value=""<?php if ( $current_default_filter_id == '' ) echo ' selected="selected"'; ?>>&#8212; <?php echo __('none'); ?> &#8212;</option>
                                     <?php
@@ -268,12 +228,9 @@ $current_language = Setting::get('language');
                                         <?php endif; ?>
                                     <?php endforeach; ?>
                                 </select>
-                            </div>
-                            <div class="setting-3col-help">
-                                <p class="form-control-static">
+                                <p class="form-control-static setting-3col-help">
                                     <?php echo __('Only for filter in pages, NOT in snippets'); ?>
                                 </p>
-                            </div>
                         </div>
                     </div>
                     <div class="form-group form-inline">

@@ -46,20 +46,20 @@
         /* ========= LESS RUNTIME ============= */
         ?>
 
-        <script type="text/javascript" charset="utf-8" src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/jquery-1.6.2.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script type="text/javascript">
             // <![CDATA[
             $(document).ready(function() {
-                (function showMessages(e) {
-                    e.fadeIn('slow')
-                            .animate({opacity: 1.0}, 1500)
-                            .fadeOut('slow', function() {
-                                if ($(this).next().attr('class') == 'message') {
-                                    showMessages($(this).next());
-                                }
-                                $(this).remove();
-                            })
-                })($(".message:first"));
+                    (function showMessages(e) {
+                        e.fadeIn('slow')
+                                .animate({opacity: 1.0}, Math.min(5000, parseInt(e.text().length * 50)))
+                                .fadeOut('slow', function() {
+                                    if ($(this).next().hasClass('flash-message')) {
+                                        showMessages($(this).next());
+                                    }
+                                    // $(this).remove();
+                                });
+                    })($(".flash-message:first"));
 
                 $("input:visible:enabled:first").focus();
             });
@@ -67,15 +67,27 @@
         </script>
     </head>
     <body>
-        <?php if ( Flash::get('error') !== null ): ?>
-            <div id="error" class="message" style="display: none;"><?php echo Flash::get('error'); ?></div>
-        <?php endif; ?>
-        <?php if ( Flash::get('success') !== null ): ?>
-            <div id="success" class="message" style="display: none"><?php echo Flash::get('success'); ?></div>
-        <?php endif; ?>
-        <?php if ( Flash::get('info') !== null ): ?>
-            <div id="info" class="message" style="display: none"><?php echo Flash::get('info'); ?></div>
-        <?php endif; ?>
+        <div id="flash-messages">
+            <?php if ( Flash::get('error') !== null ): ?>
+                <div id="error" class="alert alert-danger alert-dismissable flash-message">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <?php echo Flash::get('error'); ?>
+                </div>
+            <?php endif; ?>
+            <?php if ( Flash::get('success') !== null ): ?>
+                <div id="success" class="alert alert-success alert-dismissable flash-message">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <?php echo Flash::get('success'); ?>
+                </div>
+            <?php endif; ?>
+            <?php if ( Flash::get('info') !== null ): ?>
+                <div id="info" class="alert alert-info alert-dismissable flash-message">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <?php echo Flash::get('info'); ?>
+                </div>
+            <?php endif; ?>
+        </div>
+            
         <div id="login-site-title">
             <h1><?php echo Setting::get('admin_title'); ?></h1>
         </div>
@@ -115,7 +127,7 @@
                 </div>
                 <div class="login-submit">
                     <button class="btn btn-primary" type="submit" accesskey="s"><?php echo __('Login'); ?></button>
-                    <span class="alternate-link">(<a href="<?php echo get_url('login/forgot'); ?>"><?php echo __('Forgot password?'); ?></a>)</span>
+                    <span class="alternate-link"><a href="<?php echo get_url('login/forgot'); ?>"><?php echo __('Forgot password?'); ?></a></span>
                 </div>
             </form>
         </div>

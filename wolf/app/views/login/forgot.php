@@ -94,7 +94,7 @@
                         <?php echo __('Send password'); ?>
                     </button>
                     <span class="alternate-link">
-                        (<a href="<?php echo get_url('login'); ?>"><?php echo __('Login'); ?></a>)
+                        <a href="<?php echo get_url('login'); ?>"><?php echo __('Login'); ?></a>
                     </span>
                 </div>
             </form>

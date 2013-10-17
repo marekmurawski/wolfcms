@@ -27,11 +27,9 @@
 
             <div class="form-horizontal filter-toolbar">
                 <div class="form-group">
-                    <div class="filter-label">
-                        <label class="control-label" for="part_<?php echo ($index - 1); ?>_filter_id">
-                            <?php echo __('Filter'); ?>
-                        </label>
-                    </div>
+                    <label class="control-label filter-label" for="part_<?php echo ($index - 1); ?>_filter_id">
+                        <?php echo __('Filter'); ?>
+                    </label>
                     <div class="filter-select">
                         <select class="form-control filter-selector" id="part_<?php echo ($index - 1); ?>_filter_id" name="part[<?php echo ($index - 1); ?>][filter_id]">
                             <option value=""<?php if ( $page_part->filter_id == '' ) echo ' selected="selected"'; ?>>&#8212; <?php echo __('none'); ?> &#8212;</option>
@@ -41,7 +39,7 @@
                         </select>
                     </div>
                     <div class="filter-more">
-                        <p class="form-control-static"></p>
+                        <!-- can be used by filters to place controls dymically via Javascript DOM manipulation -->
                     </div>
                 </div>
             </div>

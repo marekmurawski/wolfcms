@@ -40,7 +40,7 @@ use_helper('Gravatar');
                     <?php echo $user->email; ?>
                 </td>
                 <td class="user-list-roles">
-                    <?php echo implode(', ', $user->roles()); ?>
+                    <span class="label label-primary"><?php echo implode('</span> <span class="label label-primary">', $user->roles()); ?></span>
                 </td>
                 <td class="user-list-modify">
                     <?php if ( $user->id > 1 ): ?>

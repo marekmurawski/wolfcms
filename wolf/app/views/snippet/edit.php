@@ -25,26 +25,22 @@
     <div class="settings-pane">
         <div class="form-horizontal">
             <div class="form-group">
-                <div class="setting-2col-label">
-                    <label class="control-label" for="snippet_name">
-                        <?php echo __('Name'); ?>
-                    </label>
-                </div>
+                <label class="control-label setting-2col-label" for="snippet_name">
+                    <?php echo __('Name'); ?>
+                </label>
                 <div class="setting-2col-value-narrow">
                     <input class="form-control" id="snippet_name" maxlength="100" name="snippet[name]" type="text" value="<?php echo $snippet->name; ?>" />
                 </div>
             </div>                
         </div>
     </div>
-
+    <h4><?php echo __('Body'); ?></h4>
     <div class="settings-pane">
         <div class="form-horizontal filter-toolbar">
             <div class="form-group">
-                <div class="filter-label">
-                    <label class="control-label" for="snippet_filter_id">
-                        <?php echo __('Filter'); ?>
-                    </label>
-                </div>
+                <label class="control-label filter-label" for="snippet_filter_id">
+                    <?php echo __('Filter'); ?>
+                </label>
                 <div class="filter-select">
                     <select class="form-control filter-selector" id="snippet_filter_id" name="snippet[filter_id]">
                         <option value=""<?php if ( $snippet->filter_id == '' ) echo ' selected="selected"'; ?>>&#8212; <?php echo __('none'); ?> &#8212;</option>
@@ -58,7 +54,6 @@
                 </div>
             </div>
         </div>
-
         <div class="form-group">
             <textarea class="form-control markitup" id="snippet_content" name="snippet[content]" rows="20"><?php echo htmlentities($snippet->content, ENT_COMPAT, 'UTF-8'); ?></textarea>
         </div>

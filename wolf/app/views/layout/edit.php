@@ -25,22 +25,17 @@
     <div class="settings-pane"> 
         <div class="form-horizontal">
             <div class="form-group">
-                <div class="setting-2col-label">
-                    <label class="control-label" for="layout_name">
-                        <?php echo __('Name'); ?>
-                    </label>
-                </div>
+                <label class="control-label setting-2col-label" for="layout_name">
+                    <?php echo __('Name'); ?>
+                </label>
                 <div class="setting-2col-value-narrow">
-                    <input class="form-control" id="layout_name" maxlength="100" name="layout[name]" size="100" type="text" value="<?php echo $layout->name; ?>" />
+                    <input class="form-control" id="layout_name" maxlength="100" name="layout[name]" type="text" value="<?php echo $layout->name; ?>" />
                 </div>
             </div>        
-
             <div class="form-group">
-                <div class="setting-2col-label">            
-                    <label class="control-label" for="layout_content_type">
-                        <label for="layout_content_type"><?php echo __('Content-Type'); ?></label>
-                    </label>
-                </div>
+                <label class="control-label setting-2col-label" for="layout_content_type">
+                    <label for="layout_content_type"><?php echo __('Content-Type'); ?></label>
+                </label>
                 <div class="setting-2col-value-narrow">
                     <input class="form-control" id="layout_content_type" maxlength="40" name="layout[content_type]" type="text" value="<?php echo $layout->content_type; ?>" />
                 </div>
