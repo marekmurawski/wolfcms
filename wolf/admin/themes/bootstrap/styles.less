@@ -42,7 +42,7 @@
 @import "less/thumbnails.less";
 @import "less/alerts.less";
 @import "less/progress-bars.less";
-//@import "less/media.less";
+@import "less/media.less";
 @import "less/list-group.less";
 @import "less/panels.less";
 @import "less/wells.less";
@@ -119,7 +119,7 @@
 // Iconography
 // -------------------------
 
-@icon-font-path:          "../fonts/";
+@icon-font-path:          "./fonts/";
 @icon-font-name:          "glyphicons-halflings-regular";
 
 
@@ -689,13 +689,18 @@
  *
  * ================================================================
  */
-@login-dialog-width: 360px;
+@login-dialog-width: 400px; 
+
+@header-bg-color-top: lighten(@navbar-inverse-bg,5%);
+@header-bg-color-bottom: lighten(@navbar-inverse-bg,15%); 
+
+
 @sidebar-headers-size-ratio: 0.7;
 @content-headers-size-ratio: 0.9;
 @pages-nested-list-padding: 40px;
 @main-bg: #fff;
 
-@tab-panes-background: @gray-lighter;
+@tab-panes-background: darken(@gray-lighter,3%);
 
 @page-status-draft: #c00; 
 @page-status-published: #0c0;
@@ -703,13 +708,26 @@
 @page-status-preview: #080;
 @page-status-archived: #0aa;  
 
+/**
+ * =================================================================
+ *
+ * Wolf backend miscellaneous helper classes
+ *
+ * ================================================================
+ */
+
+// used for tabbed panes
 .settings-tab-pane {
     .clearfix();
     background-color: @tab-panes-background;
     padding: 10px;
-    border-bottom: 1px solid @nav-tabs-border-color;
+    border: 1px solid @nav-tabs-border-color;
+    border-top: none;
     margin-bottom: 10px;
+
 }
+
+// used for making panel-like backgrounds around some settings
 .settings-pane {
     .clearfix();
     background-color: @tab-panes-background;
@@ -719,41 +737,42 @@
     margin-bottom: 10px;
 }
 
+// 2-column forms settings (label + value)
 .setting-2col-label  { .make-sm-column(3); }
 .setting-2col-value  { .make-sm-column(9); }
 .setting-2col-value-narrow  { .make-sm-column(4); }
 
+// 3-column forms settings (label + value + help)
 .setting-3col-label  { .make-sm-column(3); }
 .setting-3col-value  { .make-sm-column(4); }
 .setting-3col-help   { .make-sm-column(5); color: @gray-light;}
 
-
-#body_page_edit #content,
-#body_setting_index #content
-{
-    // make Bootstrap default tabs a bit smaller
-    .nav-tabs > li > a {
-        padding: 5px 8px;
-    }
-    .nav-tabs > li.active > a {
-        background-color: @tab-panes-background;
-    }
+// placeholder class for drag&drop operations
+.nested-list-placeholder,
+.flat-list-placeholder {
+    height: 32px;
+    line-height: 32px;
+    border: 1px solid fade(@brand-primary,50%);
+    background-color: fade(@brand-primary,20%);
 }
 
-// full width "content" in "edit" and "index"
-#body_page_index #content,
-#body_snippet_edit #content,
-#body_layout_edit #content,
-#body_page_edit #content,
-#body_setting_index #content
-{
-    .make-sm-column(12);
+// placeholder class for indented sub-items while inserting item as child
+li.no-children .nested-list-placeholder,
+li.children-hidden .nested-list-placeholder {
+    background-color: fade(@brand-primary,40%);
+    border-left-width: floor(@pages-nested-list-padding/4);
 }
 
-// Wolf layout-specific semantic items
-
+/**
+ * =================================================================
+ *
+ * Wolf layout-specific semantic items
+ *
+ * ================================================================
+ */
 #header {
     .clearfix(); 
+    .container-fixed();
     background-color: @gray-dark;
     a:hover { text-decoration: none; }
     min-height: 80px;
@@ -761,22 +780,35 @@
     position: relative;
     text-shadow: 0 1px 1px rgba(0,0,0,.5);
     .site-title {
-        .make-sm-column(8);        
+        .make-sm-column(8); 
+        .make-sm-column-pull(4);
         a { font-weight: 900; }
     }
     .site-links {
         .make-sm-column(4);
+        .make-sm-column-push(8);
         padding-top: 20px;
         p {
             text-align: right;
             color: @gray-light;
         }
+        .list-inline {text-align: right;
+                      > li {
+                          display: inline-block;
+                          &+li:before {
+                              content: "|\00a0"; // Unicode space added since inline-block means non-collapsing white-space
+                              padding: 0px 5px 0px 0px;
+                              color: @breadcrumb-color;
+                          }
+                      }        
+        }
     }
     // css gradient mixin from ./less/mixins.less
-    #gradient > .vertical(@start-color: lighten(@navbar-inverse-bg,18%); @end-color: lighten(@navbar-inverse-bg,10%));
+    #gradient > .vertical(@start-color: @header-bg-color-top; @end-color: @header-bg-color-bottom);
 }
 
 #flash-messages {
+    .container-fixed();    
     .make-sm-column(10);
     .make-sm-column-push(1);
     z-index: 9999;
@@ -790,9 +822,18 @@
     }
 }
 
+
+#navigation {
+    // correct default Bootstrap margin-bottom
+    .navbar {margin-bottom: 0px;}
+    // pull dropdown icons to right
+    ul.dropdown-menu .glyphicon {float: right;}
+}
+
+
 // Wrapper for content and sidebar
 #main {
-    // .container-fixed();
+    .container-fixed();
     .clearfix();
     padding-top: 20px;
     padding-bottom: 20px;
@@ -812,17 +853,12 @@
         margin-bottom: 5px;
     }
     #reorder-toggle {margin-left: 16px;}
-    .reorder-handle {display: none;}
+    .reorder-handle {display: none; cursor: move;}
 }
 
-
-
-#mainTabs {
-    // correct default Bootstrap margin-bottom
-    .navbar {margin-bottom: 0px;}
-}
 #content {
-    .make-sm-column(9);
+    .make-sm-column(8);
+    .make-md-column(9);
     h1:first-child {margin-top: 0px;}
     h1, .h1 { font-size: floor(@font-size-base * 2.60 * @content-headers-size-ratio); } // ~36px
     h2, .h2 { font-size: floor(@font-size-base * 2.15 * @content-headers-size-ratio); } // ~30px
@@ -833,13 +869,22 @@
 }
 
 #sidebar {
-    .make-sm-column(3);
+    .make-sm-column(4);
+    .make-md-column(3);
     .btn.btn-block {
         text-align: left;
-        > img {
+        > img, .glyphicon {
             margin-left: 8px;
             margin-right: 8px;
+            vertical-align: middle;
         }
+        > .glyphicon {
+            display: inline-block;
+            text-align: center;
+            .square(32px);
+            font-size: 25px;
+        }
+
     }
 
     h1, .h1 { font-size: floor(@font-size-base * 2.60 * @sidebar-headers-size-ratio); }
@@ -859,14 +904,46 @@
 }
 
 #footer {
-    padding-top: 20px;
+    .container-fixed();    
+    padding-top: 10px;
+    padding-bottom: 40px;
     font-size: @font-size-small;
-    color: @gray;
-    .debug-info { .make-sm-column(6); }
-    .version-info { .make-sm-column(6); text-align: right; }
+    color: lighten(@gray,10%);
+    text-shadow: 0 1px 1px rgba(255,255,255,.5);
+    // condense text
+    p,ul {
+        margin-bottom: 2px;
+    }
+    // align center on small devices
+    .debug-info { 
+        .make-sm-column(6); 
+        text-align: center; 
+        @media (min-width: @screen-sm) {
+            text-align: left;
+        }                    
+    }
+    // align center on small devices
+    .version-info { 
+        .make-sm-column(6); 
+        text-align: center; 
+        .list-inline {
+            > li {
+                display: inline-block;
+                &+li:before {
+                    content: "|\00a0"; // Unicode space added since inline-block means non-collapsing white-space
+                    padding: 0px 5px 0px 0px;
+                    color: @breadcrumb-color;
+                }
+            }        
+        }
+        @media (min-width: @screen-sm) {
+            text-align: right;
+        }                    
+    }
 }
 
-/* PAGES LIST */
+/* PAGES LIST "/admin/pages" */
+/* ========================= */
 
 #body_page_index ul {
     .clearfix();
@@ -875,7 +952,8 @@
     .edit-link { line-height: 32px; 
                  img {vertical-align: middle;}        
     }
-    .title { font-size: @font-size-large; vertical-align: middle;    }
+    .title { vertical-align: middle; font-weight: bold;}
+    .title.protected {color: @gray; cursor: default;}
     .behavior-id { color: @gray-light; font-style: italic; font-size: @font-size-small; font-weight: bold; vertical-align: middle; }
     a:hover { text-decoration: none; }
     .page-status-draft     { color: @page-status-draft;    }
@@ -883,22 +961,25 @@
     .page-status-hidden    { color: @page-status-hidden;   }
     .page-status-preview   { color: @page-status-preview;  }
     .page-status-archived  { color: @page-status-archived; }
+
 }
 
-.nested-list-placeholder,
-.flat-list-placeholder
-{
-    height: 32px;
-    line-height: 32px;
-    border: 1px solid fade(@brand-primary,50%);
-    background-color: fade(@brand-primary,20%);
+// item column sizes
+.page-list-item   { .make-row(); 
+                    &:hover { background-color: @table-bg-hover; }
 }
-li.no-children .nested-list-placeholder,
-li.children-hidden .nested-list-placeholder
-{
-    background-color: fade(@brand-primary,40%);
-    border-left-width: floor(@pages-nested-list-padding/4);
-}
+.page-list-name   { .make-xs-column(12); .make-sm-column(8); }
+.page-list-status { .make-xs-column(6); .make-sm-column(2); text-align: center; }
+.page-list-modify { .make-xs-column(6); .make-sm-column(2); text-align: right; }
+
+// SITE-MAP ITEM AND PLACEHOLDER INDENTATION
+.level-0 .indent-wrap {padding-left: 0px;}
+.level-1 .indent-wrap {padding-left: 0*@pages-nested-list-padding;}
+.level-2 .indent-wrap {padding-left: 1*@pages-nested-list-padding;}
+.level-3 .indent-wrap {padding-left: 2*@pages-nested-list-padding;}
+.level-4 .indent-wrap {padding-left: 3*@pages-nested-list-padding;}
+.level-5 .indent-wrap {padding-left: 4*@pages-nested-list-padding;}
+.level-6 .indent-wrap {padding-left: 5*@pages-nested-list-padding;}
 
 li.level-0 .nested-list-placeholder { margin-left: floor(0.5 * @pages-nested-list-padding); }
 li.level-1 .nested-list-placeholder { margin-left: floor(1.5 * @pages-nested-list-padding); }
@@ -908,22 +989,14 @@ li.level-4 .nested-list-placeholder { margin-left: floor(4.5 * @pages-nested-lis
 li.level-5 .nested-list-placeholder { margin-left: floor(5.5 * @pages-nested-list-padding); }
 li.level-6 .nested-list-placeholder { margin-left: floor(6.5 * @pages-nested-list-padding); }
 
-.level-0 .indent-wrap {padding-left: 0px;}
-.level-1 .indent-wrap {padding-left: 0*@pages-nested-list-padding;}
-.level-2 .indent-wrap {padding-left: 1*@pages-nested-list-padding;}
-.level-3 .indent-wrap {padding-left: 2*@pages-nested-list-padding;}
-.level-4 .indent-wrap {padding-left: 3*@pages-nested-list-padding;}
-.level-5 .indent-wrap {padding-left: 4*@pages-nested-list-padding;}
-.level-6 .indent-wrap {padding-left: 5*@pages-nested-list-padding;}
 
-.page-list-item   { .make-row(); }
-.page-list-name   { .make-xs-column(9); }
-.page-list-status { .make-xs-column(1); text-align: center; }
-.page-list-modify { .make-xs-column(2); text-align: right; }
-
-/* PAGE EDIT */
+/* PAGES EDIT "/admin/pages/edit" */
+/* ============================== */
 #page-view-frontend { float: right;.button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-small; @line-height-small; @border-radius-small); padding: 1px 5px;}
-#tab-toolbar { float: right; }
+#tab-toolbar { 
+    img {cursor: pointer;}
+    float: right;
+}
 
 .filter-label     { .make-xs-column(3);  .make-sm-column(1); }
 .filter-select    { .make-xs-column(9);  .make-sm-column(2); }
@@ -934,96 +1007,130 @@ li.level-6 .nested-list-placeholder { margin-left: floor(6.5 * @pages-nested-lis
 .page-plugins-status-select  { .make-xs-column(9); .make-sm-column(2); }
 .page-plugins-observer       { .make-xs-column(10); .make-sm-column(8); }
 
+.settings-panel-dates {.make-md-column(6);}
+.settings-panel-general {.make-md-column(6);}
+.input-day {.make-xs-column(7);}
+.input-hour {.make-xs-column(5);}
+
+
 .page-metainfo-contents,
 .page-part-contents{
     .form-group {margin-bottom: 6px};
     .form-group:last-child {margin-bottom: 0px};
 }
 
-/* SNIPPETS */
+
+
+/* SNIPPETS "/admin/snippet" */
+/* ========================= */
+
 .snippet-list-item   { .make-row(); }
 .snippet-list-name   { .make-xs-column(9); .make-sm-column(10); }
 .snippet-list-modify { .make-xs-column(3); .make-sm-column(2); text-align: right; }
 
-/* LAYOUTS */
+
+
+/* LAYOUTS "/admin/layout" */
+/* ======================= */
+
 .layout-list-item   { .make-row(); }
 .layout-list-name   { .make-xs-column(9); .make-sm-column(10); }
 .layout-list-modify { .make-xs-column(3); .make-sm-column(2); text-align: right; }
-
 .last-modified-info {font-size: @font-size-small; color: @gray-light;}
 
-/* SETTINGS - PLUGINS */
+
+
+/* SETTINGS "/admin/setting" */
+/* ========================= */
+
 .plugin-list-name     { width: 52%;
                         .plugin-list-title {}
+                        .plugin-list-author {color: @gray-light;}
                         .plugin-list-description {font-style: italic;}
                         .notes { color: @brand-danger; font-size: @font-size-small; }
 }
 .plugin-list-settings { width: 8% }
 .plugin-list-website  { width: 8% }
 .plugin-list-version  { width: 8%; text-align: center; max-width: 10%; }
-.plugin-list-latest   { width: 8%; text-align: center; max-width: 100px; overflow: hidden; }
+.plugin-list-latest   { width: 8%; text-align: center; max-width: 100px; overflow: auto; }
 .plugin-list-enabled  { width: 8%; text-align: center; }
 .plugin-list-uninst   { width: 8%; text-align: center; }
 
-.plugin-list-author {color: @gray-light;}
 
-/* USERS */
+
+/* USERS "/admin/user" */
+/* =================== */
+
 .user-list-name   { width: 50% }
 .user-list-email  { width: 20% }
-.user-list-roles  { width: 20% }
+.user-list-roles  { width: 20%; 
+                    text-align: center;
+                    display: none;
+                    @media (min-width: @screen-sm) {
+                        display: table-cell;
+                    }
+}
 .user-list-modify { width: 10%; text-align: right }
+#sidebar .user-gravatar {margin: 20px auto;}
 
 
-/* FILE MANAGER */
-.file-mgr-list-name   { width: 30% }
-.file-mgr-list-size  { width: 20% }
-.file-mgr-list-perms  { width: 20% }
-.file-mgr-list-mtime { width: 20%; text-align: right }
-.file-mgr-list-modify { width: 10%; text-align: right }
+
+/* FILE MANAGER "/admin/plugin/file_manager" */
+/* ========================================= */
 
 
-/* Calendar (Date picker) ------------------------------------------------- */
-.dpDiv { background-color: #ddd; border-color: #ccc; padding: 10px; .box-shadow(1px 1px 24px fade(@gray,50%)); }
-/* the table (within the div) that holds the date picker calendar */ 
-.dpTable { color: #333; }
-.dpTable td { border-color: #eee; }
-/* a table row that holds date numbers (either blank or 1-31) */
-.dpTR {}
-/* the top table row that holds the month, year, and forward/backward buttons */
-.dpTitleTR { color: black; background-color: #e5e5e5; }
-/* the second table row, that holds the names of days of the week (Mo, Tu, We, etc.) */
-.dpDayTR {}
-/* the bottom table row, that has the "This Month" and "Close" buttons */
-.dpTodayButtonTR { background-color: #eee; }
-/* a table cell that holds a date number (1-31) */
-.dpTD { background-color: #fff; width: 30px; height: 24px; text-align: center; vertical-align: middle; }
-.dpTDempty {}
-/* a table cell that holds a highlighted day (usually either today's date or the current date field value) */
-.dpDayHighlightTD {}
-/* the date number table cell that the mouse pointer is currently over (you can use contrasting colors to make it apparent which cell is being hovered over) */
-.dpTDHover { color: #fff; background-color: #e5e5e5; }
-/* the table cell that holds the name of the month and the year */
-.dpTitleTD {}
-/* a table cell that holds one of the forward/backward buttons */
-.dpButtonTD button { color: #fff; background-color: #47a; }
-/* the table cell that holds the "This Month" or "Close" button at the bottom */
-.dpTodayButtonTD { background-color: #ddd; }
-/* a table cell that holds the names of days of the week (Mo, Tu, We, etc.) */
-.dpDayTD { color: #666; background-color: #ddd; border-color: #ccc; }
-/* additional style information for the cell that holds a highlighted day (usually either today's date or the current date field value) */
-.dpDayHighlight { color: #47a; background-color: #fff; }
-/* the forward/backward buttons at the top */
-.dpButton { color: lighten(@brand-primary,50%); background-color: @brand-primary; border: none; }
-/* the "This Month" and "Close" buttons at the bottom */
-.dpTodayButton { color: #666; }
+.file-mgr-list-name   { width: 30%;
+                        .thumb   { .square(32px); vertical-align: middle; }
+}
+.file-mgr-list-size   { width: 20%; max-width: 100px; }
+.file-mgr-list-perms  { width: 20%; 
+                        display: none;
+                        @media (min-width: @screen-sm) {
+                            display: table-cell;
+                        }
+}
+.file-mgr-list-mtime  { width: 20%; 
+                        text-align: right;
+                        display: none;
+                        @media (min-width: @screen-sm) {
 
+                            display: table-cell;
+                        }
+}
+.file-mgr-list-modify { width: 10%; max-width: 100px; text-align: right }
+
+#body_plugin_file_manager {
+    textarea {min-height: 400px;}
+}
+
+
+#body_page_edit #content,
+#body_setting_index #content {
+    // make Bootstrap default tabs a bit smaller
+    .nav-tabs > li > a {
+        padding: 5px 8px;
+    }
+    .nav-tabs > li.active > a {
+        background-color: @tab-panes-background;
+    }
+}
+
+// full width "#content" in some pages (no sidebar)
+#body_page_index #content,
+#body_snippet_edit #content,
+#body_layout_edit #content,
+#body_page_edit #content,
+#body_setting_index #content {
+    .make-sm-column(12);
+}
 
 
 
 #login-site-title {
     text-align: center;
-    h1 {font-weight: 900};
+    h1 {font-weight: 800};
 }
+
 #login-dialog {
     .container();
     .clearfix();
@@ -1036,7 +1143,16 @@ li.level-6 .nested-list-placeholder { margin-left: floor(6.5 * @pages-nested-lis
     margin-right: auto;
     margin-top: 30px;
     padding: 30px;
-    h2:first-child {margin-top: 0px; margin-bottom: 30px; text-align: center; text-transform: uppercase; color:@gray;}
+    h2:first-child {
+        margin-top: 0px; 
+        margin-bottom: 30px; 
+        text-align: center; 
+        text-transform: uppercase; 
+        font-weight: 800;
+        color: @brand-primary;
+        text-shadow: 1px 1px 4px fade(@brand-primary,50%);
+        display: none;
+    }
     .form-label { .make-sm-column(4); }
     .form-value { .make-sm-column(8); }
     .remember-me { .make-sm-column(12); }
@@ -1051,7 +1167,6 @@ li.level-6 .nested-list-placeholder { margin-left: floor(6.5 * @pages-nested-lis
         }
     }
 }
-
 
 #login-footer {
     .container();
