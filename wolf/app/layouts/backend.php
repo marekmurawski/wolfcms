@@ -156,20 +156,30 @@ if ( !isset($title) || trim($title) == '' ) {
     </head>
     <body id="body_<?php echo $ctrl . '_' . Dispatcher::getAction(); ?>">
         <div id="header">
-            <div class="site-title">
-                <h1><a href="<?php echo get_url(); ?>"><?php echo Setting::get('admin_title'); ?></a></h1>
-            </div>
             <div class="site-links">
                 <p>
                     <?php echo __('You are currently logged in as'); ?> <a href="<?php echo get_url('user/edit/' . AuthUser::getId()); ?>"><?php echo AuthUser::getRecord()->name; ?></a>
                 </p>
-                <p>
-                    <a href="<?php echo get_url('login/logout' . '?csrf_token=' . SecureToken::generateToken(BASE_URL . 'login/logout')); ?>"><?php echo __('Log Out'); ?></a>
-                    <a id="site-view-link" href="<?php echo URL_PUBLIC; ?>" target="_blank"><?php echo __('View Site'); ?></a>
-                </p>
+                <ul class="list-inline">
+                    <li>
+                        <a id="site-view-link" href="<?php echo URL_PUBLIC; ?>" target="_blank">
+                            <?php echo __('View Site'); ?>
+                            <span class="glyphicon glyphicon-new-window"></span> 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo get_url('login/logout' . '?csrf_token=' . SecureToken::generateToken(BASE_URL . 'login/logout')); ?>">
+                            <?php echo __('Log Out'); ?>
+                            <span class="glyphicon glyphicon-log-out"></span> 
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="site-title">
+                <h1><a href="<?php echo get_url(); ?>"><?php echo Setting::get('admin_title'); ?></a></h1>
             </div>
         </div> <!-- #header -->
-        <div id="mainTabs">
+        <div id="navigation">
             <nav class="navbar navbar-inverse navbar-static-top">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -203,33 +213,40 @@ if ( !isset($title) || trim($title) == '' ) {
                         <?php foreach ( Plugin::$controllers as $plugin_name => $plugin ): ?>
                             <?php if ( $plugin->show_tab && (AuthUser::hasPermission($plugin->permissions)) ): ?>
                                 <?php Observer::notify('view_backend_list_plugin', $plugin_name, $plugin); ?>
-                                <li id="<?php echo $plugin_name; ?>-plugin" class="<?php echo ( $ctrl == 'plugin' && $action == $plugin_name ) ? 'plugin active' : 'plugin'; ?>">
-                                    <a href="<?php echo get_url('plugin/' . $plugin_name); ?>">
-                                        <?php echo $plugin->label; ?>
-                                    </a>
-                                </li>
+                                <?php if ( !empty($plugin->label) ): ?>
+                                    <li id="<?php echo $plugin_name; ?>-plugin" class="<?php echo ( $ctrl == 'plugin' && $action == $plugin_name ) ? 'plugin active' : 'plugin'; ?>">
+                                        <a href="<?php echo get_url('plugin/' . $plugin_name); ?>">
+                                            <?php echo $plugin->label; ?>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </section>
                     <section class="nav navbar-nav navbar-right">
-                        <?php if ( AuthUser::hasPermission('admin_edit') ): ?>
-                            <li class="pull-right<?php echo ( $ctrl == 'setting' ) ? ' active' : ''; ?>">
-                                <a href="<?php echo get_url('setting'); ?>">
-                                    <?php echo __('Administration'); ?>
-                                </a>
-                            </li>
-                        <?php endif; ?>
-                        <?php if ( AuthUser::hasPermission('user_view') ): ?>
-                            <li class="pull-right<?php echo ( $ctrl == 'user' ) ? ' active' : ''; ?>">
-                                <a href="<?php echo get_url('user'); ?>">
-                                    <?php echo __('Users'); ?>
-                                </a>
-                            </li>
-                        <?php endif; ?>
+                        <li class="dropdown<?php echo ( $ctrl == 'setting' || $ctrl == 'user' ) ? ' active' : ''; ?>">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-wrench"></span> <?php echo __('Settings'); ?> <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <?php if ( AuthUser::hasPermission('admin_edit') ): ?>
+                                    <li class="<?php echo ( $ctrl == 'setting' ) ? ' active' : ''; ?>">
+                                        <a href="<?php echo get_url('setting'); ?>">
+                                            <span class="glyphicon glyphicon-cog"></span> <?php echo __('Administration'); ?>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                                <?php if ( AuthUser::hasPermission('user_view') ): ?>
+                                    <li class="<?php echo ( $ctrl == 'user' ) ? ' active' : ''; ?>">
+                                        <a href="<?php echo get_url('user'); ?>">
+                                            <span class="glyphicon glyphicon-user"></span> <?php echo __('Users'); ?>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
+                        </li>                        
                     </section>
                 </div>
             </nav> <!-- .navbar -->
-        </div> <!--  #mainTabs -->
+        </div> <!--  #navigation -->
         <div id="flash-messages">
             <?php if ( Flash::get('error') !== null ): ?>
                 <div id="error" class="alert alert-danger alert-dismissable flash-message">
@@ -249,7 +266,7 @@ if ( !isset($title) || trim($title) == '' ) {
                     <?php echo Flash::get('info'); ?>
                 </div>
             <?php endif; ?>
-        </div>
+        </div><!--  #flash-messages -->
         <div id="main">
             <div id="content">
                 <!-- content -->
@@ -258,12 +275,13 @@ if ( !isset($title) || trim($title) == '' ) {
             </div>
             <?php if ( isset($sidebar) ): ?>
                 <aside id="sidebar">
+                    <div class="visible-xs"><hr/><h2><?php echo __('Sidebar'); ?></h2></div>
                     <!-- sidebar -->
                     <?php echo $sidebar; ?>
                     <!-- end sidebar --> 
                 </aside>
             <?php endif; ?> 
-        </div>
+        </div><!--  #main -->
 
         <div id="footer">
             <div class="debug-info">
@@ -283,7 +301,7 @@ if ( !isset($title) || trim($title) == '' ) {
                     <li><a href="http://wiki.wolfcms.org/" target="_blank"><?php echo __('Documentation'); ?></a></li>
                 </ul>
             </div>
-        </div>
+        </div><!--  #footer -->
         <script src="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/js/bootstrap.min.js"></script>
     </body>
 </html>
