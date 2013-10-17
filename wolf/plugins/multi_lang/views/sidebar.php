@@ -32,11 +32,11 @@ if ( !defined('IN_CMS') ) {
 ?>
 <div class="btn-group btn-group-vertical btn-block">
     <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/multi_lang/settings'); ?>">
-        <img src="<?php echo ICONS_PATH; ?>settings-32-ns.png" align="middle" alt="settings icon" />
+        <img src="<?php echo ICONS_PATH; ?>settings-32-ns.png" alt="settings icon" />
         <?php echo __('Settings'); ?>
     </a>
     <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/multi_lang/documentation/'); ?>">
-        <img src="<?php echo ICONS_PATH; ?>documentation-32-ns.png" align="middle" alt="documentation icon" />
+        <img src="<?php echo ICONS_PATH; ?>documentation-32-ns.png" alt="documentation icon" />
         <?php echo __('Documentation'); ?>
     </a>
 </div>

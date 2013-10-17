@@ -27,19 +27,19 @@ if ( !defined('IN_CMS') ) {
 ?>
 <div class="btn-group btn-group-vertical btn-block">
     <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/comment/'); ?>">
-        <img src="<?php echo ICONS_PATH; ?>comment-32-ns.png" align="middle" alt="page icon" />
+        <img src="<?php echo ICONS_PATH; ?>comment-32-ns.png" alt="page icon" />
         <?php echo __('Comments'); ?>
     </a>
     <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/comment/moderation/'); ?>">
-        <img src="<?php echo ICONS_PATH; ?>action-approve-32-ns.png" align="middle" alt="page icon" />
+        <img src="<?php echo ICONS_PATH; ?>action-approve-32-ns.png" alt="page icon" />
         <?php echo __('Moderation'); ?>
     </a>
     <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/comment/settings'); ?>">
-        <img src="<?php echo ICONS_PATH; ?>settings-32-ns.png" align="middle" alt="page icon" />
+        <img src="<?php echo ICONS_PATH; ?>settings-32-ns.png" alt="page icon" />
         <?php echo __('Settings'); ?>
     </a>
     <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/comment/documentation/'); ?>">
-        <img src="<?php echo ICONS_PATH; ?>documentation-32-ns.png" align="middle" alt="page icon" />
+        <img src="<?php echo ICONS_PATH; ?>documentation-32-ns.png" alt="page icon" />
         <?php echo __('Documentation'); ?>
     </a>
 </div>

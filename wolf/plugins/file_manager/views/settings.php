@@ -31,10 +31,9 @@ if ( !defined('IN_CMS') ) {
             <?php echo __('General settings'); ?>
         </legend>
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label for="setting_show_hidden">
-                    <?php echo __('Show hidden files'); ?>: </label>
-            </div>
+            <label class="control-label setting-3col-label" for="setting_show_hidden">
+                <?php echo __('Show hidden files'); ?> 
+            </label>
             <div class="setting-3col-value">
                 <select class="form-control" name="settings[show_hidden]" id="setting_show_hidden">
                     <option value="1" <?php if ( $settings['show_hidden'] == "1" ) echo 'selected ="";' ?>>
@@ -45,16 +44,14 @@ if ( !defined('IN_CMS') ) {
                     </option>
                 </select>
             </div>
-            <div class="setting-3col-help">
+            <p class="form-control-static setting-3col-help">
                 <?php echo __('Do you want to display hidden files on unix systems? <br/> If you select no, all files starting with "." will not be displayed.'); ?>
-            </div>
+            </p>
         </div>
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label for="setting_show_backups">
-                    <?php echo __('Show backup files'); ?>: 
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="setting_show_backups">
+                <?php echo __('Show backup files'); ?> 
+            </label>
             <div class="setting-3col-value">
                 <select class="form-control" name="settings[show_backups]" id="setting_show_backups">
                     <option value="1" <?php if ( $settings['show_backups'] == "1" ) echo 'selected ="";' ?>>
@@ -65,9 +62,9 @@ if ( !defined('IN_CMS') ) {
                     </option>
                 </select>
             </div>
-            <div class="setting-3col-help">
+            <p class="form-control-static setting-3col-help">
                 <?php echo __('Do you want to show backup files? If you select no, all files ending with "~" will not be displayed.'); ?>
-            </div>
+            </p>
         </div>
     </fieldset>
     <fieldset>
@@ -75,43 +72,37 @@ if ( !defined('IN_CMS') ) {
             <?php echo __('File Creation Defaults'); ?>
         </legend>
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label for="umask">
-                    <?php echo __('Umask:'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="umask">
+                <?php echo __('Umask'); ?>
+            </label>
             <div class="setting-3col-value">
                 <input class="form-control" name="settings[umask]" id="umask" type="text" value="<?php echo $settings['umask']; ?>"/>
             </div>
-            <div class="setting-3col-help">
+            <p class="form-control-static setting-3col-help">
                 <?php echo __('Default PHP umask; see <a href="http://php.net/manual/en/function.umask.php">umask()</a>'); ?>
-            </div>
+            </p>
         </div>
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label for="dirmode">
-                    <?php echo __('Directory Creation Mode:'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="dirmode">
+                <?php echo __('Directory Creation Mode'); ?>
+            </label>
             <div class="setting-3col-value">
                 <input class="form-control" name="settings[dirmode]" id="dirmode" type="text" value="<?php echo $settings['dirmode']; ?>"/>
             </div>
-            <div class="setting-3col-help">
+            <p class="form-control-static setting-3col-help">
                 <?php echo __('Default PHP directory creation mode; see <a href="http://php.net/manual/en/function.chmod.php">chmod()</a>'); ?>
-            </div>
+            </p>
         </div>
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label for="filemode">
-                    <?php echo __('File Creation Mode:'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="filemode">
+                <?php echo __('File Creation Mode'); ?>
+            </label>
             <div class="setting-3col-value">
                 <input class="form-control" name="settings[filemode]" id="filemode" type="text" value="<?php echo $settings['filemode']; ?>"/>
             </div>
-            <div class="setting-3col-help">
+            <p class="form-control-static setting-3col-help">
                 <?php echo __('Default PHP file creation mode; see <a href="http://php.net/manual/en/function.chmod.php">chmod()</a>'); ?>
-            </div>
+            </p>
         </div>
 
     </fieldset>

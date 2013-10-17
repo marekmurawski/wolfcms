@@ -24,16 +24,16 @@ if ( !defined('IN_CMS') ) {
 
 if ( Dispatcher::getAction() != 'view' ): ?>
     <div class="btn-group btn-group-vertical btn-block">
-        <a class="popupLink btn btn-default btn-block" data-toggle="modal" href="#create-file-popup">
-            <img src="<?php echo ICONS_PATH; ?>action-add-32-ns.png" align="middle" alt="page icon" />
+        <a class="btn btn-default btn-block" data-toggle="modal" href="#create-file-popup">
+            <img src="<?php echo ICONS_PATH; ?>action-add-32-ns.png" alt="page icon" />
             <?php echo __('Create new file'); ?>
         </a>
-        <a class="popupLink btn btn-default btn-block" data-toggle="modal" href="#create-directory-popup">
-            <img src="<?php echo ICONS_PATH; ?>file-folder-32-ns.png" align="middle" alt="dir icon" /> 
+        <a class="btn btn-default btn-block" data-toggle="modal" href="#create-directory-popup">
+            <img src="<?php echo ICONS_PATH; ?>file-folder-32-ns.png" alt="dir icon" /> 
             <?php echo __('Create new directory'); ?>
         </a>
-        <a class="popupLink btn btn-default btn-block" data-toggle="modal" href="#upload-file-popup">
-            <img src="<?php echo ICONS_PATH; ?>action-upload-32-ns.png" align="middle" alt="upload icon" />
+        <a class="btn btn-default btn-block" data-toggle="modal" href="#upload-file-popup">
+            <img src="<?php echo ICONS_PATH; ?>action-upload-32-ns.png" alt="upload icon" />
             <?php echo __('Upload file'); ?>
         </a>
     </div>

@@ -27,22 +27,18 @@ if ( !defined('IN_CMS') ) {
 <form action="<?php echo get_url('plugin/archive/save'); ?>" method="post" class="form-horizontal">
 
     <div class="form-group">
-        <div class="setting-3col-label">
-            <label class="control-label" for="setting_use_dates">
-                <?php echo __('Generate dates'); ?>
-            </label>            
-        </div>
+        <label class="control-label setting-3col-label" for="setting_use_dates">
+            <?php echo __('Generate dates'); ?>
+        </label>            
         <div class="setting-3col-value">
             <select class="form-control" name="settings[use_dates]" id="setting_use_dates">
                 <option value="1" <?php if ( $settings['use_dates'] == "1" ) echo 'selected ="";' ?>><?php echo __('Yes'); ?></option>
                 <option value="0" <?php if ( $settings['use_dates'] == "0" ) echo 'selected ="";' ?>><?php echo __('No'); ?></option>
             </select>
         </div>
-        <div class="setting-3col-help">
-            <p class="form-control-static">
-                <?php echo __('Do you want to generate dates for the URLs?'); ?>
-            </p>
-        </div>
+        <p class="form-control-static setting-3col-help">
+            <?php echo __('Do you want to generate dates for the URLs?'); ?>
+        </p>
     </div>
 
     <div class="form-group form-inline">
@@ -53,15 +49,6 @@ if ( !defined('IN_CMS') ) {
 
 <script type="text/javascript">
 // <![CDATA[
-    function setConfirmUnload(on, msg) {
-        window.onbeforeunload = (on) ? unloadMessage : null;
-        return true;
-    }
-
-    function unloadMessage() {
-        return '<?php echo __('You have modified this page.  If you navigate away from this page without first saving your data, the changes will be lost.'); ?>';
-    }
-
     $(document).ready(function() {
         // Prevent accidentally navigating away
         $(':input').bind('change', function() {

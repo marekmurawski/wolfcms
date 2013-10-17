@@ -31,73 +31,57 @@ if ( !defined('IN_CMS') ) {
     <fieldset>
         <legend><?php echo __('Comments settings'); ?></legend>
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label class="control-label" for="autoapprove">
-                    <?php echo __('Auto approve'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="autoapprove">
+                <?php echo __('Auto approve'); ?>
+            </label>
             <div class="setting-3col-value">
                 <select class="form-control" name="autoapprove">
                     <option value="1" <?php if ( $approve == "1" ) echo 'selected ="";' ?>><?php echo __('Yes'); ?></option>
                     <option value="0" <?php if ( $approve == "0" ) echo 'selected ="";' ?>><?php echo __('No'); ?></option>
                 </select>	
             </div>
-            <div class="setting-3col-help">
-                <p class="form-control-static">
-                    <?php echo __('Choose yes if you want your comments to be auto approved. Otherwise, they will be placed in the moderation queue.'); ?>
-                </p>
-            </div>
+            <p class="form-control-static setting-3col-help">
+                <?php echo __('Choose yes if you want your comments to be auto approved. Otherwise, they will be placed in the moderation queue.'); ?>
+            </p>
         </div>
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label class="control-label" for="captcha">
-                    <?php echo __('Use captcha'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="captcha">
+                <?php echo __('Use captcha'); ?>
+            </label>
             <div class="setting-3col-value">
                 <select class="form-control" name="captcha">
                     <option value="1" <?php if ( $captcha == "1" ) echo 'selected ="";' ?>><?php echo __('Yes'); ?></option>
                     <option value="2" <?php if ( $captcha == "2" ) echo 'selected ="";' ?>><?php echo __('No'); ?></option>
                 </select>	
             </div>
-            <div class="setting-3col-help">
-                <p class="form-control-static">
-                    <?php echo __('Choose yes if you want to use a captcha to protect yourself against spammers.'); ?>
-                </p>
-            </div>
+            <p class="form-control-static setting-3col-help">
+                <?php echo __('Choose yes if you want to use a captcha to protect yourself against spammers.'); ?>
+            </p>
         </div>	
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label class="control-label" for="rowspage">
-                    <?php echo __('Comments per page'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="rowspage">
+                <?php echo __('Comments per page'); ?>
+            </label>
             <div class="setting-3col-value">
                 <input class="form-control" type="number" min="1" step="1" value="<?php echo $rowspage; ?>" name="rowspage" />
             </div>
-            <div class="setting-3col-help">
-                <p class="form-control-static">
-                    <?php echo __('Sets the number of comments to be displayed per page in the backend.'); ?>
-                </p>
-            </div>
+            <p class="form-control-static setting-3col-help">
+                <?php echo __('Sets the number of comments to be displayed per page in the backend.'); ?>
+            </p>
         </div>
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label class="control-label" for="numlabel">
-                    <?php echo __('Enhance comments tab'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="numlabel">
+                <?php echo __('Enhance comments tab'); ?>
+            </label>
             <div class="setting-3col-value">
                 <select class="form-control" name="numlabel">
                     <option value="1" <?php if ( $numlabel == "1" ) echo 'selected ="";' ?>><?php echo __('Yes'); ?></option>
                     <option value="0" <?php if ( $numlabel == "0" ) echo 'selected ="";' ?>><?php echo __('No'); ?></option>
                 </select>
             </div>
-            <div class="setting-3col-help">
-                <p class="form-control-static">
-                    <?php echo __("Choose yes if you want to display the number of to-be-moderated &amp; total number of comment in the tab of the Comment plugin."); ?>
-                </p>
-            </div>
+            <p class="form-control-static setting-3col-help">
+                <?php echo __("Choose yes if you want to display the number of to-be-moderated &amp; total number of comment in the tab of the Comment plugin."); ?>
+            </p>
         </div>
 
     </fieldset>
@@ -109,15 +93,6 @@ if ( !defined('IN_CMS') ) {
 
 <script type="text/javascript">
 // <![CDATA[
-    function setConfirmUnload(on, msg) {
-        window.onbeforeunload = (on) ? unloadMessage : null;
-        return true;
-    }
-
-    function unloadMessage() {
-        return '<?php echo __('You have modified this page.  If you navigate away from this page without first saving your data, the changes will be lost.'); ?>';
-    }
-
     $(document).ready(function() {
         // Prevent accidentally navigating away
         $(':input').bind('change', function() {

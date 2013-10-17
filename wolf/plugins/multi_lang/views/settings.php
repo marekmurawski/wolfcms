@@ -34,18 +34,15 @@ if ( !defined('IN_CMS') ) {
 <h1>
     <?php echo __('Multiple Language Settings'); ?>
 </h1>
-<form action="<?php echo get_url('plugin/multi_lang/save'); ?>" method="post" class="form-horizontal">
-    <fieldset>
+<form action="<?php echo get_url('plugin/multi_lang/save'); ?>" method="post">
+    <fieldset class="form-horizontal">
         <legend>
             <?php echo __('General'); ?>
         </legend>
-
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label class="control-label" for="settings[style]">
-                    <?php echo __('Style'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="settings[style]">
+                <?php echo __('Style'); ?>
+            </label>
             <div class="setting-3col-value">
                 <select class="form-control" name="settings[style]">
                     <option value="tab" <?php if ( $settings['style'] == "tab" ) echo 'selected ="";' ?>>
@@ -56,18 +53,14 @@ if ( !defined('IN_CMS') ) {
                     </option>
                 </select>
             </div>
-            <div class="setting-3col-help">
-                <p class="form-control-static">
-                    <?php echo __('Do you want to create a translated version of a page as a tab of the same page or as a copy of the page in a language specific subtree? (i.e. Home->nl->About as a Dutch translation of Home->About)'); ?>
-                </p>
-            </div>
+            <p class="form-control-static setting-3col-help">
+                <?php echo __('Do you want to create a translated version of a page as a tab of the same page or as a copy of the page in a language specific subtree? (i.e. Home->nl->About as a Dutch translation of Home->About)'); ?>
+            </p>
         </div>
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label class="control-label" for="settings[langsource]">
-                    <?php echo __('Language source'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="settings[langsource]">
+                <?php echo __('Language source'); ?>
+            </label>
             <div class="setting-3col-value">
                 <select class="form-control" name="settings[langsource]">
                     <option value="header" <?php if ( $settings['langsource'] == "header" ) echo 'selected ="";' ?>>
@@ -81,13 +74,10 @@ if ( !defined('IN_CMS') ) {
                     </option>
                 </select>
             </div>
-            <div class="setting-3col-help">
-                <p class="form-control-static">
-                    <?php echo __('Get the language preference from the HTTP header (default), the uri (/nl/about.html for the Dutch version of about.html) or from the stored preference of a logged in user.'); ?>
-                </p>
-            </div>
+            <p class="form-control-static setting-3col-help">
+                <?php echo __('Get the language preference from the HTTP header (default), the uri (/nl/about.html for the Dutch version of about.html) or from the stored preference of a logged in user.'); ?>
+            </p>
         </div>
-
     </fieldset>
 
     <div class="form-group form-inline">
@@ -99,7 +89,7 @@ if ( !defined('IN_CMS') ) {
     // <![CDATA[
     $(document).ready(function() {
         // Prevent accidentally navigating away
-        $(':input').bind('change', function() {
+        $(':input').on('change', function() {
             setConfirmUnload(true);
         });
         $('form').submit(function() {

@@ -30,68 +30,54 @@ if ( !defined('IN_CMS') ) {
     <fieldset>
         <legend><?php echo __('Backup settings'); ?></legend>
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label class="control-label" for="setting_pwd">
-                    <?php echo __('Include passwords'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="setting_pwd">
+                <?php echo __('Include passwords'); ?>
+            </label>
             <div class="setting-3col-value">
                 <select class="form-control" name="settings[pwd]" id="setting_pwd">
                     <option value="1" <?php if ( $settings['pwd'] == "1" ) echo 'selected ="";' ?>><?php echo __('Yes'); ?></option>
                     <option value="0" <?php if ( $settings['pwd'] == "0" ) echo 'selected ="";' ?>><?php echo __('No'); ?></option>
                 </select>
             </div>
-            <div class="setting-3col-help">
-                <p class="form-control-static">
-                    <?php echo __('Do you want to include passwords in the backup file? <br/> If you select no, all passwords will be reset upon restoring the backup.'); ?>
-                </p>                
-            </div>
+            <p class="form-control-static setting-3col-help">
+                <?php echo __('Do you want to include passwords in the backup file? <br/> If you select no, all passwords will be reset upon restoring the backup.'); ?>
+            </p>                
         </div>
 
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label class="control-label" for="setting_backupfiles">
-                    <?php echo __('Include files'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="setting_backupfiles">
+                <?php echo __('Include files'); ?>
+            </label>
             <div class="setting-3col-value">
                 <select class="form-control" name="settings[backupfiles]" id="setting_backupfiles">
                     <option value="1" <?php if ( $settings['backupfiles'] == "1" ) echo 'selected ="";' ?>><?php echo __('Yes'); ?></option>
                     <option value="0" <?php if ( $settings['backupfiles'] == "0" ) echo 'selected ="";' ?>><?php echo __('No'); ?></option>
                 </select>
             </div>
-            <div class="setting-3col-help">
-                <p class="form-control-static">
-                    <?php echo __('Do you want to include uploaded files in the backup file?'); ?>
-                </p>                
-            </div>
+            <p class="form-control-static setting-3col-help">
+                <?php echo __('Do you want to include uploaded files in the backup file?'); ?>
+            </p>                
         </div>
 
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label class="control-label" for="setting_zip">
-                    <?php echo __('Package as zip file'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="setting_zip">
+                <?php echo __('Package as zip file'); ?>
+            </label>
             <div class="setting-3col-value">
                 <select class="form-control" name="settings[zip]" id="setting_zip">
                     <option value="1" <?php if ( $settings['zip'] == "1" ) echo 'selected ="";' ?>><?php echo __('Yes'); ?></option>
                     <option value="0" <?php if ( $settings['zip'] == "0" ) echo 'selected ="";' ?>><?php echo __('No'); ?></option>
                 </select>
             </div>
-            <div class="setting-3col-help">
-                <p class="form-control-static">
-                    <?php echo __('Do you want to download the backup as a zip file?'); ?>
-                </p>                
-            </div>
+            <p class="form-control-static setting-3col-help">
+                <?php echo __('Do you want to download the backup as a zip file?'); ?>
+            </p>                
         </div>
 
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label class="control-label" for="setting_stamp">
-                    <?php echo __('Filename timestamp style'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="setting_stamp">
+                <?php echo __('Filename timestamp style'); ?>
+            </label>
             <div class="setting-3col-value">
                 <select class="form-control" name="settings[stamp]" id="setting_stamp">
                     <option value="Ymd" <?php if ( $settings['stamp'] == "Ymd" ) echo 'selected ="";' ?>><?php echo date('Ymd'); ?></option>
@@ -99,19 +85,15 @@ if ( !defined('IN_CMS') ) {
                     <option value="YmdHis" <?php if ( $settings['stamp'] == "YmdHis" ) echo 'selected ="";' ?>><?php echo date('YmdHis'); ?></option>
                 </select>
             </div>
-            <div class="setting-3col-help">
-                <p class="form-control-static">
-                    <?php echo __('What style of timestamp should be encorporated into the filename.'); ?>
-                </p>                
-            </div>
+            <p class="form-control-static setting-3col-help">
+                <?php echo __('What style of timestamp should be encorporated into the filename.'); ?>
+            </p>                
         </div>
 
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label class="control-label" for="settings_extension">
-                    <?php echo __('Filename extension'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="settings_extension">
+                <?php echo __('Filename extension'); ?>
+            </label>
             <div class="setting-3col-value">
                 <select class="form-control" name="settings[extension]" id="setting_extension">
                     <option value="xml" <?php if ( $settings['extension'] == "xml" ) echo 'selected ="";' ?>>.xml</option>
@@ -122,27 +104,21 @@ if ( !defined('IN_CMS') ) {
                     <option value="db" <?php if ( $settings['extension'] == "db" ) echo 'selected ="";' ?>>.db</option>
                 </select>
             </div>
-            <div class="setting-3col-help">
-                <p class="form-control-static">
-                    <?php echo __('What extension should be used for the filename.'); ?>
-                </p>                
-            </div>
+            <p class="form-control-static setting-3col-help">
+                <?php echo __('What extension should be used for the filename.'); ?>
+            </p>                
         </div>
 
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label class="control-label" for="example_filename">
-                    <?php echo __('Current style'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="example_filename">
+                <?php echo __('Current style'); ?>
+            </label>
             <div class="setting-3col-value">
                 <input class="form-control" id="example_filename" maxlength="255" name="example_filename" type="text" readonly="readonly" value="wolfcms-backup-<?php echo date($settings['stamp']); ?>.xml" />
             </div>
-            <div class="setting-3col-help">
-                <p class="form-control-static">
-                    <?php echo __('This is an example of the filename that will be used for the generated XML file.'); ?>
-                </p>                
-            </div>
+            <p class="form-control-static setting-3col-help">
+                <?php echo __('This is an example of the filename that will be used for the generated XML file.'); ?>
+            </p>                
         </div>
     </fieldset>
 
@@ -150,57 +126,45 @@ if ( !defined('IN_CMS') ) {
         <legend><?php echo __('Restore settings'); ?></legend>
 
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label class="control-label" for="setting_default_pwd">
-                    <?php echo __('Reset passwords to'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="setting_default_pwd">
+                <?php echo __('Reset passwords to'); ?>
+            </label>
             <div class="setting-3col-value">
                 <input class="form-control" id="setting_default_pwd" maxlength="255" name="settings[default_pwd]" type="text" value="<?php echo $settings['default_pwd']; ?>" />
             </div>
-            <div class="setting-3col-help">
-                <p class="form-control-static">
-                    <?php echo __('If no password is provided in the backup file, reset all password fields to this default.'); ?>
-                </p>                
-            </div>
+            <p class="form-control-static setting-3col-help">
+                <?php echo __('If no password is provided in the backup file, reset all password fields to this default.'); ?>
+            </p>                
         </div>
 
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label class="control-label" for="setting_erasefiles">
-                    <?php echo __('Erase files'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="setting_erasefiles">
+                <?php echo __('Erase files'); ?>
+            </label>
             <div class="setting-3col-value">
                 <select class="form-control" name="settings[erasefiles]" id="setting_erasefiles">
                     <option value="1" <?php if ( $settings['erasefiles'] == "1" ) echo 'selected ="";' ?>><?php echo __('Yes'); ?></option>
                     <option value="0" <?php if ( $settings['erasefiles'] == "0" ) echo 'selected ="";' ?>><?php echo __('No'); ?></option>
                 </select>
             </div>
-            <div class="setting-3col-help">
-                <p class="form-control-static">
-                    <?php echo __('Erase uploaded files before restoring backup?'); ?>
-                </p>                
-            </div>
+            <p class="form-control-static setting-3col-help">
+                <?php echo __('Erase uploaded files before restoring backup?'); ?>
+            </p>                
         </div>
 
         <div class="form-group">
-            <div class="setting-3col-label">
-                <label class="control-label" for="setting_restorefiles">
-                    <?php echo __('Restore files'); ?>
-                </label>
-            </div>
+            <label class="control-label setting-3col-label" for="setting_restorefiles">
+                <?php echo __('Restore files'); ?>
+            </label>
             <div class="setting-3col-value">
                 <select class="form-control" name="settings[restorefiles]" id="setting_restorefiles">
                     <option value="1" <?php if ( $settings['restorefiles'] == "1" ) echo 'selected ="";' ?>><?php echo __('Yes'); ?></option>
                     <option value="0" <?php if ( $settings['restorefiles'] == "0" ) echo 'selected ="";' ?>><?php echo __('No'); ?></option>
                 </select>
             </div>
-            <div class="setting-3col-help">
-                <p class="form-control-static">
-                    <?php echo __('Restore uploaded files from backup?'); ?>
-                </p>                
-            </div>
+            <p class="form-control-static setting-3col-help">
+                <?php echo __('Restore uploaded files from backup?'); ?>
+            </p>                
         </div>
     </fieldset>
     <div class="form-group form-inline">

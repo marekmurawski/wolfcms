@@ -47,6 +47,10 @@ class SkeletonController extends PluginController {
         $this->documentation();
     }
 
+    public function test_page() {
+        $this->display('skeleton/views/test_page');
+    }
+
     public function documentation() {
         $this->display('skeleton/views/documentation');
     }

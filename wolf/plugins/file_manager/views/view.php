@@ -27,27 +27,28 @@ if ( !defined('IN_CMS') ) {
 $out          = '';
 $progres_path = '';
 $paths        = explode('/', $filename);
-$nb_path      = count($paths);
+$nb_path      = count($paths); // -1 to didn't display current dir as a link
 foreach ( $paths as $i => $path ) {
     if ( $i + 1 == $nb_path ) {
-        $out .= $path;
-    } else {
+        $out .= '<li class="active">' . $path . '</li>' . PHP_EOL;
+    } else if ( $path != '' ) {
         $progres_path .= $path . '/';
-        $out .= '<a href="' . get_url('plugin/file_manager/browse/' . rtrim($progres_path, '/')) . '">' . $path . '</a>/';
+        $out .= '<li><a href="' . get_url('plugin/file_manager/browse/' . rtrim($progres_path, '/')) . '">' . $path . '</a></li>' . PHP_EOL;
     }
 }
 ?>
-<h1><a href="<?php echo get_url('plugin/file_manager'); ?>">public</a>/<?php echo $out; ?></h1>
-<?php if ( $is_image ) { ?>
+<ol class="breadcrumb file-mgr-breadcrumb">
+    <li><a href="<?php echo get_url('plugin/file_manager'); ?>">public</a></li>
+    <?php echo $out; ?>
+</ol>
+<?php if ( preg_match('/\.(jpg|jpeg|pjpeg|png|gif|ico)$/i', $filename) ): ?>
     <img src="<?php echo BASE_FILES_DIR . '/' . $filename; ?>" />
-<?php } else { ?>
+<?php else: ?>
     <form method="post" action="<?php echo get_url('plugin/file_manager/save'); ?>">
-        <div class="form-area">
-            <p class="content">
-                <input type="hidden" name="file[name]" value="<?php echo $filename; ?>" />
-                <input id="csrf_token" name="csrf_token" type="hidden" value="<?php echo $csrf_token; ?>" />
-                <textarea class="textarea" id="file_content" name="file[content]" style="width: 100%; height: 400px;" rows="20" cols="40"><?php echo htmlentities($content, ENT_COMPAT, 'UTF-8'); ?></textarea><br />
-            </p>
+        <input type="hidden" name="file[name]" value="<?php echo $filename; ?>" />
+        <input id="csrf_token" name="csrf_token" type="hidden" value="<?php echo $csrf_token; ?>" />
+        <div class="form-group">
+            <textarea class="form-control" id="file_content" name="file[content]"><?php echo htmlentities($content, ENT_COMPAT, 'UTF-8'); ?></textarea>
         </div>
         <div class="form-group form-inline">
             <button class="btn btn-primary" name="commit" type="submit" accesskey="s"><?php echo __('Save'); ?></button>
@@ -55,4 +56,4 @@ foreach ( $paths as $i => $path ) {
             <?php echo __('or'); ?> <a href="<?php echo get_url('plugin/file_manager/browse/' . $progres_path); ?>"><?php echo __('Cancel'); ?></a>
         </div>
     </form>
-<?php } ?>
+<?php endif; ?>

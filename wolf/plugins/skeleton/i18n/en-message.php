@@ -11,6 +11,8 @@ return array(
     'Display settings page here!' => 'Display settings page here!',
     'Display your documentation here!' => 'Display your documentation here!',
     'Documentation' => 'Documentation',
+    'Glyphicon Button' => 'Glyphicon Button',
+    'Image Button' => 'Image Button',
     'Provides a basic plugin implementation. (try enabling it!)' => 'Provides a basic plugin implementation. (try enabling it!)',
     'Put something here, or leave out the sidebar entirely.' => 'Put something here, or leave out the sidebar entirely.',
     'Settings' => 'Settings',

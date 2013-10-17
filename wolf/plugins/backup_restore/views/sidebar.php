@@ -25,21 +25,21 @@ if ( !defined('IN_CMS') ) {
 ?>
 <div class="btn-group btn-group-vertical btn-block">
     <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/backup_restore/documentation'); ?>">
-        <img src="<?php echo ICONS_PATH; ?>documentation-32-ns.png" align="middle" alt="documentation icon" />
+        <img src="<?php echo ICONS_PATH; ?>documentation-32-ns.png" alt="documentation icon" />
         <?php echo __('Documentation'); ?>
     </a>
 
     <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/backup_restore/backup'); ?>">
-        <img src="<?php echo ICONS_PATH; ?>action-download-32-ns.png" align="middle" alt="xml icon" /> 
+        <img src="<?php echo ICONS_PATH; ?>action-download-32-ns.png" alt="xml icon" /> 
         <?php echo __('Create a backup'); ?>
     </a>
 
     <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/backup_restore/restore'); ?>">
-        <img src="<?php echo ICONS_PATH; ?>action-upload-32-ns.png" align="middle" alt="xml icon" /> 
+        <img src="<?php echo ICONS_PATH; ?>action-upload-32-ns.png" alt="xml icon" /> 
         <?php echo __('Restore a backup'); ?>
     </a>
     <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/backup_restore/settings'); ?>">
-        <img src="<?php echo ICONS_PATH; ?>settings-32-ns.png" align="middle" alt="settings icon" />
+        <img src="<?php echo ICONS_PATH; ?>settings-32-ns.png" alt="settings icon" />
         <?php echo __('Settings'); ?>
     </a>
 </div>

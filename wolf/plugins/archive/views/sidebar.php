@@ -24,6 +24,6 @@ if ( !defined('IN_CMS') ) {
 ?>
 <div class="btn-group btn-group-vertical btn-block">
     <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/archive/settings'); ?>">
-        <img src="<?php echo ICONS_PATH; ?>settings-32-ns.png" align="middle" alt="page icon" /> <?php echo __('Settings'); ?>
+        <img src="<?php echo ICONS_PATH; ?>settings-32-ns.png" alt="page icon" /> <?php echo __('Settings'); ?>
     </a>
 </div>
