@@ -28,12 +28,13 @@
         <?php
         /* ========= LESS RUNTIME ============= 
          * Generates stylesheets ON - THE - FLY
-         * if DEBUG = true
+         * if LESS_DEBUG = true /in config.php/
          * !!! TEMPORARY ONLY !!!
+         * 
          */
-        if ( DEBUG ):
+        if ( defined('LESS_DEBUG') && LESS_DEBUG ):
             ?>
-            <!-- Loads .less theme for compilation -->
+            <!-- Loads .less theme for compilation via less.js -->
             <link rel="stylesheet/less" href="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/styles.less" id="css_theme" type="text/css" />
             <script type="text/javascript">
                 less = {};
@@ -60,8 +61,6 @@
                                     // $(this).remove();
                                 });
                     })($(".flash-message:first"));
-
-                $("input:visible:enabled:first").focus();
             });
             // ]]>
         </script>
