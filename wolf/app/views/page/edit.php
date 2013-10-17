@@ -220,7 +220,7 @@ else
             </div>
         </div>
 
-        <?php Observer::notify('view_page_edit_tab_links', $page); ?>
+        <?php Observer::notify('view_page_edit_tabs', $page); ?>
     </div>
 
     <div id="tab-toolbar" class="tab-toolbar">
