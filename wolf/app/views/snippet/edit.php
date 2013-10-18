@@ -49,7 +49,7 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <div class="filter-more">
+                <div class="filter-more form-inline">
 
                 </div>
             </div>
