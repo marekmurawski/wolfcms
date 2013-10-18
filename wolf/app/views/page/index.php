@@ -47,9 +47,11 @@
                         <?php echo __('Published'); ?>
                     </div>                
                     <div class="page-list-modify">
-                        <a href="<?php echo get_url('page/add/1'); ?>">
-                            <img src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/plus.png" align="middle" title="<?php echo __('Add child'); ?>" alt="<?php echo __('Add child'); ?>" />
-                        </a>
+                        <?php if ( AuthUser::hasPermission('page_add') ): ?>
+                            <a href="<?php echo get_url('page/add/1'); ?>">
+                                <img src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/plus.png" align="middle" title="<?php echo __('Add child'); ?>" alt="<?php echo __('Add child'); ?>" />
+                            </a>
+                        <?php endif; ?>
                         <img class="remove" src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/icon-remove-disabled.gif" align="middle" alt="<?php echo __('remove icon disabled'); ?>" title="<?php echo __('Remove unavailable'); ?>"/>
                         <img src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/copy-disabled.png" align="middle" title="<?php echo __('Copy Page Disabled'); ?>" alt="<?php echo __('Copy Page Disabled'); ?>" />
                         <a href="<?php echo URL_PUBLIC; ?>" target="_blank">

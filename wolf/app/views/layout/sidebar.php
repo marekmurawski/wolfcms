@@ -18,9 +18,11 @@
 ?>
 <?php if ( Dispatcher::getAction() == 'index' ): ?>
     <div class="btn-group btn-group-vertical btn-group-justified">
+        <?php if (AuthUser::hasPermission('layout_add')): ?>
         <a class="btn btn-default btn-block" href="<?php echo get_url('layout/add'); ?>">
             <img src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/layout.png" alt="layout icon" /> <?php echo __('New Layout'); ?>
         </a>
+        <?php endif; ?>
     </div>
     <div class="well">
         <h2><?php echo __('What is a Layout?'); ?></h2>

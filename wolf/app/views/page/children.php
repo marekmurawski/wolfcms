@@ -77,25 +77,35 @@ else
                 }
                 ?>
                 <div class="page-list-modify">
-                    <a class="add-child-link" href="<?php echo get_url('page/add', $child->id); ?>">
-                        <img src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/plus.png" align="middle" title="<?php echo __('Add child'); ?>" alt="<?php echo __('Add child'); ?>" />
-                    </a>
-                    <?php if ( $child->is_protected && (!AuthUser::hasPermission('admin_edit')) ): ?>
-                        <a class="remove" href="<?php echo get_url('page/delete/' . $child->id . '?csrf_token=' . SecureToken::generateToken(BASE_URL . 'page/delete/' . $child->id)); ?>" onclick="return confirm('<?php echo __('Are you sure you wish to delete'); ?> <?php echo $child->title; ?> <?php echo __('and its underlying pages'); ?>?');">
-                            <img src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/icon-remove.gif" align="middle" alt="<?php echo __('Remove page'); ?>" title="<?php echo __('Remove page'); ?>" />
-                        </a>
-                        <a href="#" id="copy-<?php echo $child->id; ?>" class="copy-page">
-                            <img src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/copy.png" align="middle" title="<?php echo __('Copy Page'); ?>" alt="<?php echo __('Copy Page'); ?>" />
-                        </a>
-                    <?php else: ?>
-                        <a class="remove" href="<?php echo get_url('page/delete/' . $child->id . '?csrf_token=' . SecureToken::generateToken(BASE_URL . 'page/delete/' . $child->id)); ?>" onclick="return confirm('<?php echo __('Are you sure you wish to delete'); ?> <?php echo $child->title; ?> <?php echo __('and its underlying pages'); ?>?');">
-                            <img src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/icon-remove.gif" align="middle" alt="<?php echo __('Remove page'); ?>" title="<?php echo __('Remove page'); ?>" />
-                        </a>
-                        <a href="#" id="copy-<?php echo $child->id; ?>" class="copy-page">
-                            <img src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/copy.png" align="middle" title="<?php echo __('Copy Page'); ?>" alt="<?php echo __('Copy Page'); ?>" />
+                    <?php if ( AuthUser::hasPermission('page_add') ): ?>
+                        <a class="add-child-link" href="<?php echo get_url('page/add', $child->id); ?>">
+                            <img src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/plus.png" align="middle" title="<?php echo __('Add child'); ?>" alt="<?php echo __('Add child'); ?>" />
                         </a>
                     <?php endif; ?>
-                    
+                    <?php if ( $child->is_protected && (!AuthUser::hasPermission('admin_edit')) ): ?>
+                        <?php if ( AuthUser::hasPermission('page_delete') ): ?>
+                            <a class="remove" href="<?php echo get_url('page/delete/' . $child->id . '?csrf_token=' . SecureToken::generateToken(BASE_URL . 'page/delete/' . $child->id)); ?>" onclick="return confirm('<?php echo __('Are you sure you wish to delete'); ?> <?php echo $child->title; ?> <?php echo __('and its underlying pages'); ?>?');">
+                                <img src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/icon-remove.gif" align="middle" alt="<?php echo __('Remove page'); ?>" title="<?php echo __('Remove page'); ?>" />
+                            </a>
+                        <?php endif; ?>
+                        <?php if ( AuthUser::hasPermission('page_add') ): ?>                    
+                        <a href="#" id="copy-<?php echo $child->id; ?>" class="copy-page">
+                            <img src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/copy.png" align="middle" title="<?php echo __('Copy Page'); ?>" alt="<?php echo __('Copy Page'); ?>" />
+                        </a>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <?php if ( AuthUser::hasPermission('page_delete') ): ?>
+                            <a class="remove" href="<?php echo get_url('page/delete/' . $child->id . '?csrf_token=' . SecureToken::generateToken(BASE_URL . 'page/delete/' . $child->id)); ?>" onclick="return confirm('<?php echo __('Are you sure you wish to delete'); ?> <?php echo $child->title; ?> <?php echo __('and its underlying pages'); ?>?');">
+                                <img src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/icon-remove.gif" align="middle" alt="<?php echo __('Remove page'); ?>" title="<?php echo __('Remove page'); ?>" />
+                            </a>
+                        <?php endif; ?>
+                        <?php if ( AuthUser::hasPermission('page_add') ): ?>                    
+                        <a href="#" id="copy-<?php echo $child->id; ?>" class="copy-page">
+                            <img src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/copy.png" align="middle" title="<?php echo __('Copy Page'); ?>" alt="<?php echo __('Copy Page'); ?>" />
+                        </a>
+                        <?php endif; ?>
+                    <?php endif; ?>
+
                     <a class="view-link" href="<?php echo $viewFrontendUrl; ?>" target="_blank">
                         <img src="<?php echo PATH_PUBLIC; ?>wolf/admin/images/magnify.png" align="middle" alt="<?php echo __('View Page'); ?>" title="<?php echo __('View Page'); ?>" />
                     </a>

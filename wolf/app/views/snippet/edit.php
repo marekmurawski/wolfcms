@@ -71,7 +71,9 @@
             <button class="btn btn-primary" name="continue" type="submit" accesskey="e"><?php echo __('Save and Continue Editing'); ?></button>
             <?php echo __('or'); ?> 
         <?php else: ?>
-            <?php echo ($action == 'add') ? __('You do not have permission to add snippets!') : __('You do not have permission to edit snippets!'); ?> 
+            <span class="text-danger">
+                <?php echo ($action == 'add') ? __('You do not have permission to add snippets!') : __('You do not have permission to edit snippets!'); ?> 
+            </span>            
         <?php endif; ?>
         <a href="<?php echo get_url('snippet'); ?>"><?php echo __('Cancel'); ?></a>
     </div>
