@@ -107,7 +107,7 @@ $PDO->exec("INSERT INTO ".TABLE_PREFIX."role (id, name) VALUES (3, 'editor')");
 $PDO->exec("INSERT INTO ".TABLE_PREFIX."setting (name, value) VALUES ('admin_title', 'Wolf CMS')");
 $PDO->exec("INSERT INTO ".TABLE_PREFIX."setting (name, value) VALUES ('admin_email', 'do-not-reply@wolfcms.org')");
 $PDO->exec("INSERT INTO ".TABLE_PREFIX."setting (name, value) VALUES ('language', 'en')");
-$PDO->exec("INSERT INTO ".TABLE_PREFIX."setting (name, value) VALUES ('theme', 'boostrap')");
+$PDO->exec("INSERT INTO ".TABLE_PREFIX."setting (name, value) VALUES ('theme', 'bootstrap')");
 $PDO->exec("INSERT INTO ".TABLE_PREFIX."setting (name, value) VALUES ('default_status_id', '1')");
 $PDO->exec("INSERT INTO ".TABLE_PREFIX."setting (name, value) VALUES ('default_filter_id', '')");
 $PDO->exec("INSERT INTO ".TABLE_PREFIX."setting (name, value) VALUES ('default_tab', '')");
