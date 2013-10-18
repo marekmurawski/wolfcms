@@ -73,11 +73,11 @@ if ( !isset($title) || trim($title) == '' ) {
         endif;
         /* ========= LESS RUNTIME ============= */
         ?>
-            
+
         <!-- temporarily using CDN version of jQuery v.1.8.3 - latest non-revolutionary ;) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        
-        <!-- NOT NEEDED in HTML5 - we have input types! <script type="text/javascript" src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/cp-datepicker.js"></script> -->
+
+<!-- NOT NEEDED in HTML5 - we have input types! <script type="text/javascript" src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/cp-datepicker.js"></script> -->
         <script type="text/javascript" src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/wolf.js"></script>
         <script type="text/javascript" src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/jquery-ui-1.9.2.custom.min.js"></script>
         <script type="text/javascript" src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/jquery.ui.nestedSortable.js"></script>
@@ -199,7 +199,7 @@ if ( !isset($title) || trim($title) == '' ) {
                             </a>
                         </li>
                         <?php if ( AuthUser::hasPermission('snippet_view') ): ?>
-                        
+
                             <li id="snippet-plugin" class="<?php echo ( $ctrl == 'snippet' ) ? 'plugin active' : 'plugin'; ?>">
                                 <a href="<?php echo get_url('snippet'); ?>">
                                     <?php echo __('MSG_SNIPPETS'); ?>
@@ -207,7 +207,7 @@ if ( !isset($title) || trim($title) == '' ) {
                             </li>
                         <?php endif; ?>
                         <?php if ( AuthUser::hasPermission('layout_view') ): ?>
-                            
+
                             <li id="layout-plugin" class="<?php echo ( $ctrl == 'layout' ) ? 'plugin active' : 'plugin'; ?>">
                                 <a href="<?php echo get_url('layout'); ?>">
                                     <?php echo __('Layouts'); ?>
@@ -219,7 +219,7 @@ if ( !isset($title) || trim($title) == '' ) {
                             <?php if ( $plugin->show_tab && (AuthUser::hasPermission($plugin->permissions)) ): ?>
                                 <?php Observer::notify('view_backend_list_plugin', $plugin_name, $plugin); ?>
                                 <?php if ( !empty($plugin->label) ): ?>
-                            
+
                                     <li id="<?php echo $plugin_name; ?>-plugin" class="<?php echo ( $ctrl == 'plugin' && $action == $plugin_name ) ? 'plugin active' : 'plugin'; ?>">
                                         <a href="<?php echo get_url('plugin/' . $plugin_name); ?>">
                                             <?php echo $plugin->label; ?>
@@ -234,13 +234,13 @@ if ( !isset($title) || trim($title) == '' ) {
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-wrench"></span> <?php echo __('Settings'); ?> <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <?php if ( AuthUser::hasPermission('admin_edit') ): ?>
-                                
+
                                     <li class="<?php echo ( $ctrl == 'setting' ) ? ' active' : ''; ?>">
                                         <a href="<?php echo get_url('setting'); ?>"><span class="glyphicon glyphicon-cog"></span> <?php echo __('Administration'); ?></a>
                                     </li>
                                 <?php endif; ?>
                                 <?php if ( AuthUser::hasPermission('user_view') ): ?>
-                                    
+
                                     <li class="<?php echo ( $ctrl == 'user' ) ? ' active' : ''; ?>">
                                         <a href="<?php echo get_url('user'); ?>"><span class="glyphicon glyphicon-user"></span> <?php echo __('Users'); ?></a>
                                     </li>
@@ -289,13 +289,13 @@ if ( !isset($title) || trim($title) == '' ) {
 
         <div id="footer">
             <div class="debug-info">
-<?php if ( DEBUG ): ?>                
+                <?php if ( DEBUG ): ?>                
                     <p class="stats">
                         <span><?php echo __('Page rendered in'); ?> <?php echo execution_time(); ?> <?php echo __('seconds'); ?></span>
                         |
                         <span><?php echo __('Memory usage:'); ?> <?php echo memory_usage(); ?></span>
                     </p>
-<?php endif; ?>
+                <?php endif; ?>
             </div>
             <div class="version-info">
                 <p>
@@ -307,6 +307,45 @@ if ( !isset($title) || trim($title) == '' ) {
                 </ul>
             </div>
         </div><!--  #footer -->
+        <!--
+        ======= TEMPORARY ========
+        -->
+
+        <div class="container" style="padding-bottom: 50px;">
+            <hr/>
+            <div class="col-xs-12 text-center">
+                <p class="text-success text-center">
+                    <?php if ( defined('LESS_DEBUG') && (LESS_DEBUG == true) ): ?>
+                        Using <b class="text-danger">less.js</b> for live stylesheeet compilation: 
+                        <code>
+                            <?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/styles.less
+                        </code>
+                    <?php else: ?>
+                        Using <b class="text-danger">static preprocessed</b> stylesheet: 
+                        <code>
+                            <?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/styles.css
+                        </code>
+                        <br/>
+                        To use <b>*.less</b> version set <code>LESS_DEBUG=true</code> in <code>config.php</code>
+                    <?php endif; ?>
+                </p>
+                <p>
+                    <button type="button" class="btn btn-sm btn-default" data-toggle="collapse" data-target="#querylog">
+                        Show Record::getQueryLog()
+                    </button>
+                </p>
+
+                <div id="querylog" class="collapse">
+                    <pre class="text-left" style="font-size: 11px;"><?php
+                        print_r(Record::getQueryLog())
+                        ?></pre>
+                </div>
+            </div>
+        </div>
+        <!--
+        ======= TEMPORARY ========
+        -->
+
         <script src="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/js/bootstrap.min.js"></script>
     </body>
 </html>
