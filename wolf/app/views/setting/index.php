@@ -266,7 +266,6 @@ $current_language = Setting::get('language');
         // Dynamically change look-and-feel
         $('#setting_theme').change(function() {
             var theme = '<?php echo PATH_PUBLIC; ?>/wolf/admin/themes/' + this.value + '/styles.css';
-            alert(theme);
             $('#css_theme').attr({"href": theme});
         });
 
