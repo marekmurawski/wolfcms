@@ -195,6 +195,8 @@ return array(
     'Where do the avatars come from?' => 'Where do the avatars come from?',
     'You are currently logged in as' => 'You are currently logged in as',
     'You cannot have a slug named :slug!' => 'You cannot have a slug named :slug!',
+    'You do not have permission to add layouts!' => 'You do not have permission to add layouts!',
+    'You do not have permission to edit layouts!' => 'You do not have permission to edit layouts!',
     'You do not have permission to add snippets!' => 'You do not have permission to add snippets!',
     'You do not have permission to delete snippets!' => 'You do not have permission to delete snippets!',
     'You do not have permission to edit snippets!' => 'You do not have permission to edit snippets!',
