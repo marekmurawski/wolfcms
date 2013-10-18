@@ -86,7 +86,13 @@ echo $action == 'edit' ? get_url('user/edit/' . $user->id) : get_url('user/add')
                     <?php foreach ( $roles as $role ): ?>
                         <span class="checkbox">
                             <input<?php if ( in_array($role->name, $user_roles) ) echo ' checked="checked"'; ?>  id="user_role-<?php echo $role->name; ?>" name="user_role[<?php echo $role->name; ?>]" type="checkbox" value="<?php echo $role->id; ?>" />
-                            <label for="user_role-<?php echo $role->name; ?>"><?php echo __(ucwords($role->name)); ?></label>
+                            <?php
+                            $roleLabel = __(ucwords($role->name));
+                            if ( $roleLabel == 'MISSING_DEFAULT_STRING' ) {
+                                $roleLabel = ucwords($role->name);
+                            }
+                            ?>
+                            <label for="user_role-<?php echo $role->name; ?>"><?php echo $roleLabel ?></label>
                         </span>
                     <?php endforeach; ?>
                 </div>
