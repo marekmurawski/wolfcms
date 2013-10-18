@@ -763,6 +763,16 @@ li.children-hidden .nested-list-placeholder {
     border-left-width: floor(@pages-nested-list-padding/4);
 }
 
+// Suppress margin-top of HEADERS in wells
+.well > h1:first-child, 
+.well > h2:first-child, 
+.well > h3:first-child,
+.well > h4:first-child,
+.well > h5:first-child,
+.well > h6:first-child,
+{
+    margin-top: 0px;
+}
 /**
  * =================================================================
  *
@@ -838,6 +848,7 @@ li.children-hidden .nested-list-placeholder {
     padding-top: 20px;
     padding-bottom: 20px;
     background-color: @main-bg;
+    border-bottom: 1px solid fade(@header-bg-color-bottom,50%);
     position: relative;
     textarea {
         font-family: @font-family-monospace;
@@ -897,9 +908,6 @@ li.children-hidden .nested-list-placeholder {
     .btn-group {
         margin-bottom: 20px;
     }
-    .well > h2:first-child, .well > h3:first-child {
-        margin-top: 0px;
-    }
 
 }
 
@@ -918,9 +926,7 @@ li.children-hidden .nested-list-placeholder {
     .debug-info { 
         .make-sm-column(6); 
         text-align: center; 
-        @media (min-width: @screen-sm) {
-            text-align: left;
-        }                    
+        @media (min-width: @screen-sm) {text-align: left; }                    
     }
     // align center on small devices
     .version-info { 
@@ -936,9 +942,8 @@ li.children-hidden .nested-list-placeholder {
                 }
             }        
         }
-        @media (min-width: @screen-sm) {
-            text-align: right;
-        }                    
+        // align right on bigger ones
+        @media (min-width: @screen-sm) { text-align: right; }                    
     }
 }
 
@@ -966,11 +971,22 @@ li.children-hidden .nested-list-placeholder {
 
 // item column sizes
 .page-list-item   { .make-row(); 
+                    border-bottom: 1px solid @panel-default-border;
+
                     &:hover { background-color: @table-bg-hover; }
+                    ul.tree-root > li:last-child > & {border: none;}
+                    .panel-heading & {border: none}
+
+                    @media (min-width: @screen-sm) { border: none; }                              
 }
 .page-list-name   { .make-xs-column(12); .make-sm-column(8); }
-.page-list-status { .make-xs-column(6); .make-sm-column(2); text-align: center; }
-.page-list-modify { .make-xs-column(6); .make-sm-column(2); text-align: right; }
+.page-list-status { .make-xs-column(8); .make-sm-column(2); text-align: right; 
+                    @media (min-width: @screen-sm) { text-align: center; }                              
+                    ul & {line-height: 32px; }
+}
+.page-list-modify { .make-xs-column(4); .make-sm-column(2); text-align: right;
+                    ul & {line-height: 32px; }
+}
 
 // SITE-MAP ITEM AND PLACEHOLDER INDENTATION
 .level-0 .indent-wrap {padding-left: 0px;}
@@ -1002,10 +1018,25 @@ li.level-6 .nested-list-placeholder { margin-left: floor(6.5 * @pages-nested-lis
 .filter-select    { .make-xs-column(9);  .make-sm-column(2); }
 .filter-more      { .make-xs-column(12); .make-sm-column(8); }
 
-.page-plugins-area            { margin-top: 10px; margin-bottom: 0px;}
+.page-plugins-area            { 
+    margin-top: 10px; margin-bottom: 0px;
+    @media (min-width: @screen-sm) { 
+        .form-control, .form-control-static {width: auto; margin-right: 15px} 
+        .control-label {width: auto; margin-right: 5px} 
+    }    
+}
+.filter-more { 
+    @media (min-width: @screen-sm) { 
+        .form-control, .form-control-static {width: auto; margin-right: 15px} 
+        .control-label {width: auto; margin-right: 5px} 
+    }    
+}
 .page-plugins-status-label   { .make-xs-column(3); .make-sm-column(1); }
 .page-plugins-status-select  { .make-xs-column(9); .make-sm-column(2); }
-.page-plugins-observer       { .make-xs-column(10); .make-sm-column(8); }
+.page-plugins-observer       
+{ .make-xs-column(12); .make-sm-column(9); 
+
+}
 
 .settings-panel-dates {.make-md-column(6);}
 .settings-panel-general {.make-md-column(6);}
@@ -1082,25 +1113,22 @@ li.level-6 .nested-list-placeholder { margin-left: floor(6.5 * @pages-nested-lis
 .file-mgr-list-name   { width: 30%;
                         .thumb   { .square(32px); vertical-align: middle; }
 }
-.file-mgr-list-size   { width: 20%; max-width: 100px; }
+.file-mgr-list-size   { width: 20%; max-width: 100px;vertical-align: middle; }
 .file-mgr-list-perms  { width: 20%; 
                         display: none;
-                        @media (min-width: @screen-sm) {
-                            display: table-cell;
-                        }
+                        vertical-align: middle;
+                        @media (min-width: @screen-sm) { display: table-cell; }
 }
 .file-mgr-list-mtime  { width: 20%; 
                         text-align: right;
                         display: none;
-                        @media (min-width: @screen-sm) {
-
-                            display: table-cell;
-                        }
+                        vertical-align: middle;
+                        @media (min-width: @screen-sm) { display: table-cell; }
 }
-.file-mgr-list-modify { width: 10%; max-width: 100px; text-align: right }
+.file-mgr-list-modify { width: 10%; max-width: 60px; text-align: right }
 
 #body_plugin_file_manager {
-    textarea {min-height: 400px;}
+    textarea {min-height: 400px; } // font-size: @font-size-small;
 }
 
 
@@ -1108,7 +1136,7 @@ li.level-6 .nested-list-placeholder { margin-left: floor(6.5 * @pages-nested-lis
 #body_setting_index #content {
     // make Bootstrap default tabs a bit smaller
     .nav-tabs > li > a {
-        padding: 5px 8px;
+        padding: 6px 8px;
     }
     .nav-tabs > li.active > a {
         background-color: @tab-panes-background;
