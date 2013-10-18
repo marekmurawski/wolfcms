@@ -37,7 +37,8 @@ if ( $action == 'edit' ) {
     echo $page->path();
     echo ($page->path() != '') ? URL_SUFFIX : '';
     ?>">
-           <?php echo __('View this page'); ?>
+        <span class="glyphicon glyphicon-zoom-in"></span>
+        <?php echo __('View this page'); ?>
     </a>
 <?php } ?>
 
@@ -159,7 +160,7 @@ else
                         </div>
                         <div class="form-group">
                             <label class="control-label setting-2col-label" for="page_needs_login">
-                                    <?php echo __('Protected'); ?> 
+                                <?php echo __('Protected'); ?> 
                             </label>
                             <div class="setting-2col-value">
                                 <div class="checkbox" title="<?php echo __('When enabled, only users who are an administrator can edit the page.'); ?>">
@@ -242,7 +243,7 @@ else
         <?php } ?>
     </ul>  
     <div class="settings-tab-pane">
-        <div id="page-part-contents" class="tab-content page-part-contents">      
+        <div id="page-part-contents" class="tab-content page-part-contents form-group">      
             <?php
             $index = 1;
             foreach ( $page_parts as $page_part ) {
@@ -253,23 +254,21 @@ else
         </div>
 
         <?php Observer::notify('view_page_after_edit_tabs', $page); ?>
-        <div class="form-horizontal">            
-            <div class="form-group  page-plugins-area">
-                <label class="control-label page-plugins-status-label" for="page_status_id">
+        <div>            
+            <div class="form-group form-inline page-plugins-area">
+                <label class="control-label" for="page_status_id">
                     <?php echo __('Status'); ?>
                 </label>
-                <div class="page-plugins-status-select">
-                    <select  class="form-control" id="page_status_id" name="page[status_id]">
-                        <option value="<?php echo Page::STATUS_DRAFT; ?>"<?php echo $page->status_id == Page::STATUS_DRAFT ? ' selected="selected"' : ''; ?>><?php echo __('Draft'); ?></option>
-                        <option value="<?php echo Page::STATUS_PREVIEW; ?>"<?php echo $page->status_id == Page::STATUS_PREVIEW ? ' selected="selected"' : ''; ?>><?php echo __('Preview'); ?></option>
-                        <option value="<?php echo Page::STATUS_PUBLISHED; ?>"<?php echo $page->status_id == Page::STATUS_PUBLISHED ? ' selected="selected"' : ''; ?>><?php echo __('Published'); ?></option>
-                        <option value="<?php echo Page::STATUS_HIDDEN; ?>"<?php echo $page->status_id == Page::STATUS_HIDDEN ? ' selected="selected"' : ''; ?>><?php echo __('Hidden'); ?></option>
-                        <option value="<?php echo Page::STATUS_ARCHIVED; ?>"<?php echo $page->status_id == Page::STATUS_ARCHIVED ? ' selected="selected"' : ''; ?>><?php echo __('Archived'); ?></option>
-                    </select>
-                </div>
-                <div class="page-plugins-observer">
-                    <?php Observer::notify('view_page_edit_plugins', $page); ?>
-                </div>
+                <select  class="form-control" id="page_status_id" name="page[status_id]">
+                    <option value="<?php echo Page::STATUS_DRAFT; ?>"<?php echo $page->status_id == Page::STATUS_DRAFT ? ' selected="selected"' : ''; ?>><?php echo __('Draft'); ?></option>
+                    <option value="<?php echo Page::STATUS_PREVIEW; ?>"<?php echo $page->status_id == Page::STATUS_PREVIEW ? ' selected="selected"' : ''; ?>><?php echo __('Preview'); ?></option>
+                    <option value="<?php echo Page::STATUS_PUBLISHED; ?>"<?php echo $page->status_id == Page::STATUS_PUBLISHED ? ' selected="selected"' : ''; ?>><?php echo __('Published'); ?></option>
+                    <option value="<?php echo Page::STATUS_HIDDEN; ?>"<?php echo $page->status_id == Page::STATUS_HIDDEN ? ' selected="selected"' : ''; ?>><?php echo __('Hidden'); ?></option>
+                    <option value="<?php echo Page::STATUS_ARCHIVED; ?>"<?php echo $page->status_id == Page::STATUS_ARCHIVED ? ' selected="selected"' : ''; ?>><?php echo __('Archived'); ?></option>
+                </select>
+
+                <?php Observer::notify('view_page_edit_plugins', $page); ?>
+
             </div>
         </div>
 
