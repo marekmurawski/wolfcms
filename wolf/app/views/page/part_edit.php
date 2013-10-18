@@ -38,7 +38,7 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="filter-more">
+                    <div class="filter-more form-inline">
                         <!-- can be used by filters to place controls dymically via Javascript DOM manipulation -->
                     </div>
                 </div>
