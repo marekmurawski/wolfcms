@@ -61,7 +61,8 @@ if (Plugin::isEnabled('statistics_api'))
  */
 function comment_display_dropdown(&$page)
 {
-    echo '<label for="page_comment_status">'.__('Comments').'</label><select id="page_comment_status" name="page[comment_status]">';
+    echo '<label class="control-label" for="page_comment_status" id="page_comment_status_label">'.__('Comments').'</label>';
+    echo '<select class="form-control" id="page_comment_status" name="page[comment_status]">';
     echo '<option value="'.Comment::NONE.'"'.($page->comment_status == Comment::NONE ? ' selected="selected"': '').'>&#8212; '.__('none').' &#8212;</option>';
     echo '<option value="'.Comment::OPEN.'"'.($page->comment_status == Comment::OPEN ? ' selected="selected"': '').'>'.__('Open').'</option>';
     echo '<option value="'.Comment::CLOSED.'"'.($page->comment_status == Comment::CLOSED ? ' selected="selected"': '').'>'.__('Closed').'</option>';
