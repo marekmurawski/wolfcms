@@ -32,11 +32,7 @@ if (!defined('IN_CMS')) { exit(); }
 class BackupRestoreController extends PluginController {
 
     private static function _checkPermission() {
-        AuthUser::load();
-        if ( ! AuthUser::isLoggedIn()) {
-            redirect(get_url('login'));
-        }
-        else if ( ! AuthUser::getId() == 1) {
+        if (!AuthUser::hasPermission('backup_restore_view')) {
             Flash::set('error', __('You do not have permission to access the requested page!'));
             redirect(get_url());
         }
