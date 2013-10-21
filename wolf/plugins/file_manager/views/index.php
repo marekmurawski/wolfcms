@@ -103,7 +103,7 @@ foreach ( $paths as $i => $path ) {
                     <div class="modal-body">
                         <input id="csrf-token" name="csrf_token" type="hidden" value="<?php echo SecureToken::generateToken(BASE_URL . 'plugin/file_manager/chmod'); ?>" />
                         <input id="chmod-file-name" name="file[name]" type="hidden" value="" />
-                        <input id="chmod-file-mode" maxlength="4" name="file[mode]" type="text" value="" />                         
+                        <input class="form-control" id="chmod-file-mode" maxlength="4" name="file[mode]" type="text" value="" />                         
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('Close'); ?></button>
@@ -129,7 +129,7 @@ foreach ( $paths as $i => $path ) {
                     <div class="modal-body">
                         <input id="csrf_token" name="csrf_token" type="hidden" value="<?php echo SecureToken::generateToken(BASE_URL . 'plugin/file_manager/rename'); ?>" />
                         <input id="rename_file_current_name" name="file[current_name]" type="hidden" value="" />
-                        <input id="rename_file_new_name" maxlength="50" name="file[new_name]" type="text" value="" /> 
+                        <input class="form-control" id="rename_file_new_name" maxlength="50" name="file[new_name]" type="text" value="" /> 
                         <input id="rename_file_button" name="commit" type="submit" value="<?php echo __('Rename'); ?>" />
                     </div>
                     <div class="modal-footer">
