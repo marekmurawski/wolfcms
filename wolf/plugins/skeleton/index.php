@@ -48,27 +48,10 @@ Plugin::setInfos(array(
 
 Plugin::addController('skeleton', __('Skeleton'), 'admin_view', true);
 
-Observer::observe('view_backend_list_plugin', 'skeleton_display_dropdown');
+Observer::observe('view_backend_list_plugin', 'SkeletonController::callback_view_backend_list_plugin');
 
-function skeleton_display_dropdown(&$plugin_name, &$plugin) {
-    if ( $plugin_name == 'skeleton' ) {
-        $plugin->label = '';
-        $params = Dispatcher::getParams();
-        $params = (!empty($params)) ? $params : array('');
-        echo
-        '
-      <li class="dropdown' . (( Dispatcher::getController() == 'plugin' && Dispatcher::getAction() == 'skeleton' ) ? ' active' : '') . '">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Skeleton <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li class="dropdown-header">Menu header</li>
-          <li' . (( Dispatcher::getController() == 'plugin' && Dispatcher::getAction() == 'skeleton' && $params[0]=='documentation') ? ' class="active"' : '') . '><a href="' . get_url('plugin', 'skeleton', 'documentation') . '"><span class="glyphicon glyphicon-question-sign"></span> Documentation</a></li>
-          <li class="divider"></li>
-          <li' . (( Dispatcher::getController() == 'plugin' && Dispatcher::getAction() == 'skeleton' && $params[0]=='test_page') ? ' class="active"' : '') . '><a href="' . get_url('plugin', 'skeleton', 'test_page') . '"><span class="glyphicon glyphicon-cutlery"></span> Test page</a></li>
-          <li><a href="http://getbootstrap.com/components/#glyphicons"><span class="glyphicon glyphicon-list"></span> Glyphicons list</a></li>
-        </ul>
-      </li>
-';
-    }
-
-}
-
+Observer::observe('view_page_edit_tabs', 'SkeletonController::callback_view_page_edit_tabs');
+Observer::observe('view_page_edit_tab_links', 'SkeletonController::callback_view_page_edit_tab_links');
+Observer::observe('view_page_after_edit_tabs', 'SkeletonController::callback_view_page_after_edit_tabs');
+Observer::observe('view_page_edit_plugins', 'SkeletonController::callback_view_page_edit_plugins');
+Observer::observe('user_edit_view_after_details', 'SkeletonController::callback_user_edit_view_after_details');
