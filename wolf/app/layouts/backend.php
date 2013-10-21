@@ -59,16 +59,18 @@ if ( !isset($title) || trim($title) == '' ) {
          * !!! TEMPORARY ONLY !!!
          * 
          */
+        $current_theme = (isset($_COOKIE['tmp_theme']) && file_exists(CMS_ROOT . DS . 'wolf/admin/themes/' . $_COOKIE['tmp_theme'])) ? $_COOKIE['tmp_theme'] : Setting::get('theme');
+
         if ( defined('LESS_DEBUG') && LESS_DEBUG ):
             ?>
             <!-- Loads .less theme for compilation -->
-            <link rel="stylesheet/less" href="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/styles.less" id="css_theme" type="text/css" />
+            <link rel="stylesheet/less" href="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo $current_theme ?>/styles.less" id="css_theme" type="text/css" />
             <script type="text/javascript">
                 less = {};
             </script>
-            <script src="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/less.js" type="text/javascript"></script>
+            <script src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/less.js" type="text/javascript"></script>
         <?php else: ?>
-            <link href="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/styles.css" id="css_theme" media="screen" rel="stylesheet" type="text/css" />
+            <link href="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo $current_theme; ?>/styles.css" id="css_theme" media="screen" rel="stylesheet" type="text/css" />
         <?php
         endif;
         /* ========= LESS RUNTIME ============= */
@@ -106,55 +108,55 @@ if ( !isset($title) || trim($title) == '' ) {
         ?>
 
         <script type="text/javascript">
-                // <![CDATA[
-                function setConfirmUnload(on, msg) {
-                    window.onbeforeunload = (on) ? unloadMessage : null;
-                    return true;
-                }
+            // <![CDATA[
+            function setConfirmUnload(on, msg) {
+                window.onbeforeunload = (on) ? unloadMessage : null;
+                return true;
+            }
 
-                function unloadMessage() {
-                    return '<?php echo __('You have modified this page.  If you navigate away from this page without first saving your data, the changes will be lost.'); ?>';
-                }
+            function unloadMessage() {
+                return '<?php echo __('You have modified this page.  If you navigate away from this page without first saving your data, the changes will be lost.'); ?>';
+            }
 
-                $(document).ready(function() {
-                    (function showMessages(e) {
-                        e.fadeIn('slow')
-                                .animate({opacity: 1.0}, Math.min(5000, parseInt(e.text().length * 50)))
-                                .fadeOut('slow', function() {
-                                    if ($(this).next().hasClass('flash-message')) {
-                                        showMessages($(this).next());
-                                    }
-                                    // $(this).remove();
-                                });
-                    })($(".flash-message:first"));
+            $(document).ready(function() {
+                (function showMessages(e) {
+                    e.fadeIn('slow')
+                            .animate({opacity: 1.0}, Math.min(5000, parseInt(e.text().length * 50)))
+                            .fadeOut('slow', function() {
+                                if ($(this).next().hasClass('flash-message')) {
+                                    showMessages($(this).next());
+                                }
+                                // $(this).remove();
+                            });
+                })($(".flash-message:first"));
 
-                    $("input:visible:enabled:first").focus();
+                $("input:visible:enabled:first").focus();
 
-                    // Get the initial values and activate filter
-                    $('.filter-selector').each(function() {
-                        var $this = $(this);
-                        $this.data('oldValue', $this.val());
+                // Get the initial values and activate filter
+                $('.filter-selector').each(function() {
+                    var $this = $(this);
+                    $this.data('oldValue', $this.val());
 
-                        if ($this.val() == '') {
-                            return true;
-                        }
-                        var elemId = $this.attr('id').slice(0, -10);
-                        var elem = $('#' + elemId + '_content');
-                        $this.trigger('wolfSwitchFilterIn', [$this.val(), elem]);
-                    });
-
-                    $(document).on('change', '.filter-selector', function() {
-                        var $this = $(this);
-                        var newFilter = $this.val();
-                        var oldFilter = $this.data('oldValue');
-                        $this.data('oldValue', newFilter);
-                        var elemId = $this.attr('id').slice(0, -10);
-                        var elem = $('#' + elemId + '_content');
-                        $(this).trigger('wolfSwitchFilterOut', [oldFilter, elem]);
-                        $(this).trigger('wolfSwitchFilterIn', [newFilter, elem]);
-                    });
+                    if ($this.val() == '') {
+                        return true;
+                    }
+                    var elemId = $this.attr('id').slice(0, -10);
+                    var elem = $('#' + elemId + '_content');
+                    $this.trigger('wolfSwitchFilterIn', [$this.val(), elem]);
                 });
-                // ]]>
+
+                $(document).on('change', '.filter-selector', function() {
+                    var $this = $(this);
+                    var newFilter = $this.val();
+                    var oldFilter = $this.data('oldValue');
+                    $this.data('oldValue', newFilter);
+                    var elemId = $this.attr('id').slice(0, -10);
+                    var elem = $('#' + elemId + '_content');
+                    $(this).trigger('wolfSwitchFilterOut', [oldFilter, elem]);
+                    $(this).trigger('wolfSwitchFilterIn', [newFilter, elem]);
+                });
+            });
+            // ]]>
         </script>
     </head>
     <body id="body_<?php echo $ctrl . '_' . Dispatcher::getAction(); ?>">
@@ -183,7 +185,7 @@ if ( !isset($title) || trim($title) == '' ) {
             </div>
         </div> <!-- #header -->
         <div id="navigation">
-            <nav class="navbar navbar-inverse navbar-static-top">
+            <nav class="navbar navbar-inverse">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
@@ -316,36 +318,66 @@ if ( !isset($title) || trim($title) == '' ) {
             <div class="col-xs-12 text-center">
                 <p class="text-success text-center">
                     <?php if ( defined('LESS_DEBUG') && (LESS_DEBUG == true) ): ?>
-                        Using <b class="text-danger">less.js</b> for live stylesheeet compilation: 
+                        Using <b class="text-danger">LESS.js</b> for live stylesheeet compilation: 
                         <code>
-                            <?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/styles.less
+                            <?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo $current_theme; ?>/styles.less
                         </code>
                     <?php else: ?>
-                        Using <b class="text-danger">static preprocessed</b> stylesheet: 
+                        Using <b class="text-danger">static preprocessed CSS</b> stylesheet: 
                         <code>
-                            <?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/styles.css
+                            <?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo $current_theme; ?>/styles.css
                         </code>
                         <br/>
                         To use <b>*.less</b> version set <code>LESS_DEBUG=true</code> in <code>config.php</code>
                     <?php endif; ?>
                 </p>
-                <p>
-                    <button type="button" class="btn btn-sm btn-default" data-toggle="collapse" data-target="#querylog">
-                        Show Record::getQueryLog()
-                    </button>
-                </p>
-
-                <div id="querylog" class="collapse">
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-2">
+                        <select class="form-control input-sm" id="setting_theme_debug">
+                            <?php
+                            $current_theme = Setting::get('theme');
+                            foreach ( Setting::getThemes() as $code => $label ):
+                                ?>
+                                <option value="<?php echo $code; ?>"<?php if ( $code == $current_theme ) echo ' selected="selected"'; ?>><?php echo $label; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-sm btn-default btn-block" data-toggle="collapse" data-target="#querylog">
+                            Record::getQueryLog() toggle
+                        </button>
+                    </div>
+                </div>
+                <div id="querylog" class="collapse<?php echo (isset($_COOKIE['showquerylog'])) ? ' in' : ''; ?>">
                     <pre class="text-left" style="font-size: 11px;"><?php
                         print_r(Record::getQueryLog())
                         ?></pre>
                 </div>
+                <script>
+                    $(document).ready(function() {
+                        $('#querylog').on('hide.bs.collapse', function() {
+                            document.cookie = 'showquerylog=0; expires=Sat, 25 Dec 2010 06:07:00 UTC; path=/';
+                            console.log('collapse');
+                        });
+                        $('#querylog').on('show.bs.collapse', function() {
+                            document.cookie = 'showquerylog=1; expires=1 Jan 2020 01:00:00 UTC; path=/';
+                            console.log('show');
+                        });
+                        $('#setting_theme_debug').change(function() {
+                            var theme = '<?php echo PATH_PUBLIC; ?>wolf/admin/themes/' + this.value + '/styles.<?php
+                        echo ( defined('LESS_DEBUG') && LESS_DEBUG ) ? 'less' : 'css';
+                        ?>';
+                            $('#css_theme').attr({"href": theme});
+                            document.cookie = 'tmp_theme=' + encodeURIComponent(this.value) + '; path=/';
+                        });
+                    });
+                </script>
             </div>
         </div>
         <!--
         ======= TEMPORARY ========
         -->
 
-        <script src="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/js/bootstrap.min.js"></script>
+        <script src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/bootstrap.min.js"></script>
     </body>
 </html>
