@@ -1,0 +1,55 @@
+/**
+ * =================================================================
+ *
+ * Wolf CMS specific overrides of "./less/variables.less"
+ * These settings override defaults of Bootstrap
+ * In this case we only change
+ * 
+ * - body background color
+ * - brand primary color - Bootstrap's blue to Wolf's green ;)
+ * - glyphicons font relative path 
+ *
+ * ================================================================
+ */
+
+@body-bg:               #ddd;
+@brand-primary:         #76A83A;
+@icon-font-path:          "./fonts/";
+
+
+/**
+ * =================================================================
+ *
+ * Wolf backend layout specific variables
+ * 
+ * These variables are custom for "backend.php" file and other core
+ * plugins Views.
+ *
+ * ================================================================
+ */
+
+// background color of #main content
+@main-bg: #fff; 
+
+// header background gradient parameters
+@header-bg-color-top: lighten(@navbar-inverse-bg,5%);
+@header-bg-color-bottom: lighten(@navbar-inverse-bg,15%); 
+
+// scaling factor of header fonts in #content and #sidebar
+@sidebar-headers-size-ratio: 0.7;
+@content-headers-size-ratio: 0.9;
+
+// how much to indent each level of page tree index
+@pages-nested-list-padding: 40px;
+
+// tab panes are the ones in "/admin/page/edit" and "/admin/setting"
+@tab-panes-background: darken(@gray-lighter,3%);
+
+// page status colors
+@page-status-draft: #c00; 
+@page-status-published: #0a0;
+@page-status-hidden: #aaa;
+@page-status-preview: #080;
+@page-status-archived: #0aa;  
+
+@login-dialog-width: 400px; 
