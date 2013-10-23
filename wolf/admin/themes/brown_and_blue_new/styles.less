@@ -139,9 +139,10 @@ li.children-hidden .nested-list-placeholder {
         margin-left:  -(@grid-gutter-width / 2);
         margin-right: -(@grid-gutter-width / 2);
         margin-top: 0px; 
-        color: #fff; 
-        background-color: @wolf-primary; 
-        text-shadow: 1px 2px 3px fade(#000,60%);
+        color: @wolf-secondary;
+        font-weight: bold;
+        border-bottom: 1px solid fade(@wolf-secondary,30%); 
+        text-shadow: 1px 2px 3px fade( @wolf-secondary,20%);
         padding-top: 10px; padding-bottom:10px;
         font-size: 24px;
         .border-top-radius(6px);
@@ -170,7 +171,10 @@ li.children-hidden .nested-list-placeholder {
             &:hover,
                 &:focus {
                 color: @navbar-inverse-link-hover-color;
+                // #gradients > .vertical(,);
+                
                 background-color: @navbar-inverse-link-hover-bg;
+                #gradient > .vertical(@start-color: @navbar-inverse-bg; @end-color: @navbar-inverse-link-hover-bg);
             }
         }
         > .active > a {
@@ -179,6 +183,7 @@ li.children-hidden .nested-list-placeholder {
                 &:focus {
                 color: @navbar-inverse-link-active-color;
                 background-color: @navbar-inverse-link-active-bg;
+                #gradient > .vertical(@start-color: @navbar-inverse-bg; @end-color: @navbar-inverse-link-active-bg);
             }
         }
         > .disabled > a {
