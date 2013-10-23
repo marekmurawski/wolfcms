@@ -34,6 +34,7 @@ if ( !defined('IN_CMS') ) {
 }
 ?>
 
+<h4>Grouped buttons:</h4>
 <div class="btn-group btn-group-vertical btn-block">
     <a class="btn btn-primary btn-block" href="<?php echo get_url('plugin/skeleton'); ?>">
         <span class="glyphicon glyphicon-gift"></span>
@@ -62,6 +63,7 @@ if ( !defined('IN_CMS') ) {
         <?php echo __('Image Button'); ?> 3
     </a>
 </div>
+<h4>Small grouped buttons:</h4>
 <div class="btn-group btn-group-vertical btn-block">
     <a class="btn btn-default btn-block" href="<?php echo get_url('plugin/skeleton'); ?>">
         <img src="<?php echo ICONS_PATH; ?>documentation-16.png" alt="documentation icon" />
@@ -76,6 +78,22 @@ if ( !defined('IN_CMS') ) {
         <?php echo __('Image Button'); ?> 3 - small
     </a>
 </div>
+
+<h4>Standalone buttons:</h4>
+
+<a class="btn btn-default btn-block" href="<?php echo get_url('plugin/skeleton'); ?>">
+    <img src="<?php echo ICONS_PATH; ?>documentation-32.png" alt="documentation icon" />
+    <?php echo __('Image Button'); ?> 1
+</a>
+<a class="btn btn-default btn-block" href="<?php echo get_url('plugin/skeleton'); ?>">
+    <span class="glyphicon glyphicon-list-alt"></span>
+    <?php echo __('Glyphicon Button'); ?> 2
+</a>
+
+<a class="btn btn-default btn-block" href="<?php echo get_url('plugin/skeleton'); ?>">
+    <img src="<?php echo ICONS_PATH; ?>action-deny-16.png" alt="documentation icon" />
+    <?php echo __('Image Button'); ?> 3 - small
+</a>
 
 <div class="well well-sm">
     <h2><?php echo __('A sidebar'); ?></h2>

@@ -1,4 +1,4 @@
-
+<h1>Skeleton Bootstrap markup examples</h1>
 <div class="row">
     <div class="col-lg-6">
         <div class="panel panel-default" id="headings">
