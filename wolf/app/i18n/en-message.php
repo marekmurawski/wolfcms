@@ -130,7 +130,7 @@ return array(
     'Published' => 'Published',
     'Published date' => 'Published date',
     'Remember me for :min minutes.' => 'Remember me for :min minutes.',
-    'Remove Tab' => 'Remove Tab',
+    'Remove part' => 'Remove part',
     'Remove page' => 'Remove page',
     'Remove unavailable' => 'Remove unavailable',
     'Required.' => 'Required.',

@@ -62,18 +62,17 @@
         <?php endif; ?>
     </div>
 
-    <div class="form-group form-inline">
+    <fieldset class="buttons form-inline smart">
         <?php if ( ($action == 'edit' && AuthUser::hasPermission('layout_edit')) || ($action == 'add' && AuthUser::hasPermission('layout_add')) ): ?>
             <button class="btn btn-primary" name="commit" type="submit" accesskey="s"><?php echo __('Save'); ?></button>
             <button class="btn btn-primary" name="continue" type="submit" accesskey="e"><?php echo __('Save and Continue Editing'); ?></button>
-            <?php echo __('or'); ?> 
         <?php else: ?>
             <span class="text-danger">
                 <?php echo ($action == 'add') ? __('You do not have permission to add layouts!') : __('You do not have permission to edit layouts!'); ?> 
             </span>
         <?php endif; ?>        
-        <a href="<?php echo get_url('snippet'); ?>"><?php echo __('Cancel'); ?></a>
-    </div>
+        <a class="btn btn-default edit-cancel" href="<?php echo get_url('layout'); ?>"><span class="glyphicon glyphicon-remove"></span> <?php echo __('Cancel'); ?></a>
+    </fieldset>
 </form>
 
 <script type="text/javascript">

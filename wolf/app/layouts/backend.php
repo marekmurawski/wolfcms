@@ -70,7 +70,8 @@ if ( !isset($title) || trim($title) == '' ) {
             </script>
             <script src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/less.js" type="text/javascript"></script>
         <?php else: ?>
-            <link href="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo $current_theme; ?>/styles.css" id="css_theme" media="screen" rel="stylesheet" type="text/css" />
+            <link href="<?php echo PATH_PUBLIC; ?>wolf/admin/stylesheets/bootstrap.wolf.css" id="css_theme_wolf" rel="stylesheet" type="text/css" />
+            <link href="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo $current_theme; ?>/styles.css" id="css_theme" rel="stylesheet" type="text/css" />
         <?php
         endif;
         /* ========= LESS RUNTIME ============= */
@@ -160,38 +161,39 @@ if ( !isset($title) || trim($title) == '' ) {
         </script>
     </head>
     <body id="body_<?php echo $ctrl . '_' . Dispatcher::getAction(); ?>">
-        <div id="header">
-            <div class="site-links">
-                <p>
-                    <?php echo __('You are currently logged in as'); ?> <a href="<?php echo get_url('user/edit/' . AuthUser::getId()); ?>"><?php echo AuthUser::getRecord()->name; ?></a>
-                </p>
-                <ul class="list-inline">
-                    <li>
-                        <a id="site-view-link" href="<?php echo URL_PUBLIC; ?>" target="_blank">
-                            <?php echo __('View Site'); ?>
-                            <span class="glyphicon glyphicon-new-window"></span> 
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?php echo get_url('login/logout' . '?csrf_token=' . SecureToken::generateToken(BASE_URL . 'login/logout')); ?>">
-                            <?php echo __('Log Out'); ?>
-                            <span class="glyphicon glyphicon-log-out"></span> 
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="site-title">
-                <h1><a href="<?php echo get_url(); ?>"><?php echo Setting::get('admin_title'); ?></a></h1>
-            </div>
-        </div> <!-- #header -->
-        <div id="navigation">
-            <nav class="navbar navbar-inverse">
+        <div id="wrap">
+            <div id="header" style="display: none">
+                <div class="site-links">
+                    <p>
+                        <?php echo __('You are currently logged in as'); ?> <a href="<?php echo get_url('user/edit/' . AuthUser::getId()); ?>"><?php echo AuthUser::getRecord()->name; ?></a>
+                    </p>
+                    <ul class="list-inline">
+                        <li>
+                            <a id="site-view-link" href="<?php echo URL_PUBLIC; ?>" target="_blank">
+                                <?php echo __('View Site'); ?>
+                                <span class="glyphicon glyphicon-new-window"></span> 
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?php echo get_url('login/logout' . '?csrf_token=' . SecureToken::generateToken(BASE_URL . 'login/logout')); ?>">
+                                <?php echo __('Log Out'); ?>
+                                <span class="glyphicon glyphicon-log-out"></span> 
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="site-title">
+                    <h1><a href="<?php echo get_url(); ?>"><?php echo Setting::get('admin_title'); ?></a></h1>
+                </div>
+            </div> <!-- #header -->
+            <nav id="navigation" class="navbar navbar-inverse navbar-fixed-top">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                    <a href="<?php echo get_url(); ?>" class="navbar-brand"><?php echo Setting::get('admin_title'); ?></a>
                 </div>            
                 <div class="collapse navbar-collapse">
                     <section class="nav navbar-nav">
@@ -233,62 +235,98 @@ if ( !isset($title) || trim($title) == '' ) {
                     </section>
                     <section class="nav navbar-nav navbar-right">
                         <li class="dropdown<?php echo ( $ctrl == 'setting' || $ctrl == 'user' ) ? ' active' : ''; ?>">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-wrench"></span> <?php echo __('Settings'); ?> <b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="navbar-settings">
+                                    <?php echo __('Settings'); ?> <b class="caret"></b>
+                                </span>
+                            </a>
                             <ul class="dropdown-menu">
                                 <?php if ( AuthUser::hasPermission('admin_edit') ): ?>
-
                                     <li class="<?php echo ( $ctrl == 'setting' ) ? ' active' : ''; ?>">
                                         <a href="<?php echo get_url('setting'); ?>"><span class="glyphicon glyphicon-cog"></span> <?php echo __('Administration'); ?></a>
                                     </li>
                                 <?php endif; ?>
                                 <?php if ( AuthUser::hasPermission('user_view') ): ?>
-
                                     <li class="<?php echo ( $ctrl == 'user' ) ? ' active' : ''; ?>">
                                         <a href="<?php echo get_url('user'); ?>"><span class="glyphicon glyphicon-user"></span> <?php echo __('Users'); ?></a>
                                     </li>
                                 <?php endif; ?>
                             </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="navbar-username">
+                                    <?php echo AuthUser::getRecord()->name; ?>
+                                </span>
+                                <?php
+                                use_helper('Gravatar');
+                                echo Gravatar::img(AuthUser::getRecord()->email, array( 'align' => 'middle', 'alt' => 'user icon', 'class' => 'navbar-user-gravatar' ), '32', URL_PUBLIC . 'wolf/admin/images/user.png', 'g', USE_HTTPS);
+                                ?>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="<?php echo get_url('user/edit/' . AuthUser::getId()); ?>">
+                                        <span class="glyphicon glyphicon-user"></span> 
+                                        <?php echo __('Edit user'); ?>
+                                    </a>
+                                <li>
+                                    <a id="site-view-link" href="<?php echo URL_PUBLIC; ?>" target="_blank">
+                                        <?php echo __('View Site'); ?>
+                                        <span class="glyphicon glyphicon-new-window"></span> 
+                                    </a>
+                                </li>
+                                <li role="presentation" class="divider"></li>
+                                <li>
+                                    <a href="<?php echo get_url('login/logout' . '?csrf_token=' . SecureToken::generateToken(BASE_URL . 'login/logout')); ?>">
+                                        <span class="glyphicon glyphicon-log-out"></span> 
+                                        <?php echo __('Log Out'); ?>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>                        
                     </section>
                 </div>
-            </nav> <!-- .navbar -->
-        </div> <!--  #navigation -->
-        <div id="flash-messages">
-            <?php if ( Flash::get('error') !== null ): ?>
-                <div id="error" class="alert alert-danger alert-dismissable flash-message">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <?php echo Flash::get('error'); ?>
+            </nav> <!-- #navigation.navbar -->
+            <div id="flash-messages">
+                <?php if ( Flash::get('error') !== null ): ?>
+                    <div id="error" class="alert alert-danger alert-dismissable flash-message">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <?php echo Flash::get('error'); ?>
+                    </div>
+                <?php endif; ?>
+                <?php if ( Flash::get('success') !== null ): ?>
+                    <div id="success" class="alert alert-success alert-dismissable flash-message">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <?php echo Flash::get('success'); ?>
+                    </div>
+                <?php endif; ?>
+                <?php if ( Flash::get('info') !== null ): ?>
+                    <div id="info" class="alert alert-info alert-dismissable flash-message">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <?php echo Flash::get('info'); ?>
+                    </div>
+                <?php endif; ?>
+            </div><!--  #flash-messages -->
+            <div id="main">
+                <div id="content-wrapper">
+                    <div id="content">
+                        <!-- content -->
+                        <?php echo $content_for_layout; ?>
+                        <!-- end content -->
+                    </div>
                 </div>
-            <?php endif; ?>
-            <?php if ( Flash::get('success') !== null ): ?>
-                <div id="success" class="alert alert-success alert-dismissable flash-message">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <?php echo Flash::get('success'); ?>
-                </div>
-            <?php endif; ?>
-            <?php if ( Flash::get('info') !== null ): ?>
-                <div id="info" class="alert alert-info alert-dismissable flash-message">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <?php echo Flash::get('info'); ?>
-                </div>
-            <?php endif; ?>
-        </div><!--  #flash-messages -->
-        <div id="main">
-            <div id="content">
-                <!-- content -->
-                <?php echo $content_for_layout; ?>
-                <!-- end content -->
-            </div>
-            <?php if ( isset($sidebar) ): ?>
-                <aside id="sidebar">
-                    <div class="visible-xs"><hr/><h2><?php echo __('Sidebar'); ?></h2></div>
-                    <!-- sidebar -->
-                    <?php echo $sidebar; ?>
-                    <!-- end sidebar --> 
-                </aside>
-            <?php endif; ?> 
-        </div><!--  #main -->
-
+                <?php if ( isset($sidebar) ): ?>
+                    <div id="sidebar-wrapper">
+                        <aside id="sidebar">
+                            <div class="visible-xs"><hr/><h2><?php echo __('Sidebar'); ?></h2></div>
+                            <!-- sidebar -->
+                            <?php echo $sidebar; ?>
+                            <!-- end sidebar --> 
+                        </aside>
+                    </div>
+                <?php endif; ?> 
+            </div><!--  #main -->
+        </div><!-- #wrap -->
         <div id="footer">
             <div class="debug-info">
                 <?php if ( DEBUG ): ?>                
@@ -296,6 +334,22 @@ if ( !isset($title) || trim($title) == '' ) {
                         <span><?php echo __('Page rendered in'); ?> <?php echo execution_time(); ?> <?php echo __('seconds'); ?></span>
                         |
                         <span><?php echo __('Memory usage:'); ?> <?php echo memory_usage(); ?></span>
+                        <!--
+                        ======= TEMPORARY ========
+                        -->
+                    <div class="form-group has-error" style="max-width: 200px; display: inline-block;">
+                        <select class="form-control input-sm" style="display: inline;" id="setting_theme_debug">
+                            <?php
+                            // $current_theme = Setting::get('theme');
+                            foreach ( Setting::getThemes() as $code => $label ):
+                                ?>
+                                <option value="<?php echo $code; ?>"<?php if ( $code == $current_theme ) echo ' selected="selected"'; ?>><?php echo $label; ?></option>
+                            <?php endforeach; ?>
+                        </select>                    
+                    </div>
+                    <!--
+                    ======= TEMPORARY ========
+                    -->
                     </p>
                 <?php endif; ?>
             </div>
@@ -311,35 +365,35 @@ if ( !isset($title) || trim($title) == '' ) {
         </div><!--  #footer -->
         <!--
         ======= TEMPORARY ========
-        -->
+
 
         <div class="container" style="padding-bottom: 50px;">
             <hr/>
             <div class="col-xs-12 text-center">
                 <p class="text-success text-center">
-                    <?php if ( defined('LESS_DEBUG') && (LESS_DEBUG == true) ): ?>
-                        Using <b class="text-danger">LESS.js</b> for live stylesheeet compilation: 
-                        <code>
-                            <?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo $current_theme; ?>/styles.less
-                        </code>
-                    <?php else: ?>
-                        Using <b class="text-danger">static preprocessed CSS</b> stylesheet: 
-                        <code>
-                            <?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo $current_theme; ?>/styles.css
-                        </code>
-                        <br/>
-                        To use <b>*.less</b> version set <code>LESS_DEBUG=true</code> in <code>config.php</code>
-                    <?php endif; ?>
+        <?php if ( defined('LESS_DEBUG') && (LESS_DEBUG == true) ): ?>
+                                            Using <b class="text-danger">LESS.js</b> for live stylesheeet compilation: 
+                                            <code>
+            <?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo $current_theme; ?>/styles.less
+                                            </code>
+        <?php else: ?>
+                                            Using <b class="text-danger">static preprocessed CSS</b> stylesheet: 
+                                            <code>
+            <?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo $current_theme; ?>/styles.css
+                                            </code>
+                                            <br/>
+                                            To use <b>*.less</b> version set <code>LESS_DEBUG=true</code> in <code>config.php</code>
+        <?php endif; ?>
                 </p>
                 <div class="row">
                     <div class="col-sm-4 col-sm-offset-2">
                         <select class="form-control input-sm" id="setting_theme_debug">
-                            <?php
-                            $current_theme = Setting::get('theme');
-                            foreach ( Setting::getThemes() as $code => $label ):
-                                ?>
-                                <option value="<?php echo $code; ?>"<?php if ( $code == $current_theme ) echo ' selected="selected"'; ?>><?php echo $label; ?></option>
-                            <?php endforeach; ?>
+        <?php
+        $current_theme = Setting::get('theme');
+        foreach ( Setting::getThemes() as $code => $label ):
+            ?>
+                                                    <option value="<?php echo $code; ?>"<?php if ( $code == $current_theme ) echo ' selected="selected"'; ?>><?php echo $label; ?></option>
+        <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="col-sm-4">
@@ -350,34 +404,34 @@ if ( !isset($title) || trim($title) == '' ) {
                 </div>
                 <div id="querylog" class="collapse<?php echo (isset($_COOKIE['showquerylog'])) ? ' in' : ''; ?>">
                     <pre class="text-left" style="font-size: 11px;"><?php
-                        print_r(Record::getQueryLog())
-                        ?></pre>
+        print_r(Record::getQueryLog())
+        ?></pre>
                 </div>
-                <script>
-                    $(document).ready(function() {
-                        $('#querylog').on('hide.bs.collapse', function() {
-                            document.cookie = 'showquerylog=0; expires=Sat, 25 Dec 2010 06:07:00 UTC; path=/';
-                            console.log('collapse');
-                        });
-                        $('#querylog').on('show.bs.collapse', function() {
-                            document.cookie = 'showquerylog=1; expires=1 Jan 2020 01:00:00 UTC; path=/';
-                            console.log('show');
-                        });
-                        $('#setting_theme_debug').change(function() {
-                            var theme = '<?php echo PATH_PUBLIC; ?>wolf/admin/themes/' + this.value + '/styles.<?php
-                        echo ( defined('LESS_DEBUG') && LESS_DEBUG ) ? 'less' : 'css';
-                        ?>';
-                            $('#css_theme').attr({"href": theme});
-                            document.cookie = 'tmp_theme=' + encodeURIComponent(this.value) + '; path=/';
-                        });
-                    });
-                </script>
+
             </div>
         </div>
         <!--
         ======= TEMPORARY ========
         -->
-
+        <script>
+            $(document).ready(function() {
+                $('#querylog').on('hide.bs.collapse', function() {
+                    document.cookie = 'showquerylog=0; expires=Sat, 25 Dec 2010 06:07:00 UTC; path=/';
+                    console.log('collapse');
+                });
+                $('#querylog').on('show.bs.collapse', function() {
+                    document.cookie = 'showquerylog=1; expires=1 Jan 2020 01:00:00 UTC; path=/';
+                    console.log('show');
+                });
+                $('#setting_theme_debug').change(function() {
+                    var theme = '<?php echo PATH_PUBLIC; ?>wolf/admin/themes/' + this.value + '/styles.<?php
+        echo ( defined('LESS_DEBUG') && LESS_DEBUG ) ? 'less' : 'css';
+        ?>';
+                    $('#css_theme').attr({"href": theme});
+                    document.cookie = 'tmp_theme=' + encodeURIComponent(this.value) + '; path=/';
+                });
+            });
+        </script>
         <script src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/bootstrap.min.js"></script>
     </body>
 </html>

@@ -32,16 +32,19 @@
          * !!! TEMPORARY ONLY !!!
          * 
          */
+        $current_theme = (isset($_COOKIE['tmp_theme']) && file_exists(CMS_ROOT . DS . 'wolf/admin/themes/' . $_COOKIE['tmp_theme'])) ? $_COOKIE['tmp_theme'] : Setting::get('theme');
+
         if ( defined('LESS_DEBUG') && LESS_DEBUG ):
             ?>
-            <!-- Loads .less theme for compilation via less.js -->
-            <link rel="stylesheet/less" href="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/styles.less" id="css_theme" type="text/css" />
+            <!-- Loads .less theme for compilation -->
+            <link rel="stylesheet/less" href="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo $current_theme ?>/styles.less" id="css_theme" type="text/css" />
             <script type="text/javascript">
                 less = {};
             </script>
-            <script src="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/less.js" type="text/javascript"></script>    
+            <script src="<?php echo PATH_PUBLIC; ?>wolf/admin/javascripts/less.js" type="text/javascript"></script>
         <?php else: ?>
-            <link href="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo Setting::get('theme'); ?>/styles.css" id="css_theme" media="screen" rel="stylesheet" type="text/css" />
+            <link href="<?php echo PATH_PUBLIC; ?>wolf/admin/stylesheets/bootstrap.wolf.css" id="css_theme_wolf" rel="stylesheet" type="text/css" />
+            <link href="<?php echo PATH_PUBLIC; ?>wolf/admin/themes/<?php echo $current_theme; ?>/styles.css" id="css_theme" media="screen" rel="stylesheet" type="text/css" />
         <?php
         endif;
         /* ========= LESS RUNTIME ============= */

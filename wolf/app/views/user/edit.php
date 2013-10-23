@@ -122,14 +122,12 @@ echo $action == 'edit' ? get_url('user/edit/' . $user->id) : get_url('user/add')
 
     <?php Observer::notify('user_edit_view_after_details', $user); ?>
 
-    <div class="form-group form-inline">
+    <fieldset class="buttons form-inline">
         <button class="btn btn-primary" name="commit" type="submit" accesskey="s">
             <?php echo __('Save'); ?>
         </button>
-        <?php echo __('or'); ?> 
-        <a href="<?php echo (AuthUser::hasPermission('user_view')) ? get_url('user') : get_url(); ?>"><?php echo __('Cancel'); ?></a>
-    </div>
-
+        <a class="btn btn-default edit-cancel" href="<?php echo (AuthUser::hasPermission('user_view')) ? get_url('user') : get_url(); ?>"><?php echo __('Cancel'); ?></a>
+    </fieldset>
 </form>
 
 <script type="text/javascript">

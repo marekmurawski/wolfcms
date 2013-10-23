@@ -109,7 +109,7 @@ $current_language = Setting::get('language');
             <div id="settings">
                 <form action="<?php echo get_url('setting'); ?>" method="post">
                     <input id="csrf_token" name="csrf_token" type="hidden" value="<?php echo $csrf_token; ?>" />
-                    <div class="form-horizontal">
+                    <fieldset class="form-horizontal">
                         <div class="form-group">
                             <label class="control-label setting-3col-label" for="setting_admin_title">
                                 <?php echo __('Admin Site title'); ?>
@@ -214,28 +214,28 @@ $current_language = Setting::get('language');
                             </p>
                         </div>
                         <div class="form-group">
-                                <label class="control-label setting-3col-label" for="setting_default_filter_id">
-                                    <?php echo __('Default Filter'); ?>
-                                </label>
-                                <select class="form-control setting-3col-value" id="setting_default_filter_id" name="setting[default_filter_id]">
-                                    <?php $current_default_filter_id = Setting::get('default_filter_id'); ?>
-                                    <option value=""<?php if ( $current_default_filter_id == '' ) echo ' selected="selected"'; ?>>&#8212; <?php echo __('none'); ?> &#8212;</option>
-                                    <?php
-                                    foreach ( Filter::findAll() as $filter_id ):
-                                        if ( isset($loaded_filters[$filter_id]) ):
-                                            ?>
-                                            <option value="<?php echo $filter_id; ?>"<?php if ( $filter_id == $current_default_filter_id ) echo ' selected="selected"'; ?>><?php echo Inflector::humanize($filter_id); ?></option>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                </select>
-                                <p class="form-control-static setting-3col-help">
-                                    <?php echo __('Only for filter in pages, NOT in snippets'); ?>
-                                </p>
+                            <label class="control-label setting-3col-label" for="setting_default_filter_id">
+                                <?php echo __('Default Filter'); ?>
+                            </label>
+                            <select class="form-control setting-3col-value" id="setting_default_filter_id" name="setting[default_filter_id]">
+                                <?php $current_default_filter_id = Setting::get('default_filter_id'); ?>
+                                <option value=""<?php if ( $current_default_filter_id == '' ) echo ' selected="selected"'; ?>>&#8212; <?php echo __('none'); ?> &#8212;</option>
+                                <?php
+                                foreach ( Filter::findAll() as $filter_id ):
+                                    if ( isset($loaded_filters[$filter_id]) ):
+                                        ?>
+                                        <option value="<?php echo $filter_id; ?>"<?php if ( $filter_id == $current_default_filter_id ) echo ' selected="selected"'; ?>><?php echo Inflector::humanize($filter_id); ?></option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </select>
+                            <p class="form-control-static setting-3col-help">
+                                <?php echo __('Only for filter in pages, NOT in snippets'); ?>
+                            </p>
                         </div>
-                    </div>
-                    <div class="form-group form-inline">
+                    </fieldset>
+                    <fieldset class="buttons form-inline">
                         <button  class="btn btn-primary" name="commit" type="submit" accesskey="s"><?php echo __('Save'); ?></button>
-                    </div>                    
+                    </fieldset>                    
                 </form>
             </div>
         </div>    
