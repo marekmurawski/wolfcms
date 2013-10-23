@@ -1,0 +1,73 @@
+/**
+ * =================================================================
+ *
+ * Wolf CMS specific overrides of "./less/variables.less"
+ * These settings override defaults of Bootstrap
+ * In this case we only change
+ * 
+ * - body background color
+ * - brand primary color - Bootstrap's blue to Wolf's green ;)
+ * - glyphicons font relative path 
+ *
+ * ================================================================
+ */
+
+@icon-font-path:          "./bootstrap/fonts/";
+@body-bg:               #ddd;
+@brand-primary:         #76A83A; // green
+
+@wolf-primary:    #A28C6A; // brown
+@wolf-secondary:  #76A83A; // green
+
+@wolf-sidebar-btn-color: lighten(@wolf-primary,50%);
+@wolf-sidebar-btn-bg: lighten(@wolf-primary,15%);
+
+@sidebar-headers-size-ratio: 0.6;
+@content-headers-size-ratio: 1.1;
+
+@wolf-footer-height: 80px;
+
+@tab-panes-background: #eee;
+
+/**
+ * =================================================================
+ *
+ * Wolf backend layout specific variables
+ * 
+ * These variables are custom for "backend.php" file and other core
+ * plugins Views.
+ *
+ * ================================================================
+ */
+// Inverted navbar
+//
+// Reset inverted navbar basics
+@navbar-inverse-color:                      @gray-light;
+@navbar-inverse-bg:                         darken(@wolf-primary,32%);
+@navbar-inverse-border:                     @wolf-secondary;
+
+// Inverted navbar links
+@navbar-inverse-link-color:                 @gray-lighter;
+@navbar-inverse-link-hover-color:           #fff;
+@navbar-inverse-link-hover-bg:              mix(darken(@wolf-primary,25%),@wolf-secondary,80%);
+@navbar-inverse-link-active-color:          @navbar-inverse-link-hover-color;
+@navbar-inverse-link-active-bg:             @wolf-secondary;
+@navbar-inverse-link-disabled-color:        #444;
+@navbar-inverse-link-disabled-bg:           transparent;
+
+// Inverted navbar brand label
+@navbar-inverse-brand-color:                @navbar-inverse-link-color;
+@navbar-inverse-brand-hover-color:          #fff;
+@navbar-inverse-brand-hover-bg:             transparent;
+
+// Inverted navbar search
+// Normal navbar needs no special styles or vars
+@navbar-inverse-search-bg:                  lighten(@navbar-inverse-bg, 25%);
+@navbar-inverse-search-bg-focus:            #fff;
+@navbar-inverse-search-border:              @navbar-inverse-bg;
+@navbar-inverse-search-placeholder-color:   #ccc;
+
+// Inverted navbar toggle
+@navbar-inverse-toggle-hover-bg:            #333;
+@navbar-inverse-toggle-icon-bar-bg:         #fff;
+@navbar-inverse-toggle-border-color:        #333;

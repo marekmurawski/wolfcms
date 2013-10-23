@@ -14,7 +14,9 @@
 
 @body-bg:               #ddd;
 @brand-primary:         #76A83A;
-@icon-font-path:          "./fonts/";
+@wolf-primary: #A28C6A;
+@wolf-secondary: #A28C6A;
+@icon-font-path:          "./bootstrap/fonts/";
 
 
 /**
@@ -29,11 +31,21 @@
  */
 
 // background color of #main content
-@main-bg: #fff; 
+@main-bg: transparent; 
+
+@brand-primary:         #428bca;
+@brand-success:         #5cb85c;
+@brand-warning:         #f0ad4e;
+@brand-danger:          #d9534f;
+@brand-info:            #5bc0de;
 
 // header background gradient parameters
+/*
 @header-bg-color-top: lighten(@navbar-inverse-bg,5%);
 @header-bg-color-bottom: lighten(@navbar-inverse-bg,15%); 
+*/
+
+@wolf-footer-height: 60px;
 
 // scaling factor of header fonts in #content and #sidebar
 @sidebar-headers-size-ratio: 0.7;
@@ -41,9 +53,6 @@
 
 // how much to indent each level of page tree index
 @pages-nested-list-padding: 40px;
-
-// tab panes are the ones in "/admin/page/edit" and "/admin/setting"
-@tab-panes-background: darken(@gray-lighter,3%);
 
 // page status colors
 @page-status-draft: #c00; 
@@ -53,3 +62,7 @@
 @page-status-archived: #0aa;  
 
 @login-dialog-width: 400px; 
+@login-dialog-bg: #fff; 
+
+
+
